@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include head.html %}
+<body>
+<main>
+  {% include header.html %}
+  {% include bio.html %}
+  <section class="articles">
+    <!-- Use paginator.posts instead of site.posts for pagination -->
+    {% for post in paginator.posts %}
+    <article class="article">
+      <h2 class="article-title">
+        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+      </h2>
+      <small class="date">{{ post.date | date_to_string }}</small>
+      <div class="categories">
+        {% for c in post.categories %}
+        <a href="#!" data-base-url="{{ site.baseurl }}" class="category">{{ c }}</a>
+        {% endfor %}
+      </div>
+    </article>
+    {% endfor %}
+  </section>
+  <!-- Pagination Links -->
+  <div class="pagination">
+    {% if paginator.previous_page %}
+    {% if paginator.previous_page == 1 %}
+    <a href="{{ '/' | prepend: site.baseurl }}">Previous</a>
+    {% else %}
+    <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}">Previous</a>
+    {% endif %}
+    {% endif %}
+
+    {% for page in (1..paginator.total_pages) %}
+    {% if page == paginator.page %}
+    <span class="current">{{ page }}</span>
+    {% elsif page == 1 %}
+    <a href="{{ '/' | prepend: site.baseurl }}">{{ page }}</a>
+    {% else %}
+    <a href="{{ site.baseurl }}/page{{ page }}">{{ page }}</a>
+    {% endif %}
+    {% endfor %}
+
+    {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | prepend: site.baseurl }}">Next</a>
+    {% endif %}
+  </div>
+  {% include footer.html %}
+</main>
+{% include category-modal.html %}
+</body>
+</html>

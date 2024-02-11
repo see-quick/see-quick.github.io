@@ -1,0 +1,30 @@
+title: Just a Blog
+markdown: kramdown
+
+# for atom feed
+author:
+  name: Maros Orsak
+  email: maros.orsak159@gmail.com
+
+plugins:
+  - jemoji
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-paginate
+
+collections_dir: all_collections
+collections:
+  posts:
+    output: true
+
+defaults:
+  - scope:
+      path: "_posts"
+    values:
+      layout: "post"
+      permalink: /posts/:title/
+exclude: ["sitemap.xml", "feed.xml", "LICENSE", "README.md"]
+
+paginate: 5 # This is the number of posts you want to show per page
+paginate_path: "/page:num/" # This is the URL structure for the paginated pages
