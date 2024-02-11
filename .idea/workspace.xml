@@ -2,38 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8ea952a8-20bd-4bba-a5fd-c5ae12fd64d1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/404.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_config.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_data/author.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_includes/bio.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_includes/category-modal.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_includes/footer.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_includes/head.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_includes/header.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_layouts/blog.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_layouts/post.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/css/blog.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/css/common.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/css/post.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/css/syntax.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/icons/github.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/icons/linkedin.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/js/categories.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/js/lbox.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/js/mode.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
