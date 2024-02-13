@@ -45,18 +45,18 @@ The average daily data volume is 100GB. We'll compare costs and efficiency in tw
 
 #### Data Volume Calculation
 
-| Storage Type          | Calculation                           | Total Data Volume |
-|-----------------------|---------------------------------------|-------------------|
-| **Traditional (SSD)** | `100GB/day * 365 days/year * 2 years` | 73,000GB          |
-| **Tiered (SSD Hot)**  | `100GB/day * 30 days`                 | 3,000GB           |
-| **Tiered (S3 Cold)**  | `73,000GB - 3,000GB`                  | 70,000GB          |
+| Storage Type          | Calculation                         | Total Data Volume |
+|-----------------------|-------------------------------------|-------------------|
+| **Traditional (SSD)** | 100GB/day * 365 days/year * 2 years | 73,000GB          |
+| **Tiered (SSD Hot)**  | 100GB/day * 30 days                 | 3,000GB           |
+| **Tiered (S3 Cold)**  | 73,000GB - 3,000GB                  | 70,000GB          |
 
 #### Cost Calculation
 
-| Storage Setup             | Calculation                                                                    | Total Cost Over 2 Years |
-|---------------------------|--------------------------------------------------------------------------------|-------------------------|
-| **Traditional (SSD)**     | `73,000GB * $0.10/GB/month * 24 months`                                        | $175,200                |
-| **Tiered (SSD + S3)**     | `(3,000GB * $0.10/GB/month + 70,000GB * $0.023/GB/month) * 24 months`          | $83,280                 |
+| Storage Setup             | Calculation                                                         | Total Cost Over 2 Years |
+|---------------------------|---------------------------------------------------------------------|-------------------------|
+| **Traditional (SSD)**     | 73,000GB * $0.10/GB/month * 24 months                               | $175,200                |
+| **Tiered (SSD + S3)**     | (3,000GB * $0.10/GB/month + 70,000GB * $0.023/GB/month) * 24 months | $83,280                 |
 
 #### Benefits Summary
 
