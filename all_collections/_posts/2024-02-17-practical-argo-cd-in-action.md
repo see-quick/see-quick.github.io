@@ -170,14 +170,14 @@ this would point your terminal to use the docker daemon inside minikube
 This guide assumes that you have Minikube and [kubectl](https://kubernetes.io/docs/tasks/tools/) installed on your machine.
 We’ll go through the steps to build a Docker image for a simple Flask application and deploy it to Minikube.
 
-#### Step 1: Point to Minikube's Docker Daemon
+**Step 1:** Point to Minikube's Docker Daemon
 
 First, ensure that your terminal is using the Docker daemon inside Minikube:
 ```bash
 eval $(minikube docker-env)
 ```
 
-#### Step 2: Build Your Docker Image
+**Step 2:** Build Your Docker Image
 
 Navigate to the directory containing your Flask app and Dockerfile, then build your Docker image:
 
@@ -185,7 +185,7 @@ Navigate to the directory containing your Flask app and Dockerfile, then build y
 docker build -t hello-world-from-flask:latest .
 ```
 
-#### Step 3: Verify the Image Is in Minikube
+**Step 3:** Verify the Image Is in Minikube
 
 Check that your Docker image is now available in Minikube's local image registry:
 
@@ -208,7 +208,7 @@ gcr.io/k8s-minikube/storage-provisioner:v5
 docker.io/library/hello-world-from-flask:latest <-- here is your builded image
 ```
 
-#### Step 4: Deploy Your Application to Kubernetes
+**Step 4:** Deploy Your Application to Kubernetes
 
 Apply your Kubernetes manifests to create the deployment and service:
 
@@ -216,7 +216,7 @@ Apply your Kubernetes manifests to create the deployment and service:
 kubectl apply -f kubernetes/ -n default
 ```
 
-#### Step 5: Check Your Deployment
+**Step 5:** Check Your Deployment
 
 Ensure that your pod is up and running:
 
@@ -224,7 +224,7 @@ Ensure that your pod is up and running:
 kubectl get pod -n default
 ```
 
-#### Step 6: View Logs to Confirm Your Application Is Running
+**Step 6:** View Logs to Confirm Your Application Is Running
 
 Check the application logs to make sure your Flask app is running without errors:
 
@@ -245,7 +245,7 @@ kubectl logs -f flask-hello-world-5d55cd677f-rcsg6
 
 Replace `<your-pod-name>` with the actual name of your pod.
 
-#### Step 7: Access Your Flask Application
+**Step 7:** Access Your Flask Application
 
 Use Minikube to determine the URL to access your Flask application:
 
@@ -307,7 +307,7 @@ and when you click on that application you would see whole topology (i.e., Deplo
 
 To update the version of the Docker image your application uses, you need to follow these steps:
 
-### Step 1: Update Your Application
+**Step 1:** Update Your Application
 Make the necessary updates to your Flask application. 
 If there are no changes to the application code and you just want to update the image tag, 
 you can skip to the next step.
@@ -324,7 +324,7 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
 ```
 
-### Step 2: Rebuild and Tag Your Docker Image
+**Step 2:** Rebuild and Tag Your Docker Image
 
 Make sure you are still using Minikube's Docker daemon:
 ```bash
@@ -355,7 +355,7 @@ docker.io/library/hello-world-from-flask:v2 # <-- a new image
 docker.io/library/hello-world-from-flask:latest
 ```
 
-### Step 3: Update Your Kubernetes Manifest
+**Step 3:** Update Your Kubernetes Manifest
 
 ```yaml
 apiVersion: apps/v1
@@ -373,7 +373,7 @@ spec:
         ...
 ```
 
-### Step 4: Commit and Push the changes of your git repository
+**Step 4:** Commit and Push the changes of your git repository
 
 It should be two changes and for correction:
 ```bash
@@ -401,7 +401,7 @@ syncPolicy:
       prune: true #  If you remove resources from your Git repository, ArgoCD will automatically delete these from your cluster as well.
 ```
 
-### Step 5: Monitor the ArgoCD Automated Sync Process
+**Step 5:** Monitor the ArgoCD Automated Sync Process
 
 After you've updated your Kubernetes manifest and pushed the changes to your Git repository, 
 ArgoCD will automatically detect these changes and initiate a sync, 
