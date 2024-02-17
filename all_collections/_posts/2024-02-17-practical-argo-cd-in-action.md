@@ -263,19 +263,18 @@ Follow these steps, and you'll have your application running in a local Kubernet
 
 ### Deploying with ArgoCD
 
-Make sure you have installed [argocd CLI](https://github.com/argoproj/argo-cd/blob/master/docs/getting_started.md#:~:text=CLI%20installation%20documentation).
+Make sure you have installed [ArgoCD CLI](https://github.com/argoproj/argo-cd/blob/master/docs/getting_started.md#:~:text=CLI%20installation%20documentation).
 Link ArgoCD to your Git repository containing the Kubernetes manifests:
 1. **Via UI**: Use the ArgoCD dashboard to connect your repository and define the deployment.
+Make a port-forward
 ```bash
-# 1. port forward
 kubectl port-forward svc/argocd-server -n argocd 8080:443 
-# 2. navigate to localhost:8080
-
-# 3. you need to find out what is the default username and password
-# - default username is admin
-# - default password is pre-generated and you can simply retrieve it via argocd CLI
+```
+Then navigate to localhost:8080 and you will need to find out credentials for ArgoCD login.
+The default username is admin but for password it is little bit complicated. 
+ArgoCD project pre-generated and you can retrieve it via argocd CLI:
+```bash
 argocd admin initial-password -n argocd
-# 3. then you can login into UI
 ```
 2. **Via CLI**: argocd app create --repo <your_repo_url> --path <manifests_location> --dest-server https://kubernetes.default.svc --dest-namespace default.
 3. **Pre-defined YAML**: Apply Custom Resource of ArgoCD for instance
