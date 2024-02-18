@@ -101,8 +101,7 @@ spec:
   kafkaExporter:
     topicRegex: ".*"
     groupRegex: ".*"
-```
-```yaml
+---
 kind: ConfigMap
 apiVersion: v1
 metadata:
@@ -111,10 +110,8 @@ metadata:
     app: strimzi
 data:
   kafka-metrics-config.yml: |
-    # See https://github.com/prometheus/jmx_exporter for more info about JMX Prometheus Exporter metrics
     lowercaseOutputName: true
     rules:
-    # Special cases and very specific rules
     - pattern: kafka.server<type=(.+), name=(.+), clientId=(.+), topic=(.+), partition=(.*)><>Value
       name: kafka_server_$1_$2
       type: GAUGE
@@ -156,12 +153,9 @@ data:
       labels:
         listener: "$2"
         networkProcessor: "$3"
-    # Some percent metrics use MeanRate attribute
-    # Ex) kafka.server<type=(KafkaRequestHandlerPool), name=(RequestHandlerAvgIdlePercent)><>MeanRate
     - pattern: kafka.(\w+)<type=(.+), name=(.+)Percent\w*><>MeanRate
       name: kafka_$1_$2_$3_percent
       type: GAUGE
-    # Generic gauges for percents
     - pattern: kafka.(\w+)<type=(.+), name=(.+)Percent\w*><>Value
       name: kafka_$1_$2_$3_percent
       type: GAUGE
@@ -170,7 +164,6 @@ data:
       type: GAUGE
       labels:
         "$4": "$5"
-    # Generic per-second counters with 0-2 key/value pairs
     - pattern: kafka.(\w+)<type=(.+), name=(.+)PerSec\w*, (.+)=(.+), (.+)=(.+)><>Count
       name: kafka_$1_$2_$3_total
       type: COUNTER
@@ -185,7 +178,6 @@ data:
     - pattern: kafka.(\w+)<type=(.+), name=(.+)PerSec\w*><>Count
       name: kafka_$1_$2_$3_total
       type: COUNTER
-    # Generic gauges with 0-2 key/value pairs
     - pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.+), (.+)=(.+)><>Value
       name: kafka_$1_$2_$3
       type: GAUGE
@@ -200,8 +192,6 @@ data:
     - pattern: kafka.(\w+)<type=(.+), name=(.+)><>Value
       name: kafka_$1_$2_$3
       type: GAUGE
-    # Emulate Prometheus 'Summary' metrics for the exported 'Histogram's.
-    # Note that these are missing the '_sum' metric!
     - pattern: kafka.(\w+)<type=(.+), name=(.+), (.+)=(.+), (.+)=(.+)><>Count
       name: kafka_$1_$2_$3_count
       type: COUNTER
@@ -234,32 +224,9 @@ data:
       type: GAUGE
       labels:
         quantile: "0.$4"
-    # KRaft mode: uncomment the following lines to export KRaft related metrics
-    # KRaft overall related metrics
-    # distinguish between always increasing COUNTER (total and max) and variable GAUGE (all others) metrics
-    #- pattern: "kafka.server<type=raft-metrics><>(.+-total|.+-max):"
-    #  name: kafka_server_raftmetrics_$1
-    #  type: COUNTER
-    #- pattern: "kafka.server<type=raft-metrics><>(.+):"
-    #  name: kafka_server_raftmetrics_$1
-    #  type: GAUGE
-    # KRaft "low level" channels related metrics
-    # distinguish between always increasing COUNTER (total and max) and variable GAUGE (all others) metrics
-    #- pattern: "kafka.server<type=raft-channel-metrics><>(.+-total|.+-max):"
-    #  name: kafka_server_raftchannelmetrics_$1
-    #  type: COUNTER
-    #- pattern: "kafka.server<type=raft-channel-metrics><>(.+):"
-    #  name: kafka_server_raftchannelmetrics_$1
-    #  type: GAUGE
-    # Broker metrics related to fetching metadata topic records in KRaft mode
-    #- pattern: "kafka.server<type=broker-metadata-metrics><>(.+):"
-    #  name: kafka_server_brokermetadatametrics_$1
-    #  type: GAUGE
   zookeeper-metrics-config.yml: |
-    # See https://github.com/prometheus/jmx_exporter for more info about JMX Prometheus Exporter metrics
     lowercaseOutputName: true
     rules:
-    # replicated Zookeeper
     - pattern: "org.apache.ZooKeeperService<name0=ReplicatedServer_id(\\d+)><>(\\w+)"
       name: "zookeeper_$2"
       type: GAUGE
