@@ -44,8 +44,8 @@ kubectl create ns kafka
 kubectl create -f 'https://strimzi.io/install/latest?namespace=kafka' -n kafka 
 ```
 5. Create a Kafka Cluster 
-   6. In Strimzi, Topic Operator is tight to Kafka Custom Resource (CR) and so if one wants to deploy Topic Operator
-   one has to deploy Kafka cluster with Topic Operator enabled. Here is the YAML defining such deployment:
+6. In Strimzi, Topic Operator is tight to Kafka Custom Resource (CR) and so if one wants to deploy Topic Operator
+one has to deploy Kafka cluster with Topic Operator enabled. Here is the YAML defining such deployment:
 ```yaml
 apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
@@ -345,12 +345,12 @@ Prometheus, an open-source monitoring solution, collects and stores metrics as t
 It's an ideal choice for monitoring Kubernetes applications like the Topic Operator. 
 To set up Prometheus:
 1. **Install Prometheus Operator:** 
-```bash
+```
 LATEST=$(curl -s https://api.github.com/repos/prometheus-operator/prometheus-operator/releases/latest | jq -cr .tag_name)
 curl -sL https://github.com/prometheus-operator/prometheus-operator/releases/download/$LATEST/bundle.yaml | sed -e 's/namespace: default/namespace: kafka/' | kubectl create -f -
 ```
 2. We need to install **Prometheus instance** (simply apply all these files):
-```bash
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -580,8 +580,7 @@ yq e '.spec.entityOperator.template.topicOperatorContainer.env = [
 kubectl apply -f my-cluster-kafka.yaml
 ```
 then one can check topic-operator logs where one can see:
-```bash2024-02-18 16:05:37,93624 INFO  [main] TopicOperatorConfig:119 - Configuration TopicOperatorConfig{
-...
+```bash
 	maxQueueSize=1024
 	maxBatchSize=100
 	maxBatchLingerMs=100
