@@ -45,6 +45,7 @@ kubectl create -f https://strimzi.io/install/latest?namespace=kafka -n kafka
 5. Create a Kafka Cluster 
 6. In Strimzi, Topic Operator is tight to Kafka Custom Resource (CR) and so if one wants to deploy Topic Operator
 one has to deploy Kafka cluster with Topic Operator enabled. Here is the YAML defining such deployment:
+{% raw %}
 ```yaml
 apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
@@ -286,6 +287,7 @@ data:
         replicaId: "$2"
         memberType: "$3"
 ```
+{% endraw %}
 
 Make sure that you have the right Kafka version configured.
 
@@ -626,6 +628,8 @@ a comprehensive view of our application's performance and health.
 1. **Install Grafana:** - Begin by installing Grafana on your cluster. 
 Grafana can be deployed in various ways, including Helm charts, Kubernetes manifests, or directly on a VM or a container.
 For Kubernetes environments, using Kubernetes manifests such as
+
+{% raw %}
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -689,6 +693,8 @@ spec:
       name: grafana
    type: ClusterIP
 ```
+{% endraw %}
+
 Simply apply these (i.e., kubectl apply -f grafana.yaml -n kafka) and ensure that Grafana is running.
 2. **Access Grafana Dashboard** - To access the Grafana dashboard, you may need to set up port forwarding if you're 
 running Grafana in a Kubernetes cluster:
