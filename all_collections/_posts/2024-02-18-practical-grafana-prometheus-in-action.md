@@ -101,7 +101,8 @@ spec:
   kafkaExporter:
     topicRegex: ".*"
     groupRegex: ".*"
----
+```
+```yaml
 kind: ConfigMap
 apiVersion: v1
 metadata:
