@@ -2,7 +2,7 @@
 layout: post
 title: "5 Implementing ArgoCD with Kubernetes: A Hands-On Guide"
 date: 2024-02-17
-categories: ["practical", "argo-cd", "continuous delivery"]
+categories: ["practical", "argo cd", "continuous delivery"]
 ---
 
 ## Introduction

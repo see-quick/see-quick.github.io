@@ -2,7 +2,7 @@
 layout: post
 title: "4 Simplifying Deployment Workflows with Containers, Kubernetes, and Argo CD"
 date: 2024-02-15
-categories: ["argo-cd", "deployment", "kubernetes", "docker"]
+categories: ["argo cd", "deployment", "kubernetes", "docker"]
 ---
 
 ##  Introduction

@@ -2,7 +2,7 @@
 layout: post
 title: "1 Navigating the Learning Landscape with Chat-GPT: Pros, Cons, and Tips"
 date: 2024-02-12
-categories: ["chat-gpt", "technology", "IT", "AI", "learning"]
+categories: ["chat gpt", "technology", "IT", "AI", "learning"]
 ---
 
 # Navigating the Learning Landscape with Chat-GPT: Pros, Cons, and Tips
