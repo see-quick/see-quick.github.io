@@ -1,5 +1,6 @@
 just-a-blog/_site/
-.idea/
+.idea
+.idea/workspace.xml/
 _site
 .sass-cache/
 .jekyll-cache/
