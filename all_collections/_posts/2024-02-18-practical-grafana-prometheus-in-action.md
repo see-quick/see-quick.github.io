@@ -529,7 +529,8 @@ stringData:
 3. **Configure Prometheus to Scrape Metrics** 
    - Create a **ServiceMonitor** or **PodMonitor** resource to specify how Prometheus should discover and scrape metrics from the Topic Operator.
    In this case we will create an **PodMonitor** for entity-operator Pod. 
-   - Store this in file and then apply using **kubectl** client. 
+   - Store this in file and then apply using **kubectl** client.
+{% raw %}
 ```yaml
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
@@ -548,6 +549,7 @@ spec:
   - path: /metrics
     port: 8080
 ```
+{% endraw %}
 4. You should see inside Prometheus logs the following
 ```bash
 oc logs -f prometheus-prometheus-0 -n kafka
