@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "6 Monitoring Your Application with Grafana: A Practical Guide to Leveraging Open Source Tools (Part I)"
-date: 2024-02-17
+date: 2024-02-18
 categories: ["practical", "grafana", "prometheus", "metrics", "monitoring"]
 ---
 
