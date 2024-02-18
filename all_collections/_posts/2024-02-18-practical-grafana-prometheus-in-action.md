@@ -40,8 +40,7 @@ kubectl create ns kafka
 ```
 4. Install the Strimzi Custom Resource Definitions (CRDs) and **Cluster Operator** in kafka namespace:
 ```bash
-
-kubectl create -f 'https://strimzi.io/install/latest?namespace=kafka' -n kafka 
+kubectl create -f https://strimzi.io/install/latest?namespace=kafka -n kafka 
 ```
 5. Create a Kafka Cluster 
 6. In Strimzi, Topic Operator is tight to Kafka Custom Resource (CR) and so if one wants to deploy Topic Operator
@@ -345,7 +344,7 @@ Prometheus, an open-source monitoring solution, collects and stores metrics as t
 It's an ideal choice for monitoring Kubernetes applications like the Topic Operator. 
 To set up Prometheus:
 1. **Install Prometheus Operator:** 
-```
+```bash
 LATEST=$(curl -s https://api.github.com/repos/prometheus-operator/prometheus-operator/releases/latest | jq -cr .tag_name)
 curl -sL https://github.com/prometheus-operator/prometheus-operator/releases/download/$LATEST/bundle.yaml | sed -e 's/namespace: default/namespace: kafka/' | kubectl create -f -
 ```
