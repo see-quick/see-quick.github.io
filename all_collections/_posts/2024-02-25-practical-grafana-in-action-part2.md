@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "8 Creating Insightful Grafana Dashboards for Monitoring: A Step-by-Step Guide (Part II)"
+title: "8 Monitoring Your Application with Grafana: A Practical Guide to Leveraging Open Source Tools (Part II)"
 date: 2024-02-25
 categories: ["practical", "grafana", "prometheus", "metrics", "monitoring"]
 ---
