@@ -150,7 +150,7 @@ This comprehensive dashboard serves as a centralized monitoring tool that encomp
 The JSON configuration script provided lays out the structure and settings for each panel within the dashboard, ready to be imported into a Grafana instance. 
 It defines the queries, visualizations, and alert thresholds, giving you a powerful oversight of your Kafka infrastructure's performance.
 
-Here is the [json](link), of the dashboard, which you could simply import into Grafana.
+Here is the [json](https://github.com/see-quick/see-quick.github.io/blob/main/assets/blog_resource/8/grafana.json), of the dashboard, which you could simply import into Grafana.
 
 ![img_3.png](../../assets/images/8/img____3.png)
 ![img_1.png](../../assets/images/8/img____1.png)
