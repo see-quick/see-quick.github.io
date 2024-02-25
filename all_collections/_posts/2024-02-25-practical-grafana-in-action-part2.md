@@ -143,10 +143,16 @@ The dashboard uses a templated datasource (`${DS_PROMETHEUS}`), enabling easy sw
 #### Final Thoughts
 This comprehensive dashboard serves as a centralized monitoring tool that encompasses all critical Kafka and JVM metrics, aiding in performance tuning, anomaly detection, and ensuring the Kafka environment's smooth operation.
 
-The JSON configuration script provided lays out the structure and settings for each panel within the dashboard, ready to be imported into a Grafana instance. 
-It defines the queries, visualizations, and alert thresholds, giving you a powerful oversight of your Kafka infrastructure's performance.
+The JSON configuration provided can be imported into Grafana to recreate the "Strimzi Operators" dashboard in your own environment. 
+You can either copy the JSON from the code block above or download the file directly using the link provided.
 
-Here is the [json](https://github.com/see-quick/see-quick.github.io/blob/main/assets/blog_resource/8/grafana.json), of the dashboard, which you could simply import into Grafana.
+To import the dashboard, follow these steps in Grafana:
+1. Go to the Dashboards section.
+2. Click the "Import" button.
+3. Paste the JSON code or upload the JSON file.
+4. Adjust any settings if necessary and save the dashboard.
+
+[Download the Grafana Dashboard Configuration](https://github.com/see-quick/see-quick.github.io/blob/main/assets/blog_resource/8/grafana.json)
 
 ![img_3.png](../../assets/images/8/img____3.png)
 ![img_1.png](../../assets/images/8/img____1.png)
