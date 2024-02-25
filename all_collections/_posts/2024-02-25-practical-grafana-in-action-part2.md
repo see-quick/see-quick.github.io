@@ -72,13 +72,11 @@ Heatmaps are excellent for visualizing the distribution of metrics over a range 
    ```
    This query calculates the rate of the Topic Operator's reconciliation durations over 5 minutes, grouped by latency buckets.
    One may ask why don't we use just pure strimzi_reconciliations_duration_seconds_bucket value instead adding rate function to it.
-
 We use the `rate` function in Prometheus when creating a heatmap for the following reasons:
-
-1. **Time Series Normalization**: `rate` calculates the per-second average rate of increase of the time series in a range vector. This is essential for normalizing the data over time, making it possible to compare changes in behavior over different time periods.
-2. **Counter Reset Handling**: Many metrics in Prometheus, like `strimzi_reconciliations_duration_seconds_bucket`, are counters that only increase over time and can reset (e.g., when a process restarts). The `rate` function accounts for these resets, providing an accurate calculation of the rate of events.
-3. **Focus on Change**: Heatmaps are often used to visualize changes or the frequency of occurrences over time. The `rate` function highlights the velocity of change rather than the absolute value, which is more meaningful for understanding system behavior and performance trends.
-4. **Better Visualization**: Using `rate` provides a clearer visualization in the heatmap, especially when you are interested in the dynamics of the system, such as the frequency and pattern of topic reconciliation operations, rather than their cumulative count.
+   1. **Time Series Normalization**: `rate` calculates the per-second average rate of increase of the time series in a range vector. This is essential for normalizing the data over time, making it possible to compare changes in behavior over different time periods.
+   2. **Counter Reset Handling**: Many metrics in Prometheus, like `strimzi_reconciliations_duration_seconds_bucket`, are counters that only increase over time and can reset (e.g., when a process restarts). The `rate` function accounts for these resets, providing an accurate calculation of the rate of events.
+   3. **Focus on Change**: Heatmaps are often used to visualize changes or the frequency of occurrences over time. The `rate` function highlights the velocity of change rather than the absolute value, which is more meaningful for understanding system behavior and performance trends.
+   4. **Better Visualization**: Using `rate` provides a clearer visualization in the heatmap, especially when you are interested in the dynamics of the system, such as the frequency and pattern of topic reconciliation operations, rather than their cumulative count.
 
 By using `rate`, we can create a heatmap that more accurately represents the temporal dynamics of Kafka topic reconciliations, which can be crucial for performance tuning and anomaly detection.
 
@@ -110,8 +108,6 @@ any periods of time when performance deviates from the norm, which might warrant
 
 Incorporating a heatmap into your Grafana dashboard adds a layer of depth to your monitoring, 
 allowing for a more nuanced understanding of your Kafka environment.
-
-### Step 4: Assembling a Comprehensive Dashboard
 
 ### Step 4: Assembling a Comprehensive Dashboard
 
