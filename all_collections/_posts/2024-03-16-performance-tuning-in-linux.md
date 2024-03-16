@@ -49,7 +49,7 @@ Disk performance can be significantly enhanced by choosing the right disk setup.
 
 The choice of file system can impact application performance. ext4 is widely used due to its robustness and support for large file systems, while XFS is known for its scalability and performance with large files and data. For our example application, which might involve managing large datasets, testing with both file systems to determine which offers better performance for specific workloads would be a prudent approach.
 
-## Practical Performance Tuning with `httpd`
+## Practical Performance Tuning with httpd
 
 In this section, we'll dive into a practical example of performance tuning, using `httpd` (the Apache HTTP server) as our service of interest. This guide will walk you through using several tools mentioned earlier to monitor and optimize the performance of an `httpd` service.
 
@@ -85,7 +85,7 @@ In this section, we'll dive into a practical example of performance tuning, usin
 
 2. **I/O Performance Testing:** Use `fio` to simulate typical `httpd` I/O workloads. This could involve reading and writing small files, similar to web assets.
 
-   Example: `fio --name=ReadWriteTest --directory=/var/www/html --size=1G --rw=randrw --bs=4k --ioengine=libaio --iodepth=64 --direct=1 --numjobs=4 --runtime=60 --group_reporting`
+   Example: fio --name=ReadWriteTest --directory=/var/www/html --size=1G --rw=randrw --bs=4k --ioengine=libaio --iodepth=64 --direct=1 --numjobs=4 --runtime=60 --group_reporting
 
    This command simulates random reads and writes on the `/var/www/html` directory, which is a common location for `httpd` content, helping you identify how disk I/O impacts `httpd` performance.
 
