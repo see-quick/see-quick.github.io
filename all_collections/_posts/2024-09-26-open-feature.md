@@ -5,8 +5,6 @@ date: 2024-09-26
 categories: ["strimzi", "integration", "open feature", "feature gates"]
 ---
 
-# Enhancing Strimzi with OpenFeature
-
 **Table of Contents**
 
 1. [Introduction](#introduction)
