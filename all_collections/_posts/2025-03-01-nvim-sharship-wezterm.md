@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "13 🚀 Supercharge Your Dev Setup with Neovim, Starship, and WezTerm"
+title: "12 🚀 Supercharge Your Dev Setup with Neovim, Starship, and WezTerm"
 date: 2025-03-01
 categories: ["nvim", "sharship", "wezterm"]
 ---
