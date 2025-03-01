@@ -26,8 +26,8 @@ Whether you’re debugging, navigating large codebases, or writing in multiple l
 
 ![Telescope in Action](../../assets/images/13/telescope_magic.gif)
 
-For instance here is a take on debugging!
-It's a magic right? :D 
+🛠️ Here’s a glimpse of debugging in action!
+Feels like magic, right? ✨😃
 
 ![debugging.gif](../../assets/images/13/debugging.gif)
 
