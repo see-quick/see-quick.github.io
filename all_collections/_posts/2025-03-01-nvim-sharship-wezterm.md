@@ -31,6 +31,9 @@ Feels like magic, right? ✨😃
 
 ![debugging.gif](../../assets/images/13/debugging.gif)
 
+🔍 And with LSP fully integrated, you get real-time code insights, autocompletions, and inline error diagnostics—making development smoother than ever! 🚀
+
+![lsp.gif](../../assets/images/13/lsp.gif)
 
 ## 🚀 Starship – A Minimal, Blazing-Fast Shell Prompt
 
