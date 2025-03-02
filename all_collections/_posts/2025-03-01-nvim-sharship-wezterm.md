@@ -60,7 +60,8 @@ WezTerm is a GPU-accelerated, modern terminal emulator that offers fantastic per
 - 🚀 GPU Acceleration – Makes rendering super smooth.
 - 🔗 Multiplexing – Like tmux but integrated.
 - 🎨 Powerline & Nerd Fonts Support – For a stunning terminal aesthetic.
-- 🎬 Wrapping It Up
+
+## 🎬 Wrapping It Up
 
 With Neovim, Starship, and WezTerm, you get a lightweight, powerful, and visually stunning setup that enhances productivity while keeping things efficient.
 
