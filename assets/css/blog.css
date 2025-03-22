@@ -21,7 +21,7 @@ body {
   background-color: var(--gray-5);
   color: var(--white-2);
   line-height: 2rem;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.6s ease-in-out;
 }
 
 /* Header */
