@@ -13,20 +13,24 @@
   max-width: 100%;
 }
 html,
-body {
+body,
+.article,
+.category,
+.pagination a {
   color: var(--white-2);
   background-color: var(--gray-6);
   font-family: "JetBrains Mono", monospace;
   line-height: 2rem;
   background-color: var(--gray-5);
+  transition: all 0.3s ease-in-out;
 }
+
 header {
-  padding: 2rem 0 4rem 0;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
+  position: sticky;
+  top: 0;
+  background-color: var(--gray-5);
+  z-index: 50;
+  padding: 1.5rem 0;
 }
 header .site-title {
   font-size: 4rem;
@@ -113,14 +117,25 @@ main {
 
 .articles {
   display: grid;
-  row-gap: 2rem;
-  margin: 4rem 0 3rem 0;
+  grid-template-columns: 1fr;
+  gap: 2rem;
 }
 .articles .article {
-  padding: 2rem;
-  background: var(--gray-3);
-  border-radius: 15px;
-  transition: all 0.2s ease-in-out;
+  margin-bottom: 2.5rem;
+  padding: 2.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+.article .date {
+  margin-bottom: 0.5rem;
+}
+.categories {
+  margin-top: 0.5rem;
+}
+.content p,
+.content ul,
+.content ol,
+.content blockquote {
+  margin-bottom: 2rem;
 }
 .articles .article .article-title,
 .articles .article .article-title a {
@@ -215,22 +230,26 @@ main {
   }
 }
 
-/* Default styles for dark theme */
-.pagination a {
-  color: white; /* Default color for dark theme */
-  text-decoration: none;
+.pagination {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 3rem;
+  flex-wrap: wrap;
 }
-
-.pagination a:hover {
-  color: gray; /* Hover color for dark theme */
-}
-
+.pagination a,
 .pagination .current {
-  color: white; /* Current page number color for dark theme */
-  pointer-events: none;
-  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
 }
-
+.pagination a:hover {
+  background-color: var(--gray-2);
+}
+.pagination .current {
+  background-color: var(--gray-1);
+  font-weight: bold;
+}
 /* Styles for light theme */
 @media (prefers-color-scheme: light) {
   .pagination a {
