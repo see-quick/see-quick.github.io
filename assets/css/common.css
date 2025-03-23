@@ -135,3 +135,33 @@ hr {
   border-top: 2px dashed var(--white-2);
   margin: 2rem 0;
 }
+
+#bubbleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@media (prefers-color-scheme: light) {
+  #bubbleCanvas {
+    background: #f5f5f5; /* match var(--gray-5) in light mode */
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  #bubbleCanvas {
+    background: #1e1e1e; /* or var(--gray-5) in dark mode */
+  }
+}
+
+[data-theme="light"] #bubbleCanvas {
+  background: #f5f5f5;
+}
+
+[data-theme="dark"] #bubbleCanvas {
+  background: #1e1e1e;
+}

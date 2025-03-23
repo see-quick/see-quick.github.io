@@ -1,8 +1,20 @@
 ---
 ---
 
-const categories = { {% for category in site.categories %}{% capture category_name %}{{ category | first }}{% endcapture %}{{ category_name | replace: " ", "_" }}: [{% for post in site.categories[category_name] %}{ url: `{{ site.baseurl }}{{ post.url }}`, date: `{{post.date | date_to_string}}`, title: `{{post.title}}`},{% endfor %}],{% endfor %} }
-
+const categories = {
+{% for category in site.categories %}
+{% assign category_name = category[0] %}
+{{ category_name | jsonify }}: [
+  {% for post in category[1] %}
+{
+  url: `{{ site.baseurl }}{{ post.url }}`,
+      date: `{{ post.date | date_to_string }}`,
+    title: `{{ post.title | escape }}` // prevent quotes breaking JS
+}{% unless forloop.last %},{% endunless %}
+{% endfor %}
+]{% unless forloop.last %},{% endunless %}
+{% endfor %}
+};
 console.log(categories)
 
 window.onload = function () {

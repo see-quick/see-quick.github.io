@@ -18,23 +18,58 @@
 html,
 body {
   font-family: "JetBrains Mono", monospace;
-  background-color: var(--gray-5);
+  background: transparent;
+  backdrop-filter: blur(5px); /* subtle frosted glass vibe */
   color: var(--white-2);
   line-height: 2rem;
   transition: all 0.6s ease-in-out;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: -2;
+  background: #1e1e1e; /* or var(--gray-5) in dark mode */
+  transition: background-color 0.4s ease;
+}
+
+/* Light theme */
+@media (prefers-color-scheme: light) {
+  body::before {
+    background: #f5f5f5; /* match var(--gray-5) in light mode */
+  }
+}
+
+[data-theme="light"] body::before {
+  background: #f5f5f5; /* match var(--gray-5) in light mode */
+}
+
+[data-theme="dark"] body::before {
+  background: #1e1e1e; /* or var(--gray-5) in dark mode */
 }
 
 /* Header */
 header {
   position: sticky;
   top: 0;
-  background-color: var(--gray-5);
   z-index: 50;
   padding: 1.5rem 0;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 1rem;
+  position: relative;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--gray-5);
+  opacity: 0.8; /* Adjust this for more/less opacity */
+  z-index: -1; /* Push behind the text */
+  border-radius: 8px; /* Optional: rounded corners */
 }
 
 .site-title {
@@ -144,6 +179,7 @@ main {
   margin: 0 auto;
   max-width: 65ch;
   padding: 3rem 1.5rem 4rem;
+  z-index: 1;
 }
 
 /* Article Cards */
