@@ -117,31 +117,20 @@ header::before {
 }
 
 #text-wrapper a {
-  color: cyan;
+  color: #b4ff00;
+  text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: all 0.3s ease;
 }
 
-#text-wrapper a:hover {
-  border-bottom-color: cyan;
-}
-
-@media (prefers-color-scheme: light) {
-  #text-wrapper a {
-    color: #1ebaba;
-  }
-
-  #text-wrapper a:hover {
-    border-bottom-color: #1ebaba;
-  }
+[data-theme="dark"] #text-wrapper a {
+  color: #b4ff00;
+  text-decoration: underline
 }
 
 [data-theme="light"] #text-wrapper a {
-  color: #1ebaba;
-}
-
-[data-theme="dark"] #text-wrapper a {
-  color: cyan;
+  color: #b84eff;
+  text-decoration: underline
 }
 
 #social-wrapper {
@@ -218,8 +207,13 @@ main {
   transition: all 0.3s ease;
 }
 
-.article .article-title a:hover {
-  color: cyan;
+[data-theme="dark"] .article .article-title a:hover {
+  color: #d7ff66;
+  text-decoration: underline;
+}
+
+[data-theme="light"] .article .article-title a:hover {
+  color: #b84eff;
   text-decoration: underline;
 }
 
