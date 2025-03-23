@@ -2,7 +2,17 @@
 
 <script>
 (function () {
-    const categoryData = Object.entries(categories).map(([key, val]) => ({
+    const normalizedMap = {};
+
+    for (const [key, val] of Object.entries(categories)) {
+        const lowerKey = key.toLowerCase();
+        if (!normalizedMap[lowerKey]) {
+            normalizedMap[lowerKey] = [];
+        }
+        normalizedMap[lowerKey].push(...val);
+    }
+
+    const categoryData = Object.entries(normalizedMap).map(([key, val]) => ({
         name: key,
         value: val.length,
     }));
@@ -116,7 +126,7 @@
         ctx.font = "bold 15px 'Comic Sans MS', cursive, sans-serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText(bubble.name, bubble.x, bubble.y);
+        ctx.fillText(bubble.name.toUpperCase(), bubble.x, bubble.y);
     }
 
     function update() {
