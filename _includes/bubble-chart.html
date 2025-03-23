@@ -40,8 +40,10 @@
                 value: cat.value,
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 1.5,
-                vy: (Math.random() - 0.5) * 1.5,
+                vx: (Math.random() - 0.5) * 5,
+                vy: (Math.random() - 0.5) * 5,
+                squishX: 1,
+                squishY: 1,
                 radius,
                 baseRadius: radius,
                 color: palette[i % palette.length],
@@ -68,7 +70,15 @@
         gradient.addColorStop(1, 'rgba(255, 255, 255, 0.03)');
 
         ctx.beginPath();
-        ctx.arc(bubble.x, bubble.y, bubble.radius, 0, 2 * Math.PI);
+        ctx.ellipse(
+            bubble.x,
+            bubble.y,
+            bubble.radius * bubble.squishX,
+            bubble.radius * bubble.squishY,
+            0,
+            0,
+            2 * Math.PI
+        );
         ctx.fillStyle = gradient;
         ctx.shadowColor = bubble.color;
         ctx.shadowBlur = 4;
@@ -110,26 +120,54 @@
     }
 
     function update() {
-        // Check if theme has changed
         const newTheme = getCurrentTheme();
+        const restitution = 0.99;
+
         if (newTheme !== currentTheme) {
             currentTheme = newTheme;
             bubbles = generateBubbles(currentTheme);
         }
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
         for (let b of bubbles) {
+            // Update position first
             b.x += b.vx;
             b.y += b.vy;
 
-            if (b.x < b.radius || b.x > canvas.width - b.radius) b.vx *= -1;
-            if (b.y < b.radius || b.y > canvas.height - b.radius) b.vy *= -1;
+            // Horizontal bounce
+            if (b.x < b.radius) {
+                b.x = b.radius;
+                b.vx = Math.abs(b.vx) * restitution;
+                b.squishX = 0.7; b.squishY = 1.3;
+            } else if (b.x > canvas.width - b.radius) {
+                b.x = canvas.width - b.radius;
+                b.vx = -Math.abs(b.vx) * restitution;
+                b.squishX = 0.7; b.squishY = 1.3;
+            }
 
-            const pulse = Math.sin(Date.now() * 0.002 + b.value) * 1.5;
+            // Vertical bounce
+            if (b.y < b.radius) {
+                b.y = b.radius;
+                b.vy = Math.abs(b.vy) * restitution;
+                b.squishX = 1.3; b.squishY = 0.7;
+            } else if (b.y > canvas.height - b.radius) {
+                b.y = canvas.height - b.radius;
+                b.vy = -Math.abs(b.vy) * restitution;
+                b.squishX = 1.3; b.squishY = 0.7;
+            }
+
+            // Smooth return to round shape
+            b.squishX += (1 - b.squishX) * 0.1;
+            b.squishY += (1 - b.squishY) * 0.1;
+
+            // Animate size pulse
+            const pulse = Math.sin(Date.now() * 0.002 + b.value) * 1.2;
             b.radius = b.baseRadius + pulse;
 
             drawBubble(b);
         }
+
         requestAnimationFrame(update);
     }
 
