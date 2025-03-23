@@ -26,5 +26,5 @@ defaults:
       permalink: /posts/:title/
 exclude: ["sitemap.xml", "feed.xml", "LICENSE", "README.md"]
 
-paginate: 5 # This is the number of posts you want to show per page
+paginate: 6 # This is the number of posts you want to show per page
 paginate_path: "/page:num/" # This is the URL structure for the paginated pages
