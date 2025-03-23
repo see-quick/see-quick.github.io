@@ -1,8 +1,6 @@
 const toggleSwitch = document.querySelector("#dark-mode-toggle");
 
 if (currentTheme) {
-  console.log("Current theme:" + currentTheme)
-  console.log(document.documentElement)
   document.documentElement.setAttribute("data-theme", currentTheme);
 }
 

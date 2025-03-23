@@ -165,3 +165,25 @@ hr {
 [data-theme="dark"] #bubbleCanvas {
   background: #1e1e1e;
 }
+
+@font-face {
+  font-family: "Comic Sans MS";
+  src: local("Comic Sans MS"), local("ComicSansMS");
+}
+
+.date {
+  font-size: 0.8rem;
+  display: block;
+  opacity: 0.75;
+  transition: color 0.3s ease;
+}
+
+/* Dark theme */
+[data-theme="dark"] .date {
+  color: white;
+}
+
+/* Light theme */
+[data-theme="light"] .date {
+  color: black;
+}

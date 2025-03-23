@@ -34,7 +34,7 @@
     function generateBubbles(theme) {
         const palette = colorPalettes[theme];
         return categoryData.map((cat, i) => {
-            const radius = 30 + cat.value * 5;
+            const radius = 35 + cat.value * 10;
             return {
                 name: cat.name,
                 value: cat.value,
@@ -74,7 +74,8 @@
         ctx.shadowBlur = 0;
 
         ctx.fillStyle = bubble.fontColor;
-        ctx.font = "bold 11px JetBrains Mono";
+        ctx.font = "bold 15px 'Comic Sans MS'";
+
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText(bubble.name, bubble.x, bubble.y);
