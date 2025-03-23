@@ -58,24 +58,52 @@
     let bubbles = generateBubbles(currentTheme);
 
     function drawBubble(bubble) {
+        // Bubble body with gentle glow
         const gradient = ctx.createRadialGradient(
-            bubble.x - bubble.radius * 0.3, bubble.y - bubble.radius * 0.3, bubble.radius * 0.1,
+            bubble.x, bubble.y, bubble.radius * 0.9,
             bubble.x, bubble.y, bubble.radius
         );
-        gradient.addColorStop(0, bubble.highlight);
-        gradient.addColorStop(1, bubble.color);
+        gradient.addColorStop(0, 'rgba(255, 255, 255, 0.35)');
+        gradient.addColorStop(0.5, bubble.color);
+        gradient.addColorStop(1, 'rgba(255, 255, 255, 0.03)');
 
         ctx.beginPath();
         ctx.arc(bubble.x, bubble.y, bubble.radius, 0, 2 * Math.PI);
         ctx.fillStyle = gradient;
-        ctx.shadowColor = "rgba(0,0,0,0.15)";
-        ctx.shadowBlur = 6;
+        ctx.shadowColor = bubble.color;
+        ctx.shadowBlur = 4;
         ctx.fill();
         ctx.shadowBlur = 0;
 
-        ctx.fillStyle = bubble.fontColor;
-        ctx.font = "bold 15px 'Comic Sans MS'";
+        // Glossy highlight dot (upper-left)
+        ctx.beginPath();
+        ctx.arc(
+            bubble.x - bubble.radius * 0.4,
+            bubble.y - bubble.radius * 0.4,
+            bubble.radius * 0.08,
+            0,
+            2 * Math.PI
+        );
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+        ctx.shadowBlur = 4;
+        ctx.fill();
+        ctx.shadowBlur = 0;
 
+        // Inner elliptical shine
+        ctx.beginPath();
+        ctx.ellipse(
+            bubble.x + bubble.radius * 0.2,
+            bubble.y + bubble.radius * 0.1,
+            bubble.radius * 0.3,
+            bubble.radius * 0.15,
+            Math.PI / 4,
+            0,
+            2 * Math.PI
+        );
+
+        // Label text
+        ctx.fillStyle = bubble.fontColor;
+        ctx.font = "bold 15px 'Comic Sans MS', cursive, sans-serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText(bubble.name, bubble.x, bubble.y);
