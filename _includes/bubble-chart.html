@@ -2,6 +2,14 @@
 
 <script>
 (function () {
+    const relatedClusters = [
+        ['formal-verification', 'model-checking', 'safety', 'distributed-systems', 'specifications'],
+        ['grafana', 'monitoring', 'strimzi', 'metrics', 'performance', 'feature-gates', 'open feature'],
+        ['nvim', 'wezterm', 'starship'],
+        ['kubernetes', 'deployment', 'containers', 'docker', 'java', 'argo cd', 'tiered storage', 'version 21'],
+        ['ai', 'chat gpt', 'machine learning', 'puzzles']
+    ];
+
     const normalizedMap = {};
 
     for (const [key, val] of Object.entries(categories)) {
@@ -43,7 +51,7 @@
 
     function generateBubbles(theme) {
         const palette = colorPalettes[theme];
-        return categoryData.map((cat, i) => {
+        const bubbles = categoryData.map((cat, i) => {
             const radius = 35 + cat.value * 10;
             return {
                 name: cat.name,
@@ -61,13 +69,67 @@
                 fontColor: theme === 'light' ? '#111' : '#fff',
             };
         });
+
+        const bubbleMap = {};
+        bubbles.forEach(b => {
+            bubbleMap[b.name.toLowerCase()] = b;
+        });
+
+        const connections = [];
+
+        relatedClusters.forEach(group => {
+            for (let i = 0; i < group.length; i++) {
+                for (let j = i + 1; j < group.length; j++) {
+                    const a = bubbleMap[group[i].toLowerCase()];
+                    const b = bubbleMap[group[j].toLowerCase()];
+                    if (a && b) {
+                        connections.push({ a, b });
+                    }
+                }
+            }
+        });
+
+        return { bubbles, connections };
     }
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
     let currentTheme = getCurrentTheme();
-    let bubbles = generateBubbles(currentTheme);
+    let { bubbles, connections } =  generateBubbles(currentTheme);
+
+    const bubbleMap = {};
+    bubbles.forEach(b => {
+        bubbleMap[b.name.toLowerCase()] = b;
+    });
+
+    relatedClusters.forEach(group => {
+        for (let i = 0; i < group.length; i++) {
+            for (let j = i + 1; j < group.length; j++) {
+                const a = bubbleMap[group[i].toLowerCase()];
+                const b = bubbleMap[group[j].toLowerCase()];
+                if (a && b) {
+                    connections.push({ a, b });
+                }
+            }
+        }
+    });
+
+    function drawConnections(theme) {
+        ctx.save();
+        ctx.lineWidth = 1;
+        ctx.setLineDash([10, 0]);
+        ctx.strokeStyle = theme === 'light' ?
+            `rgba(0, 0, 0, ${0.10 + 0.05 * Math.sin(Date.now() * 0.002)})` :
+            `rgba(255, 255, 255, ${0.10 + 0.05 * Math.sin(Date.now() * 0.002)})`;
+        connections.forEach(({ a, b }) => {
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+        });
+        ctx.restore();
+    }
 
     function drawBubble(bubble) {
         // Bubble body with gentle glow
@@ -135,10 +197,14 @@
 
         if (newTheme !== currentTheme) {
             currentTheme = newTheme;
-            bubbles = generateBubbles(currentTheme);
+            const result = generateBubbles(currentTheme);
+            console.log(result)
+            bubbles = result.bubbles;
+            connections = result.connections;
         }
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawConnections(currentTheme);
 
         for (let b of bubbles) {
             // Update position first
