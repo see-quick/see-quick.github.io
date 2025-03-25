@@ -1,252 +1,274 @@
 <canvas id="bubbleCanvas"></canvas>
-
 <script>
-(function () {
-    const relatedClusters = [
-        ['formal-verification', 'model-checking', 'safety', 'distributed-systems', 'specifications'],
-        ['grafana', 'monitoring', 'strimzi', 'metrics', 'performance', 'feature-gates', 'open feature'],
-        ['nvim', 'wezterm', 'starship'],
-        ['kubernetes', 'deployment', 'containers', 'docker', 'java', 'argo cd', 'tiered storage', 'version 21'],
-        ['ai', 'chat gpt', 'machine learning', 'puzzles']
-    ];
+    (function () {
+        // Set up canvas and context
+        const canvas = document.getElementById("bubbleCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-    const normalizedMap = {};
+        // ========================
+        // 3D Surface Background Variables
+        // ========================
+        const gridRows = 300;
+        const gridCols = 300;
+        const gridSpacing = 100; // spacing between grid points
 
-    for (const [key, val] of Object.entries(categories)) {
-        const lowerKey = key.toLowerCase();
-        if (!normalizedMap[lowerKey]) {
-            normalizedMap[lowerKey] = [];
+        function vertexShader(x, y, z, m) {
+            let x0 = m[0] * x + m[1] * y + m[2] * z + m[3];
+            let y0 = m[4] * x + m[5] * y + m[6] * z + m[7];
+            let z0 = m[8] * x + m[9] * y + m[10] * z + m[11];
+            return [x0, y0, z0];
         }
-        normalizedMap[lowerKey].push(...val);
-    }
 
-    const categoryData = Object.entries(normalizedMap).map(([key, val]) => ({
-        name: key,
-        value: val.length,
-    }));
+        function projectPoint(pt) {
+            const [x, y, z] = pt;
+            const factor = 300 / (z + 300);
+            const screenX = canvas.width / 2 + x * factor;
+            const screenY = canvas.height / 2 - y * factor;
+            return [screenX, screenY];
+        }
 
-    const colorPalettes = {
-        light: [
-            '#d32f2f', '#388e3c', '#1976d2', '#fbc02d', '#7b1fa2',
-            '#0097a7', '#f57c00', '#c2185b', '#5d4037', '#303f9f'
-        ],
-        dark: [
-            'hsla(0, 100%, 75%, 0.5)', 'hsla(140, 100%, 75%, 0.5)', 'hsla(210, 100%, 75%, 0.5)',
-            'hsla(50, 100%, 75%, 0.5)', 'hsla(280, 100%, 75%, 0.5)',
-            'hsla(180, 100%, 75%, 0.5)', 'hsla(20, 100%, 75%, 0.5)', 'hsla(330, 100%, 75%, 0.5)',
-            'hsla(30, 100%, 75%, 0.5)', 'hsla(240, 100%, 75%, 0.5)'
-        ]
-    };
-
-    function getCurrentTheme() {
-        const stored = localStorage.getItem("theme");
-        if (stored === "light" || stored === "dark") return stored;
-        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    }
-
-    const canvas = document.getElementById("bubbleCanvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    function generateBubbles(theme) {
-        const palette = colorPalettes[theme];
-        const bubbles = categoryData.map((cat, i) => {
-            const radius = 35 + cat.value * 10;
-            return {
-                name: cat.name,
-                value: cat.value,
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 5,
-                vy: (Math.random() - 0.5) * 5,
-                squishX: 1,
-                squishY: 1,
-                radius,
-                baseRadius: radius,
-                color: palette[i % palette.length],
-                highlight: theme === 'light' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.5)',
-                fontColor: theme === 'light' ? '#111' : '#fff',
-            };
-        });
-
-        const bubbleMap = {};
-        bubbles.forEach(b => {
-            bubbleMap[b.name.toLowerCase()] = b;
-        });
-
-        const connections = [];
-
-        relatedClusters.forEach(group => {
-            for (let i = 0; i < group.length; i++) {
-                for (let j = i + 1; j < group.length; j++) {
-                    const a = bubbleMap[group[i].toLowerCase()];
-                    const b = bubbleMap[group[j].toLowerCase()];
-                    if (a && b) {
-                        connections.push({ a, b });
+        function drawSurface(t, m) {
+            ctx.strokeStyle = "rgba(200, 200, 200, 0.5)";
+            ctx.lineWidth = 1;
+            let projectedPoints = [];
+            for (let i = 0; i <= gridRows; i++) {
+                projectedPoints[i] = [];
+                for (let j = 0; j <= gridCols; j++) {
+                    // Center grid around 0
+                    let x = (j - gridCols / 2) * gridSpacing;
+                    let y = (i - gridRows / 2) * gridSpacing;
+                    // Compute a dynamic z using a simple wave function
+                    let frequency = 0.3, amplitude = 2;
+                    let z = amplitude * Math.sin(frequency * x + t * 0.001) * Math.cos(frequency * y + t * 0.001);
+                    let pt3d = vertexShader(x, y, z, m);
+                    if (pt3d[2] < 1) {
+                        projectedPoints[i][j] = null;
+                    } else {
+                        projectedPoints[i][j] = projectPoint(pt3d);
                     }
                 }
             }
-        });
-
-        return { bubbles, connections };
-    }
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let currentTheme = getCurrentTheme();
-    let { bubbles, connections } =  generateBubbles(currentTheme);
-
-    const bubbleMap = {};
-    bubbles.forEach(b => {
-        bubbleMap[b.name.toLowerCase()] = b;
-    });
-
-    relatedClusters.forEach(group => {
-        for (let i = 0; i < group.length; i++) {
-            for (let j = i + 1; j < group.length; j++) {
-                const a = bubbleMap[group[i].toLowerCase()];
-                const b = bubbleMap[group[j].toLowerCase()];
-                if (a && b) {
-                    connections.push({ a, b });
+            // Connect adjacent points to form the mesh
+            for (let i = 0; i <= gridRows; i++) {
+                for (let j = 0; j <= gridCols; j++) {
+                    let pt = projectedPoints[i][j];
+                    if (!pt) continue;
+                    if (j < gridCols && projectedPoints[i][j+1]) {
+                        ctx.beginPath();
+                        ctx.moveTo(pt[0], pt[1]);
+                        ctx.lineTo(projectedPoints[i][j+1][0], projectedPoints[i][j+1][1]);
+                        ctx.stroke();
+                    }
+                    if (i < gridRows && projectedPoints[i+1][j]) {
+                        ctx.beginPath();
+                        ctx.moveTo(pt[0], pt[1]);
+                        ctx.lineTo(projectedPoints[i+1][j][0], projectedPoints[i+1][j][1]);
+                        ctx.stroke();
+                    }
                 }
             }
         }
-    });
 
-    function drawConnections(theme) {
-        ctx.save();
-        ctx.lineWidth = 1;
-        ctx.setLineDash([10, 0]);
-        ctx.strokeStyle = theme === 'light' ?
-            `rgba(0, 0, 0, ${0.10 + 0.05 * Math.sin(Date.now() * 0.002)})` :
-            `rgba(255, 255, 255, ${0.10 + 0.05 * Math.sin(Date.now() * 0.002)})`;
-        connections.forEach(({ a, b }) => {
+        // ========================
+        // Bubble Animation Section
+        // ========================
+        const relatedClusters = [
+            ['formal-verification', 'model-checking', 'safety', 'distributed-systems', 'specifications'],
+            ['grafana', 'monitoring', 'strimzi', 'metrics', 'performance', 'feature-gates', 'open feature'],
+            ['nvim', 'wezterm', 'starship'],
+            ['kubernetes', 'deployment', 'containers', 'docker', 'java', 'argo cd', 'tiered storage', 'version 21'],
+            ['ai', 'chat gpt', 'machine learning', 'puzzles']
+        ];
+
+        // Normalize categories for bubble generation.
+        const normalizedMap = {};
+        for (const [key, val] of Object.entries(categories)) {
+            const lowerKey = key.toLowerCase();
+            if (!normalizedMap[lowerKey]) {
+                normalizedMap[lowerKey] = [];
+            }
+            normalizedMap[lowerKey].push(...val);
+        }
+        const categoryData = Object.entries(normalizedMap).map(([key, val]) => ({
+            name: key,
+            value: val.length,
+        }));
+
+        const colorPalettes = {
+            light: [
+                '#d32f2f', '#388e3c', '#1976d2', '#fbc02d', '#7b1fa2',
+                '#0097a7', '#f57c00', '#c2185b', '#5d4037', '#303f9f'
+            ],
+            dark: [
+                'hsla(0, 100%, 75%, 0.5)', 'hsla(140, 100%, 75%, 0.5)', 'hsla(210, 100%, 75%, 0.5)',
+                'hsla(50, 100%, 75%, 0.5)', 'hsla(280, 100%, 75%, 0.5)',
+                'hsla(180, 100%, 75%, 0.5)', 'hsla(20, 100%, 75%, 0.5)', 'hsla(330, 100%, 75%, 0.5)',
+                'hsla(30, 100%, 75%, 0.5)', 'hsla(240, 100%, 75%, 0.5)'
+            ]
+        };
+
+        function getCurrentTheme() {
+            const stored = localStorage.getItem("theme");
+            if (stored === "light" || stored === "dark") return stored;
+            return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+
+        function generateBubbles(theme) {
+            const palette = colorPalettes[theme];
+            const bubbles = categoryData.map((cat, i) => {
+                const radius = 35 + cat.value * 10;
+                return {
+                    name: cat.name,
+                    value: cat.value,
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 5,
+                    vy: (Math.random() - 0.5) * 5,
+                    squishX: 1,
+                    squishY: 1,
+                    radius,
+                    baseRadius: radius,
+                    color: palette[i % palette.length],
+                    highlight: theme === 'light'
+                        ? 'rgba(255, 255, 255, 0.3)'
+                        : 'rgba(255, 255, 255, 0.5)',
+                    fontColor: theme === 'light' ? '#111' : '#fff',
+                };
+            });
+            const bubbleMap = {};
+            bubbles.forEach(b => {
+                bubbleMap[b.name.toLowerCase()] = b;
+            });
+            const connections = [];
+            relatedClusters.forEach(group => {
+                for (let i = 0; i < group.length; i++) {
+                    for (let j = i + 1; j < group.length; j++) {
+                        const a = bubbleMap[group[i].toLowerCase()];
+                        const b = bubbleMap[group[j].toLowerCase()];
+                        if (a && b) {
+                            connections.push({ a, b });
+                        }
+                    }
+                }
+            });
+            return { bubbles, connections };
+        }
+
+        let currentTheme = getCurrentTheme();
+        let { bubbles, connections } = generateBubbles(currentTheme);
+
+        function drawConnections(theme) {
+            ctx.save();
+            ctx.lineWidth = 1;
+            ctx.setLineDash([10, 0]);
+            ctx.strokeStyle = theme === 'light'
+                ? `rgba(0, 0, 0, ${0.10 + 0.05 * Math.sin(Date.now() * 0.002)})`
+                : `rgba(255, 255, 255, ${0.10 + 0.05 * Math.sin(Date.now() * 0.002)})`;
+            connections.forEach(({ a, b }) => {
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.stroke();
+            });
+            ctx.restore();
+        }
+
+        function drawBubble(bubble) {
+            const gradient = ctx.createRadialGradient(
+                bubble.x, bubble.y, bubble.radius * 0.9,
+                bubble.x, bubble.y, bubble.radius
+            );
+            gradient.addColorStop(0, 'rgba(255, 255, 255, 0.35)');
+            gradient.addColorStop(0.5, bubble.color);
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0.03)');
             ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-        });
-        ctx.restore();
-    }
-
-    function drawBubble(bubble) {
-        // Bubble body with gentle glow
-        const gradient = ctx.createRadialGradient(
-            bubble.x, bubble.y, bubble.radius * 0.9,
-            bubble.x, bubble.y, bubble.radius
-        );
-        gradient.addColorStop(0, 'rgba(255, 255, 255, 0.35)');
-        gradient.addColorStop(0.5, bubble.color);
-        gradient.addColorStop(1, 'rgba(255, 255, 255, 0.03)');
-
-        ctx.beginPath();
-        ctx.ellipse(
-            bubble.x,
-            bubble.y,
-            bubble.radius * bubble.squishX,
-            bubble.radius * bubble.squishY,
-            0,
-            0,
-            2 * Math.PI
-        );
-        ctx.fillStyle = gradient;
-        ctx.shadowColor = bubble.color;
-        ctx.shadowBlur = 4;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-
-        // Glossy highlight dot (upper-left)
-        ctx.beginPath();
-        ctx.arc(
-            bubble.x - bubble.radius * 0.4,
-            bubble.y - bubble.radius * 0.4,
-            bubble.radius * 0.08,
-            0,
-            2 * Math.PI
-        );
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-        ctx.shadowBlur = 4;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-
-        // Inner elliptical shine
-        ctx.beginPath();
-        ctx.ellipse(
-            bubble.x + bubble.radius * 0.2,
-            bubble.y + bubble.radius * 0.1,
-            bubble.radius * 0.3,
-            bubble.radius * 0.15,
-            Math.PI / 4,
-            0,
-            2 * Math.PI
-        );
-
-        // Label text
-        ctx.fillStyle = bubble.fontColor;
-        ctx.font = "bold 15px 'Comic Sans MS', cursive, sans-serif";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(bubble.name.toUpperCase(), bubble.x, bubble.y);
-    }
-
-    function update() {
-        const newTheme = getCurrentTheme();
-        const restitution = 0.99;
-
-        if (newTheme !== currentTheme) {
-            currentTheme = newTheme;
-            const result = generateBubbles(currentTheme);
-            console.log(result)
-            bubbles = result.bubbles;
-            connections = result.connections;
+            ctx.ellipse(
+                bubble.x,
+                bubble.y,
+                bubble.radius * bubble.squishX,
+                bubble.radius * bubble.squishY,
+                0,
+                0,
+                2 * Math.PI
+            );
+            ctx.fillStyle = gradient;
+            ctx.shadowColor = bubble.color;
+            ctx.shadowBlur = 4;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            ctx.beginPath();
+            ctx.arc(
+                bubble.x - bubble.radius * 0.4,
+                bubble.y - bubble.radius * 0.4,
+                bubble.radius * 0.08,
+                0,
+                2 * Math.PI
+            );
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+            ctx.shadowBlur = 4;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = bubble.fontColor;
+            ctx.font = "bold 15px 'Comic Sans MS', cursive, sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(bubble.name.toUpperCase(), bubble.x, bubble.y);
         }
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawConnections(currentTheme);
+        function update() {
+            const t = Date.now();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let ang = t / 1500;
+            let s = Math.sin(ang);
+            let c = Math.cos(ang);
+            let mat = [
+                c, 0, -s, 0,
+                0, 1,  0, 0,
+                s, 0,  c, 4 + 5 * Math.sin(t / 1500)
+            ];
+            drawSurface(t, mat);
 
-        for (let b of bubbles) {
-            // Update position first
-            b.x += b.vx;
-            b.y += b.vy;
-
-            // Horizontal bounce
-            if (b.x < b.radius) {
-                b.x = b.radius;
-                b.vx = Math.abs(b.vx) * restitution;
-                b.squishX = 0.7; b.squishY = 1.3;
-            } else if (b.x > canvas.width - b.radius) {
-                b.x = canvas.width - b.radius;
-                b.vx = -Math.abs(b.vx) * restitution;
-                b.squishX = 0.7; b.squishY = 1.3;
+            let newTheme = getCurrentTheme();
+            if (newTheme !== currentTheme) {
+                currentTheme = newTheme;
+                const result = generateBubbles(currentTheme);
+                bubbles = result.bubbles;
+                connections = result.connections;
             }
-
-            // Vertical bounce
-            if (b.y < b.radius) {
-                b.y = b.radius;
-                b.vy = Math.abs(b.vy) * restitution;
-                b.squishX = 1.3; b.squishY = 0.7;
-            } else if (b.y > canvas.height - b.radius) {
-                b.y = canvas.height - b.radius;
-                b.vy = -Math.abs(b.vy) * restitution;
-                b.squishX = 1.3; b.squishY = 0.7;
+            drawConnections(currentTheme);
+            const restitution = 0.99;
+            for (let b of bubbles) {
+                b.x += b.vx;
+                b.y += b.vy;
+                if (b.x < b.radius) {
+                    b.x = b.radius;
+                    b.vx = Math.abs(b.vx) * restitution;
+                    b.squishX = 0.7; b.squishY = 1.3;
+                } else if (b.x > canvas.width - b.radius) {
+                    b.x = canvas.width - b.radius;
+                    b.vx = -Math.abs(b.vx) * restitution;
+                    b.squishX = 0.7; b.squishY = 1.3;
+                }
+                if (b.y < b.radius) {
+                    b.y = b.radius;
+                    b.vy = Math.abs(b.vy) * restitution;
+                    b.squishX = 1.3; b.squishY = 0.7;
+                } else if (b.y > canvas.height - b.radius) {
+                    b.y = canvas.height - b.radius;
+                    b.vy = -Math.abs(b.vy) * restitution;
+                    b.squishX = 1.3; b.squishY = 0.7;
+                }
+                b.squishX += (1 - b.squishX) * 0.1;
+                b.squishY += (1 - b.squishY) * 0.1;
+                const pulse = Math.sin(Date.now() * 0.002 + b.value) * 1.2;
+                b.radius = b.baseRadius + pulse;
+                drawBubble(b);
             }
-
-            // Smooth return to round shape
-            b.squishX += (1 - b.squishX) * 0.1;
-            b.squishY += (1 - b.squishY) * 0.1;
-
-            // Animate size pulse
-            const pulse = Math.sin(Date.now() * 0.002 + b.value) * 1.2;
-            b.radius = b.baseRadius + pulse;
-
-            drawBubble(b);
+            requestAnimationFrame(update);
         }
 
-        requestAnimationFrame(update);
-    }
-
-    update();
-}());
+        update();
+    }());
 </script>
