@@ -34,6 +34,10 @@ window.onload = function () {
       document.querySelector("#category-modal-content").innerHTML = html;
       document.querySelector("#category-modal-bg").classList.toggle("open");
       document.querySelector("#category-modal").classList.toggle("open");
+      window.scrollTo({
+        top: window.innerHeight / 2,
+        behavior: "smooth"
+      });
     });
   });
 
