@@ -109,43 +109,49 @@ header {
 }
 
 .content a {
-  color: cyan;
+  color: #b4ff00;
+  text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: all 0.3s ease;
 }
 
 .content a:hover {
-  border-bottom-color: cyan;
-  opacity: 0.9;
+  color: #d7ff66;
+  text-decoration: underline;
 }
 
+/* Light theme */
 @media (prefers-color-scheme: light) {
   .content a {
-    color: #1ebaba;
+    color: #b84eff;
+    text-decoration: underline;
     border-bottom-color: transparent;
   }
 
   .content a:hover {
-    border-bottom-color: #1ebaba;
+    border-bottom-color: #b84eff;
   }
 }
 
 [data-theme="light"] .content a {
-  color: #1ebaba;
+  color: #b84eff;
+  text-decoration: underline;
   border-bottom-color: transparent;
 }
 
 [data-theme="light"] .content a:hover {
-  border-bottom-color: #1ebaba;
+  border-bottom-color: #b84eff;
 }
 
+/* Dark theme */
 [data-theme="dark"] .content a {
-  color: cyan;
+  color: #b4ff00;
+  text-decoration: underline;
   border-bottom-color: transparent;
 }
 
 [data-theme="dark"] .content a:hover {
-  border-bottom-color: cyan;
+  border-bottom-color: #d7ff66;
 }
 
 /* Headings */
