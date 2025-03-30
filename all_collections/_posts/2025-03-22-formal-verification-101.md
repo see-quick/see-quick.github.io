@@ -35,7 +35,7 @@ For instance:
 You model how the system moves between these states, depending on actions like “request lock” or “release lock.”
 
 **3. Checking or proving properties** - You write down the properties that should *always* be true — for instance:  
-```el
+```quint
 Thread1.inCriticalSection and Thread2.inCriticalSection ⇒ false
 // (In plain English: both threads must never be in the critical section at the same time.)  
 ```  
@@ -155,11 +155,11 @@ module LightSwitch {
 ```
 
 Simply then we can run `Quint` as 
-```bash
+```quint
 quint run light_switch-spec.qnt --invariant=LightDefined
 ```
 and it would basically show us one possible path within simulation 
-```
+```quint
 $ quint run ls.qnt --invariant=LightDefined --max-steps 100
 An example execution:
 
@@ -183,7 +183,7 @@ Use --seed=0x9ff5152767ad9 to reproduce.
 ```
 If we want to explore whole state space we can run one of the model checkers, which Quint supports (i.e.,
 [Apalache](https://github.com/apalache-mc/apalache)) using:
-```el
+```quint
 $ quint verify ls.qnt --invariant=LightDefined
 ...
 PASS #8: VCGen                                                    I@14:39:23.844
