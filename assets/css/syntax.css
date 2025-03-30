@@ -1,3 +1,4 @@
+/* Shared base styles */
 .highlight {
   color: #ffffff;
   background-color: #1e1e1e;
@@ -8,44 +9,176 @@
   font-size: 0.95rem;
 }
 
-.highlight .hll { background-color: #333333; }
-.highlight .c  { color: #7f9f7f; font-style: italic; } /* Comment */
-.highlight .err{ color: #ff6c6b; background-color: #3c3836; }
-.highlight .k  { color: #fb660a; font-weight: bold; } /* Keyword */
-.highlight .o  { color: #ffffff; } /* Operator */
-.highlight .cm, .cp, .c1, .cs {
-  color: #7f9f7f;
+/* ##################################################### */
+/* ################### JAVA SPECIFIC ################### */
+/* ##################################################### */
+/* 📦 Java label */
+.language-java > .highlight::before {
+  content: "JAVA";
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem 0.3rem 0 0;
+  position: relative;
+  top: -1rem;
+  left: 1rem;
+  display: inline-block;
+  margin-bottom: -1rem;
+  background: var(--gray-2);
+  color: var(--gray-6);
+}
+
+[data-theme="dark"] .language-java > .highlight::before {
+  background: #2c313c;
+  color: #e5c07b;
+}
+
+/* 💬 Comments */
+.language-java .c,
+.language-java .c1 {
+  color: #5c6370;
   font-style: italic;
 }
 
-.highlight .m  { color: #0086f7; font-weight: bold; } /* Number */
-.highlight .s  { color: #0086d2; } /* String */
-.highlight .na, .nf {
-  color: #ff0086;
+/* 🧠 Keywords (class, public, void, etc.) */
+.language-java .k {
+  color: #e06c75;
   font-weight: bold;
 }
-.highlight .nt {
-  color: #fb660a;
+
+/* 🏷️ Types (int, boolean, String, etc.) */
+.language-java .kt {
+  color: #d19a66;
   font-weight: bold;
 }
-.highlight .nb,
-.highlight .nc,
-.highlight .nn,
-.highlight .n {
-  color: #ffffff;
+
+/* 🆔 Names (variables, identifiers, method names) */
+.language-java .n,
+.language-java .na,
+.language-java .nv,
+.language-java .nf {
+  color: #61afef;
 }
 
-.highlight .no { color: #0086d2; }
-.highlight .nv { color: #fb660a; }
-.highlight .kt { color: #cdcaa9; font-weight: bold; }
+/* 🔢 Numbers */
+.language-java .m,
+.language-java .mi {
+  color: #d19a66;
+  font-weight: bold;
+}
 
-.highlight .w { color: #888888; }
+/* 🔤 Strings */
+.language-java .s {
+  color: #98c379;
+}
 
-.highlight .bp { color: #ffffff; }
-.highlight .vc, .vg, .vi { color: #fb660a; }
-.highlight .il { color: #0086f7; font-weight: bold; }
+/* ⛓ Operators (=, +, etc.) */
+.language-java .o {
+  color: #56b6c2;
+}
 
-.highlight .go {
-  color: #444;
-  background-color: #222;
+/* 🏛 Class Names */
+.language-java .nc {
+  color: #61afef;
+  font-weight: bold;
+}
+
+/* ⛔ Error tokens (if any) */
+.language-java .err {
+  background-color: #3c3836;
+  color: #ff6c6b;
+}
+
+/* ##################################################### */
+/* ################## QUINT SPECIFIC ################### */
+/* ##################################################### */
+/* 🔷 Comments */
+.language-quint > .highlight::before {
+  content: "QUINT";
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem 0.3rem 0 0;
+  position: relative;
+  top: -1rem;
+  left: 1rem;
+  display: inline-block;
+  margin-bottom: -1rem;
+  background: var(--gray-2);
+  color: var(--gray-6);
+}
+
+[data-theme="dark"] .language-quint > .highlight::before {
+  background: #2c313c;
+  color: #e06c75;
+}
+
+.language-quint .c {
+  color: #5c6370;
+  font-style: italic;
+}
+
+/* 🧠 Keywords (val, var, module, def, if) */
+.language-quint .k {
+  color: #e06c75;
+  font-weight: bold;
+}
+
+/* 🔣 Types (int, bool, Set, List) */
+.language-quint .kt {
+  color: #d19a66;
+  font-weight: bold;
+}
+
+/* 🔡 Identifiers (variables, function names, etc.) */
+.language-quint .n,
+.language-quint .na,
+.language-quint .nf {
+  color: #61afef;
+}
+
+/* 🔢 Numbers */
+.language-quint .m {
+  color: #d19a66;
+  font-weight: bold;
+}
+
+/* 🔤 Strings */
+.language-quint .s {
+  color: #98c379;
+}
+
+/* 🔁 Operators (=, +, ->, etc.) */
+.language-quint .o {
+  color: #56b6c2;
+}
+
+/* 🔘 Boolean values */
+.language-quint .kc,
+.language-quint .no {
+  color: #56b6c2;
+  font-weight: bold;
+}
+
+.language-quint .mi { color: #d19a66; } /* Integer */
+.language-quint .py { color: #e5c07b; } /* Tuple accessor (_1, _2) */
+.language-quint .c1 { color: #5c6370; font-style: italic; } /* Line comments */
+.language-quint .nv { color: #61afef; } /* Variable names */
+.language-quint .nf { font-weight: bold; } /* Function names */
+.language-quint .nc { font-weight: bold; } /* Class/module names (e.g., DeadlockSimple) */
+
+.copy-btn {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.7rem;
+  font-size: 0.7rem;
+  background: #444;
+  color: white;
+  border: none;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.copy-btn:hover {
+  opacity: 1;
 }

@@ -1,5 +1,10 @@
 title: Just a Blog
 markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
 
 # for atom feed
 author:
