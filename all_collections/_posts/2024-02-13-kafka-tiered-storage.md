@@ -2,7 +2,7 @@
 layout: post
 title: "2 Scaling Horizons: Embracing Tiered Storage in Apache Kafka for Optimal Efficiency and Cost Savings"
 date: 2024-02-13
-categories: ["apache kafka", "tiered storage", "IT", "distributed system"]
+categories: ["apache kafka", "tiered storage", "distributed system"]
 ---
 
 Tiered storage ([KIP-405](https://cwiki.apache.org/confluence/display/KAFKA/KIP-405%3A+Kafka+Tiered+Storage)) in Apache Kafka 
