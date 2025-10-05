@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Apache Kafka: WHAT, WHY, and HOW"
+title: "18 📨 Apache Kafka: WHAT, WHY, and HOW"
 date: 2025-10-05
 categories: ["kafka", "distributed-systems"]
 ---
