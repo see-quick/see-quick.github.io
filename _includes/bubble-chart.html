@@ -174,11 +174,32 @@
         // Bubble Animation Section
         // ========================
         const relatedClusters = [
-            ['formal-verification', 'model-checking', 'safety', 'distributed-systems', 'specifications'],
-            ['grafana', 'monitoring', 'strimzi', 'metrics', 'performance', 'feature-gates', 'open feature'],
-            ['nvim', 'wezterm', 'starship'],
-            ['kubernetes', 'deployment', 'containers', 'docker', 'java', 'argo cd', 'tiered storage', 'version 21'],
-            ['ai', 'chat gpt', 'machine learning', 'puzzles']
+            // Formal Verification & Specifications cluster
+            ['formal-verification', 'model-checking', 'safety', 'liveness', 'temporal-logic', 'quint', 'specifications', 'testing', 'mbt'],
+
+            // Kafka & Distributed Systems cluster
+            ['kafka', 'apache kafka', 'distributed-systems', 'distributed system', 'replication', 'storage', 'tiered storage'],
+
+            // DevOps & Monitoring cluster
+            ['grafana', 'prometheus', 'monitoring', 'metrics', 'performance', 'strimzi', 'open feature', 'feature gates', 'integration'],
+
+            // Deployment & Infrastructure cluster
+            ['kubernetes', 'deployment', 'docker', 'containers', 'argo cd', 'continuous delivery', 'practical'],
+
+            // Developer Tools cluster
+            ['nvim', 'wezterm', 'sharship'],
+
+            // Programming Languages cluster
+            ['java', 'jdk-25', 'version 21', 'programming', 'programming language'],
+
+            // AI & Learning cluster
+            ['ai', 'chat gpt', 'machine learning', 'technology', 'learning', 'fundamentals', 'explained simple'],
+
+            // Problem Solving cluster
+            ['coding', 'problem solving', 'puzzles', 'dynamic programming'],
+
+            // System Performance cluster
+            ['linux', 'performance', 'metrics', 'monitoring']
         ];
 
         // Normalize categories for bubble generation.
@@ -478,7 +499,8 @@
             drawConnections(currentTheme);
 
             const restitution = 0.85;
-            const damping = 0.995;
+            // make it smooother :))
+            const damping = 0.99999999998;
 
             // Check for hover and mouse interaction
             for (let b of bubbles) {
