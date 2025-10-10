@@ -348,7 +348,7 @@
                 ctx.stroke();
 
                 // Animated particle along the connection
-                conn.progress += 0.01;
+                conn.progress += 0.005;
                 if (conn.progress > 1) conn.progress = 0;
 
                 const particleX = a.x + dx * conn.progress;
