@@ -29,46 +29,145 @@
             return [screenX, screenY];
         }
 
-        function drawSurface(t, m) {
-            ctx.strokeStyle = "rgba(200, 200, 200, 0.5)";
-            ctx.lineWidth = 1;
+        function drawSurface(t, m, theme) {
             let projectedPoints = [];
+            let zValues = [];
+            let minZ = Infinity;
+            let maxZ = -Infinity;
+
+            // First pass: calculate all points and find z-range
             for (let i = 0; i <= gridRows; i++) {
                 projectedPoints[i] = [];
+                zValues[i] = [];
                 for (let j = 0; j <= gridCols; j++) {
                     // Center grid around 0
                     let x = (j - gridCols / 2) * gridSpacing;
                     let y = (i - gridRows / 2) * gridSpacing;
-                    // Compute a dynamic z using a simple wave function
+                    // Compute a dynamic z using a more interesting wave function
                     let frequency = 0.3, amplitude = 2;
                     let z = amplitude * Math.sin(frequency * x + t * 0.001) * Math.cos(frequency * y + t * 0.001);
+                    zValues[i][j] = z;
+                    minZ = Math.min(minZ, z);
+                    maxZ = Math.max(maxZ, z);
+
                     let pt3d = vertexShader(x, y, z, m);
                     if (pt3d[2] < 1) {
                         projectedPoints[i][j] = null;
                     } else {
-                        projectedPoints[i][j] = projectPoint(pt3d);
+                        projectedPoints[i][j] = { screen: projectPoint(pt3d), depth: pt3d[2] };
                     }
                 }
             }
-            // Connect adjacent points to form the mesh
+
+            // Second pass: draw with depth-based styling
+            ctx.save();
+
             for (let i = 0; i <= gridRows; i++) {
                 for (let j = 0; j <= gridCols; j++) {
-                    let pt = projectedPoints[i][j];
-                    if (!pt) continue;
+                    let ptData = projectedPoints[i][j];
+                    if (!ptData) continue;
+
+                    let pt = ptData.screen;
+                    let depth = ptData.depth;
+
+                    // Normalize z-value for coloring (0 to 1)
+                    let zNorm = (zValues[i][j] - minZ) / (maxZ - minZ);
+
+                    // Depth-based opacity (closer = more opaque)
+                    let baseOpacity = Math.min(1, depth / 500);
+
+                    // Depth-based line width (closer = thicker)
+                    ctx.lineWidth = 0.5 + (baseOpacity * 1.5);
+
+                    // Draw horizontal lines
                     if (j < gridCols && projectedPoints[i][j+1]) {
+                        let nextPt = projectedPoints[i][j+1].screen;
+                        let nextDepth = projectedPoints[i][j+1].depth;
+                        let avgDepth = (depth + nextDepth) / 2;
+                        let opacity = Math.min(1, avgDepth / 500) * 0.4;
+
+                        // Create gradient based on height (z-value)
+                        if (theme === 'light') {
+                            // Cooler, more subtle colors for light mode
+                            let hue = 200 + (zNorm * 60); // Blue to cyan
+                            ctx.strokeStyle = `hsla(${hue}, 70%, 45%, ${opacity})`;
+                        } else {
+                            // Warmer, vibrant colors for dark mode
+                            let hue = 180 + (zNorm * 80); // Cyan to blue-purple
+                            ctx.strokeStyle = `hsla(${hue}, 80%, 65%, ${opacity})`;
+                        }
+
                         ctx.beginPath();
                         ctx.moveTo(pt[0], pt[1]);
-                        ctx.lineTo(projectedPoints[i][j+1][0], projectedPoints[i][j+1][1]);
+                        ctx.lineTo(nextPt[0], nextPt[1]);
                         ctx.stroke();
                     }
+
+                    // Draw vertical lines
                     if (i < gridRows && projectedPoints[i+1][j]) {
+                        let nextPt = projectedPoints[i+1][j].screen;
+                        let nextDepth = projectedPoints[i+1][j].depth;
+                        let avgDepth = (depth + nextDepth) / 2;
+                        let opacity = Math.min(1, avgDepth / 500) * 0.4;
+
+                        // Create gradient based on height (z-value)
+                        if (theme === 'light') {
+                            let hue = 200 + (zNorm * 60);
+                            ctx.strokeStyle = `hsla(${hue}, 70%, 45%, ${opacity})`;
+                        } else {
+                            let hue = 180 + (zNorm * 80);
+                            ctx.strokeStyle = `hsla(${hue}, 80%, 65%, ${opacity})`;
+                        }
+
                         ctx.beginPath();
                         ctx.moveTo(pt[0], pt[1]);
-                        ctx.lineTo(projectedPoints[i+1][j][0], projectedPoints[i+1][j][1]);
+                        ctx.lineTo(nextPt[0], nextPt[1]);
                         ctx.stroke();
                     }
                 }
             }
+
+            // Add highlight lines at peaks and valleys
+            ctx.lineWidth = 2;
+            for (let i = 1; i < gridRows; i++) {
+                for (let j = 1; j < gridCols; j++) {
+                    let z = zValues[i][j];
+                    let zNorm = (z - minZ) / (maxZ - minZ);
+
+                    // Detect peaks (high points) and valleys (low points)
+                    let isPeak = zNorm > 0.85;
+                    let isValley = zNorm < 0.15;
+
+                    if ((isPeak || isValley) && projectedPoints[i][j]) {
+                        let ptData = projectedPoints[i][j];
+                        let pt = ptData.screen;
+                        let depth = ptData.depth;
+                        let opacity = Math.min(1, depth / 500) * 0.6;
+
+                        if (isPeak) {
+                            // Bright highlights at peaks
+                            ctx.strokeStyle = theme === 'light'
+                                ? `hsla(260, 80%, 50%, ${opacity})`
+                                : `hsla(280, 90%, 70%, ${opacity})`;
+                        } else {
+                            // Darker accents at valleys
+                            ctx.strokeStyle = theme === 'light'
+                                ? `hsla(200, 70%, 40%, ${opacity})`
+                                : `hsla(190, 80%, 60%, ${opacity})`;
+                        }
+
+                        // Draw cross pattern at peaks/valleys
+                        if (j < gridCols && projectedPoints[i][j+1]) {
+                            ctx.beginPath();
+                            ctx.moveTo(pt[0], pt[1]);
+                            ctx.lineTo(projectedPoints[i][j+1].screen[0], projectedPoints[i][j+1].screen[1]);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            ctx.restore();
         }
 
         // ========================
@@ -98,14 +197,14 @@
 
         const colorPalettes = {
             light: [
-                '#d32f2f', '#388e3c', '#1976d2', '#fbc02d', '#7b1fa2',
-                '#0097a7', '#f57c00', '#c2185b', '#5d4037', '#303f9f'
+                '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8',
+                '#F7DC6F', '#BB8FCE', '#85C1E2', '#F8B195', '#C06C84'
             ],
             dark: [
-                'hsla(0, 100%, 75%, 0.5)', 'hsla(140, 100%, 75%, 0.5)', 'hsla(210, 100%, 75%, 0.5)',
-                'hsla(50, 100%, 75%, 0.5)', 'hsla(280, 100%, 75%, 0.5)',
-                'hsla(180, 100%, 75%, 0.5)', 'hsla(20, 100%, 75%, 0.5)', 'hsla(330, 100%, 75%, 0.5)',
-                'hsla(30, 100%, 75%, 0.5)', 'hsla(240, 100%, 75%, 0.5)'
+                'hsla(348, 100%, 70%, 0.7)', 'hsla(177, 70%, 70%, 0.7)', 'hsla(195, 66%, 70%, 0.7)',
+                'hsla(24, 100%, 70%, 0.7)', 'hsla(155, 60%, 70%, 0.7)',
+                'hsla(45, 90%, 70%, 0.7)', 'hsla(276, 56%, 70%, 0.7)', 'hsla(200, 65%, 70%, 0.7)',
+                'hsla(15, 90%, 75%, 0.7)', 'hsla(340, 50%, 70%, 0.7)'
             ]
         };
 
@@ -124,8 +223,8 @@
                     value: cat.value,
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 5,
-                    vy: (Math.random() - 0.5) * 5,
+                    vx: (Math.random() - 0.5) * 6,
+                    vy: (Math.random() - 0.5) * 6,
                     squishX: 1,
                     squishY: 1,
                     radius,
@@ -135,6 +234,8 @@
                         ? 'rgba(255, 255, 255, 0.3)'
                         : 'rgba(255, 255, 255, 0.5)',
                     fontColor: theme === 'light' ? '#111' : '#fff',
+                    hovered: false,
+                    hoverScale: 1,
                 };
             });
             const bubbleMap = {};
@@ -148,7 +249,7 @@
                         const a = bubbleMap[group[i].toLowerCase()];
                         const b = bubbleMap[group[j].toLowerCase()];
                         if (a && b) {
-                            connections.push({ a, b });
+                            connections.push({ a, b, progress: 0 });
                         }
                     }
                 }
@@ -158,63 +259,200 @@
 
         let currentTheme = getCurrentTheme();
         let { bubbles, connections } = generateBubbles(currentTheme);
+        let mouseX = -1000;
+        let mouseY = -1000;
+
+        // Mouse interaction
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+            mouseY = e.clientY - rect.top;
+
+            // Check if hovering over any bubble for cursor change
+            let isOverBubble = false;
+            for (let b of bubbles) {
+                const dx = mouseX - b.x;
+                const dy = mouseY - b.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < b.radius) {
+                    isOverBubble = true;
+                    break;
+                }
+            }
+            canvas.style.cursor = isOverBubble ? 'pointer' : 'default';
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            mouseX = -1000;
+            mouseY = -1000;
+            canvas.style.cursor = 'default';
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
 
         function drawConnections(theme) {
+            const t = Date.now();
             ctx.save();
-            ctx.lineWidth = 1;
-            ctx.setLineDash([10, 0]);
-            ctx.strokeStyle = theme === 'light'
-                ? `rgba(0, 0, 0, ${0.10 + 0.05 * Math.sin(Date.now() * 0.002)})`
-                : `rgba(255, 255, 255, ${0.10 + 0.05 * Math.sin(Date.now() * 0.002)})`;
-            connections.forEach(({ a, b }) => {
+            ctx.lineWidth = 2;
+
+            connections.forEach((conn) => {
+                const { a, b } = conn;
+                const dx = b.x - a.x;
+                const dy = b.y - a.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                // Animated opacity
+                const opacity = 0.15 + 0.1 * Math.sin(t * 0.001 + dist * 0.01);
+
+                // Gradient line
+                const gradient = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
+                gradient.addColorStop(0, theme === 'light'
+                    ? `rgba(0, 0, 0, ${opacity})`
+                    : `rgba(255, 255, 255, ${opacity})`);
+                gradient.addColorStop(0.5, theme === 'light'
+                    ? `rgba(100, 100, 255, ${opacity * 1.5})`
+                    : `rgba(150, 150, 255, ${opacity * 1.5})`);
+                gradient.addColorStop(1, theme === 'light'
+                    ? `rgba(0, 0, 0, ${opacity})`
+                    : `rgba(255, 255, 255, ${opacity})`);
+
+                ctx.strokeStyle = gradient;
                 ctx.beginPath();
                 ctx.moveTo(a.x, a.y);
                 ctx.lineTo(b.x, b.y);
                 ctx.stroke();
+
+                // Animated particle along the connection
+                conn.progress += 0.01;
+                if (conn.progress > 1) conn.progress = 0;
+
+                const particleX = a.x + dx * conn.progress;
+                const particleY = a.y + dy * conn.progress;
+
+                ctx.beginPath();
+                ctx.arc(particleX, particleY, 3, 0, 2 * Math.PI);
+                ctx.fillStyle = theme === 'light'
+                    ? `rgba(100, 100, 255, ${0.6})`
+                    : `rgba(200, 200, 255, ${0.8})`;
+                ctx.shadowColor = theme === 'light' ? 'rgba(100, 100, 255, 0.8)' : 'rgba(200, 200, 255, 1)';
+                ctx.shadowBlur = 8;
+                ctx.fill();
+                ctx.shadowBlur = 0;
             });
             ctx.restore();
         }
 
         function drawBubble(bubble) {
+            const effectiveRadius = bubble.radius * bubble.hoverScale;
+
+            // Outer glow/shadow
+            ctx.save();
+            ctx.shadowColor = bubble.color;
+            ctx.shadowBlur = bubble.hovered ? 25 : 15;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+
+            // Main bubble with glass morphism gradient
             const gradient = ctx.createRadialGradient(
-                bubble.x, bubble.y, bubble.radius * 0.9,
-                bubble.x, bubble.y, bubble.radius
+                bubble.x - effectiveRadius * 0.3,
+                bubble.y - effectiveRadius * 0.3,
+                0,
+                bubble.x,
+                bubble.y,
+                effectiveRadius
             );
-            gradient.addColorStop(0, 'rgba(255, 255, 255, 0.35)');
-            gradient.addColorStop(0.5, bubble.color);
-            gradient.addColorStop(1, 'rgba(255, 255, 255, 0.03)');
+            gradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+            gradient.addColorStop(0.3, bubble.color);
+            gradient.addColorStop(0.7, bubble.color);
+            gradient.addColorStop(1, 'rgba(0, 0, 0, 0.2)');
+
             ctx.beginPath();
             ctx.ellipse(
                 bubble.x,
                 bubble.y,
-                bubble.radius * bubble.squishX,
-                bubble.radius * bubble.squishY,
+                effectiveRadius * bubble.squishX,
+                effectiveRadius * bubble.squishY,
                 0,
                 0,
                 2 * Math.PI
             );
             ctx.fillStyle = gradient;
-            ctx.shadowColor = bubble.color;
-            ctx.shadowBlur = 4;
             ctx.fill();
-            ctx.shadowBlur = 0;
+            ctx.restore();
+
+            // Inner border/rim for depth
+            ctx.save();
+            ctx.globalAlpha = 0.4;
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.lineWidth = 2;
             ctx.beginPath();
-            ctx.arc(
-                bubble.x - bubble.radius * 0.4,
-                bubble.y - bubble.radius * 0.4,
-                bubble.radius * 0.08,
+            ctx.ellipse(
+                bubble.x,
+                bubble.y,
+                effectiveRadius * bubble.squishX * 0.95,
+                effectiveRadius * bubble.squishY * 0.95,
+                0,
                 0,
                 2 * Math.PI
             );
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-            ctx.shadowBlur = 4;
+            ctx.stroke();
+            ctx.restore();
+
+            // Primary highlight (top-left)
+            const highlightGradient = ctx.createRadialGradient(
+                bubble.x - effectiveRadius * 0.35,
+                bubble.y - effectiveRadius * 0.35,
+                0,
+                bubble.x - effectiveRadius * 0.35,
+                bubble.y - effectiveRadius * 0.35,
+                effectiveRadius * 0.4
+            );
+            highlightGradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
+            highlightGradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.4)');
+            highlightGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+            ctx.beginPath();
+            ctx.arc(
+                bubble.x - effectiveRadius * 0.35,
+                bubble.y - effectiveRadius * 0.35,
+                effectiveRadius * 0.3,
+                0,
+                2 * Math.PI
+            );
+            ctx.fillStyle = highlightGradient;
             ctx.fill();
-            ctx.shadowBlur = 0;
+
+            // Secondary smaller highlight
+            ctx.beginPath();
+            ctx.arc(
+                bubble.x - effectiveRadius * 0.5,
+                bubble.y - effectiveRadius * 0.25,
+                effectiveRadius * 0.1,
+                0,
+                2 * Math.PI
+            );
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.fill();
+
+            // Text with better styling
+            ctx.save();
             ctx.fillStyle = bubble.fontColor;
-            ctx.font = "bold 15px 'Comic Sans MS', cursive, sans-serif";
+            ctx.font = `bold ${Math.max(12, effectiveRadius * 0.25)}px 'JetBrains Mono', monospace`;
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
+
+            // Text shadow for better readability
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+            ctx.shadowBlur = 4;
+            ctx.shadowOffsetX = 1;
+            ctx.shadowOffsetY = 1;
+
             ctx.fillText(bubble.name.toUpperCase(), bubble.x, bubble.y);
+            ctx.restore();
         }
 
         function update() {
@@ -228,7 +466,7 @@
                 0, 1,  0, 0,
                 s, 0,  c, 4 + 5 * Math.sin(t / 1500)
             ];
-            drawSurface(t, mat);
+            drawSurface(t, mat, currentTheme);
 
             let newTheme = getCurrentTheme();
             if (newTheme !== currentTheme) {
@@ -238,34 +476,119 @@
                 connections = result.connections;
             }
             drawConnections(currentTheme);
-            const restitution = 0.99;
+
+            const restitution = 0.85;
+            const damping = 0.995;
+
+            // Check for hover and mouse interaction
             for (let b of bubbles) {
+                const dx = mouseX - b.x;
+                const dy = mouseY - b.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                // Mouse repulsion
+                if (dist < 150 && dist > 0) {
+                    const force = (150 - dist) / 150;
+                    b.vx -= (dx / dist) * force * 2;
+                    b.vy -= (dy / dist) * force * 2;
+                }
+
+                // Hover detection
+                b.hovered = dist < b.radius;
+
+                // Smooth hover scale transition
+                const targetScale = b.hovered ? 1.15 : 1;
+                b.hoverScale += (targetScale - b.hoverScale) * 0.1;
+            }
+
+            // Bubble-to-bubble collision with better physics
+            for (let i = 0; i < bubbles.length; i++) {
+                for (let j = i + 1; j < bubbles.length; j++) {
+                    const b1 = bubbles[i];
+                    const b2 = bubbles[j];
+                    const dx = b2.x - b1.x;
+                    const dy = b2.y - b1.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const minDist = b1.radius + b2.radius;
+
+                    if (dist < minDist && dist > 0) {
+                        // Normalize collision vector
+                        const nx = dx / dist;
+                        const ny = dy / dist;
+
+                        // Separate bubbles
+                        const overlap = minDist - dist;
+                        const separationX = nx * overlap * 0.5;
+                        const separationY = ny * overlap * 0.5;
+
+                        b1.x -= separationX;
+                        b1.y -= separationY;
+                        b2.x += separationX;
+                        b2.y += separationY;
+
+                        // Elastic collision response
+                        const relVelX = b2.vx - b1.vx;
+                        const relVelY = b2.vy - b1.vy;
+                        const velAlongNormal = relVelX * nx + relVelY * ny;
+
+                        if (velAlongNormal < 0) {
+                            const impulse = velAlongNormal * restitution;
+                            b1.vx += impulse * nx;
+                            b1.vy += impulse * ny;
+                            b2.vx -= impulse * nx;
+                            b2.vy -= impulse * ny;
+
+                            // Squish effect on collision
+                            const collisionForce = Math.abs(velAlongNormal) / 10;
+                            b1.squishX = Math.max(0.7, 1 - collisionForce);
+                            b1.squishY = Math.min(1.3, 1 + collisionForce);
+                            b2.squishX = Math.max(0.7, 1 - collisionForce);
+                            b2.squishY = Math.min(1.3, 1 + collisionForce);
+                        }
+                    }
+                }
+            }
+
+            // Update bubbles
+            for (let b of bubbles) {
+                // Apply damping
+                b.vx *= damping;
+                b.vy *= damping;
+
                 b.x += b.vx;
                 b.y += b.vy;
+
+                // Wall collisions
                 if (b.x < b.radius) {
                     b.x = b.radius;
                     b.vx = Math.abs(b.vx) * restitution;
-                    b.squishX = 0.7; b.squishY = 1.3;
+                    b.squishX = 0.75; b.squishY = 1.25;
                 } else if (b.x > canvas.width - b.radius) {
                     b.x = canvas.width - b.radius;
                     b.vx = -Math.abs(b.vx) * restitution;
-                    b.squishX = 0.7; b.squishY = 1.3;
+                    b.squishX = 0.75; b.squishY = 1.25;
                 }
                 if (b.y < b.radius) {
                     b.y = b.radius;
                     b.vy = Math.abs(b.vy) * restitution;
-                    b.squishX = 1.3; b.squishY = 0.7;
+                    b.squishX = 1.25; b.squishY = 0.75;
                 } else if (b.y > canvas.height - b.radius) {
                     b.y = canvas.height - b.radius;
                     b.vy = -Math.abs(b.vy) * restitution;
-                    b.squishX = 1.3; b.squishY = 0.7;
+                    b.squishX = 1.25; b.squishY = 0.75;
                 }
-                b.squishX += (1 - b.squishX) * 0.1;
-                b.squishY += (1 - b.squishY) * 0.1;
-                const pulse = Math.sin(Date.now() * 0.002 + b.value) * 1.2;
+
+                // Smooth squish recovery
+                b.squishX += (1 - b.squishX) * 0.15;
+                b.squishY += (1 - b.squishY) * 0.15;
+
+                // Gentle pulse animation
+                const pulse = Math.sin(t * 0.002 + b.value) * 2;
                 b.radius = b.baseRadius + pulse;
+
                 drawBubble(b);
             }
+
             requestAnimationFrame(update);
         }
 
