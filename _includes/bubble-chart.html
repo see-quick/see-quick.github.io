@@ -627,7 +627,7 @@
             // Update bubbles
             for (let b of bubbles) {
                 const currentSpeed = Math.sqrt(b.vx * b.vx + b.vy * b.vy);
-                const minSpeed = 2;
+                const minSpeed = 1.5;
 
                 // Apply damping only if speed is above minimum
                 if (currentSpeed > minSpeed) {
