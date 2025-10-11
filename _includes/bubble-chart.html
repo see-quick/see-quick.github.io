@@ -369,15 +369,16 @@
 
         function drawBubble(bubble) {
             const effectiveRadius = bubble.radius * bubble.hoverScale;
+            const theme = getCurrentTheme();
 
             // Outer glow/shadow
             ctx.save();
             ctx.shadowColor = bubble.color;
-            ctx.shadowBlur = bubble.hovered ? 25 : 15;
+            ctx.shadowBlur = bubble.hovered ? 30 : 20;
             ctx.shadowOffsetX = 0;
             ctx.shadowOffsetY = 0;
 
-            // Main bubble with glass morphism gradient
+            // Main bubble with enhanced glass morphism gradient
             const gradient = ctx.createRadialGradient(
                 bubble.x - effectiveRadius * 0.3,
                 bubble.y - effectiveRadius * 0.3,
@@ -386,10 +387,19 @@
                 bubble.y,
                 effectiveRadius
             );
-            gradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
-            gradient.addColorStop(0.3, bubble.color);
-            gradient.addColorStop(0.7, bubble.color);
-            gradient.addColorStop(1, 'rgba(0, 0, 0, 0.2)');
+
+            // Theme-aware gradient stops
+            if (theme === 'light') {
+                gradient.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+                gradient.addColorStop(0.2, bubble.color);
+                gradient.addColorStop(0.7, bubble.color);
+                gradient.addColorStop(1, 'rgba(255, 255, 255, 0.3)');
+            } else {
+                gradient.addColorStop(0, 'rgba(255, 255, 255, 0.3)');
+                gradient.addColorStop(0.2, bubble.color);
+                gradient.addColorStop(0.7, bubble.color);
+                gradient.addColorStop(1, 'rgba(0, 0, 0, 0.4)');
+            }
 
             ctx.beginPath();
             ctx.ellipse(
@@ -405,17 +415,19 @@
             ctx.fill();
             ctx.restore();
 
-            // Inner border/rim for depth
+            // Inner border/rim for depth with theme awareness
             ctx.save();
-            ctx.globalAlpha = 0.4;
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
-            ctx.lineWidth = 2;
+            ctx.globalAlpha = theme === 'light' ? 0.5 : 0.4;
+            ctx.strokeStyle = theme === 'light'
+                ? 'rgba(255, 255, 255, 0.8)'
+                : 'rgba(255, 255, 255, 0.6)';
+            ctx.lineWidth = theme === 'light' ? 2.5 : 2;
             ctx.beginPath();
             ctx.ellipse(
                 bubble.x,
                 bubble.y,
-                effectiveRadius * bubble.squishX * 0.95,
-                effectiveRadius * bubble.squishY * 0.95,
+                effectiveRadius * bubble.squishX * 0.93,
+                effectiveRadius * bubble.squishY * 0.93,
                 0,
                 0,
                 2 * Math.PI
@@ -423,40 +435,74 @@
             ctx.stroke();
             ctx.restore();
 
-            // Primary highlight (top-left)
+            // Enhanced primary highlight (top-left)
             const highlightGradient = ctx.createRadialGradient(
-                bubble.x - effectiveRadius * 0.35,
-                bubble.y - effectiveRadius * 0.35,
+                bubble.x - effectiveRadius * 0.4,
+                bubble.y - effectiveRadius * 0.4,
                 0,
-                bubble.x - effectiveRadius * 0.35,
-                bubble.y - effectiveRadius * 0.35,
-                effectiveRadius * 0.4
+                bubble.x - effectiveRadius * 0.4,
+                bubble.y - effectiveRadius * 0.4,
+                effectiveRadius * 0.5
             );
-            highlightGradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
-            highlightGradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.4)');
-            highlightGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+            if (theme === 'light') {
+                highlightGradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+                highlightGradient.addColorStop(0.4, 'rgba(255, 255, 255, 0.6)');
+                highlightGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            } else {
+                highlightGradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
+                highlightGradient.addColorStop(0.4, 'rgba(255, 255, 255, 0.4)');
+                highlightGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            }
 
             ctx.beginPath();
             ctx.arc(
                 bubble.x - effectiveRadius * 0.35,
                 bubble.y - effectiveRadius * 0.35,
-                effectiveRadius * 0.3,
+                effectiveRadius * 0.35,
                 0,
                 2 * Math.PI
             );
             ctx.fillStyle = highlightGradient;
             ctx.fill();
 
-            // Secondary smaller highlight
+            // Secondary smaller highlight with theme adjustment
             ctx.beginPath();
             ctx.arc(
                 bubble.x - effectiveRadius * 0.5,
                 bubble.y - effectiveRadius * 0.25,
-                effectiveRadius * 0.1,
+                effectiveRadius * 0.12,
                 0,
                 2 * Math.PI
             );
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.fillStyle = theme === 'light'
+                ? 'rgba(255, 255, 255, 0.85)'
+                : 'rgba(255, 255, 255, 0.6)';
+            ctx.fill();
+
+            // Subtle bottom shadow for more depth
+            const shadowGradient = ctx.createRadialGradient(
+                bubble.x + effectiveRadius * 0.2,
+                bubble.y + effectiveRadius * 0.3,
+                0,
+                bubble.x + effectiveRadius * 0.2,
+                bubble.y + effectiveRadius * 0.3,
+                effectiveRadius * 0.4
+            );
+            shadowGradient.addColorStop(0, theme === 'light'
+                ? 'rgba(0, 0, 0, 0.15)'
+                : 'rgba(0, 0, 0, 0.3)');
+            shadowGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+            ctx.beginPath();
+            ctx.arc(
+                bubble.x + effectiveRadius * 0.2,
+                bubble.y + effectiveRadius * 0.3,
+                effectiveRadius * 0.3,
+                0,
+                2 * Math.PI
+            );
+            ctx.fillStyle = shadowGradient;
             ctx.fill();
 
             // Text with better styling
@@ -466,11 +512,18 @@
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
 
-            // Text shadow for better readability
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-            ctx.shadowBlur = 4;
-            ctx.shadowOffsetX = 1;
-            ctx.shadowOffsetY = 1;
+            // Theme-aware text shadow for better readability
+            if (theme === 'light') {
+                ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
+                ctx.shadowBlur = 6;
+                ctx.shadowOffsetX = 0;
+                ctx.shadowOffsetY = 0;
+            } else {
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+                ctx.shadowBlur = 4;
+                ctx.shadowOffsetX = 1;
+                ctx.shadowOffsetY = 1;
+            }
 
             ctx.fillText(bubble.name.toUpperCase(), bubble.x, bubble.y);
             ctx.restore();
