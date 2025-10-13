@@ -2,7 +2,7 @@
 layout: post
 title: "18 📨 Apache Kafka: WHAT, WHY, and HOW"
 date: 2025-10-05
-categories: ["kafka", "distributed-systems"]
+categories: ["apache kafka", "distributed-systems"]
 ---
 
 Apache Kafka has become the de facto standard for event streaming in modern distributed systems. 
