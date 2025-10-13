@@ -8,11 +8,162 @@
         canvas.height = window.innerHeight;
 
         // ========================
-        // 3D Surface Background Variables
+        // Abstract Flowing Lines Background
         // ========================
-        const gridRows = 100;
-        const gridCols = 100;
-        const gridSpacing = 100; // spacing between grid points
+        const flowingLines = [];
+        const numFlowingLines = 40;
+
+        // Initialize flowing lines
+        for (let i = 0; i < numFlowingLines; i++) {
+            flowingLines.push({
+                yOffset: (i / numFlowingLines) * canvas.height,
+                speed: 0.0003 + Math.random() * 0.0002,
+                amplitude: 40 + Math.random() * 60,
+                frequency: 0.002 + Math.random() * 0.003,
+                phase: Math.random() * Math.PI * 2,
+                verticalDrift: (Math.random() - 0.5) * 0.02
+            });
+        }
+
+        function drawAbstractFlow(t, theme) {
+            // Breathing effect with left-to-right sweep animation
+            const breathCycle = (t * 0.00015) % 1; // 0 to 1 cycle (slower: ~110 seconds per cycle)
+            let breatheOpacity;
+
+            if (breathCycle < 0.15) {
+                // Hidden for 15% of the time
+                breatheOpacity = 0;
+            } else {
+                // Fade in and out smoothly in the remaining 85%
+                const activeCycle = (breathCycle - 0.15) / 0.85; // Normalize to 0-1
+                breatheOpacity = Math.sin(activeCycle * Math.PI); // Smooth fade in and out
+            }
+
+            // If fully transparent, skip drawing
+            if (breatheOpacity < 0.01) {
+                return;
+            }
+
+            // Left-to-right sweep progress (0 to 1) - slower sweep
+            const sweepProgress = (t * 0.0008) % 1; // Slower sweep (~83 seconds)
+            const sweepWidth = canvas.width * 0.4; // Width of the visible sweep area
+            const sweepCenter = sweepProgress * canvas.width;
+
+            ctx.save();
+
+            // Draw flowing organic lines
+            flowingLines.forEach((line, index) => {
+                ctx.save();
+
+                // Update vertical position with drift
+                line.yOffset += line.verticalDrift;
+                if (line.yOffset < -50) line.yOffset = canvas.height + 50;
+                if (line.yOffset > canvas.height + 50) line.yOffset = -50;
+
+                const points = [];
+                const numPoints = 200;
+
+                // Generate wavy line points
+                for (let i = 0; i <= numPoints; i++) {
+                    const progress = i / numPoints;
+                    const x = progress * canvas.width;
+
+                    // Multiple sine waves for organic movement
+                    const wave1 = Math.sin(progress * line.frequency * 10 + t * line.speed + line.phase);
+                    const wave2 = Math.sin(progress * line.frequency * 15 - t * line.speed * 0.7);
+                    const wave3 = Math.cos(progress * line.frequency * 8 + t * line.speed * 0.5);
+
+                    const y = line.yOffset +
+                             line.amplitude * wave1 * 0.5 +
+                             line.amplitude * wave2 * 0.3 +
+                             line.amplitude * wave3 * 0.2;
+
+                    points.push({ x, y });
+                }
+
+                // Draw the flowing line with sweep effect
+                ctx.beginPath();
+                ctx.moveTo(points[0].x, points[0].y);
+
+                for (let i = 1; i < points.length; i++) {
+                    const point = points[i];
+
+                    // Calculate opacity based on distance from sweep
+                    const distanceFromSweep = Math.abs(point.x - sweepCenter);
+                    let segmentOpacity = 0;
+
+                    if (distanceFromSweep < sweepWidth) {
+                        const fadeProgress = 1 - (distanceFromSweep / sweepWidth);
+                        segmentOpacity = fadeProgress * breatheOpacity;
+                    }
+
+                    if (segmentOpacity > 0.01) {
+                        // Create gradient stroke for each segment
+                        const gradient = ctx.createLinearGradient(
+                            points[i-1].x, points[i-1].y,
+                            point.x, point.y
+                        );
+
+                        // Color based on line index for variety
+                        const hueVariation = (index / numFlowingLines) * 40;
+
+                        if (theme === 'light') {
+                            const baseHue = 200 + hueVariation;
+                            gradient.addColorStop(0, `hsla(${baseHue}, 70%, 50%, ${segmentOpacity * 0.3})`);
+                            gradient.addColorStop(1, `hsla(${baseHue}, 70%, 50%, ${segmentOpacity * 0.5})`);
+                        } else {
+                            const baseHue = 180 + hueVariation;
+                            gradient.addColorStop(0, `hsla(${baseHue}, 85%, 60%, ${segmentOpacity * 0.25})`);
+                            gradient.addColorStop(1, `hsla(${baseHue}, 85%, 60%, ${segmentOpacity * 0.4})`);
+                        }
+
+                        ctx.strokeStyle = gradient;
+                        ctx.lineWidth = 1.5 + (index % 3) * 0.5;
+                        ctx.lineCap = 'round';
+
+                        ctx.beginPath();
+                        ctx.moveTo(points[i-1].x, points[i-1].y);
+                        ctx.lineTo(point.x, point.y);
+                        ctx.stroke();
+                    }
+                }
+
+                ctx.restore();
+            });
+
+            // Add some abstract particles following the sweep
+            const numParticles = 15;
+            for (let i = 0; i < numParticles; i++) {
+                const particleX = sweepCenter + (Math.random() - 0.5) * sweepWidth * 0.5;
+                const particleY = Math.random() * canvas.height;
+                const size = 2 + Math.random() * 3;
+
+                const distFromCenter = Math.abs(particleX - sweepCenter);
+                const particleOpacity = (1 - distFromCenter / (sweepWidth * 0.5)) * breatheOpacity * 0.6;
+
+                if (particleOpacity > 0.01) {
+                    ctx.beginPath();
+                    ctx.arc(particleX, particleY, size, 0, Math.PI * 2);
+
+                    if (theme === 'light') {
+                        ctx.fillStyle = `hsla(220, 80%, 60%, ${particleOpacity})`;
+                    } else {
+                        ctx.fillStyle = `hsla(190, 90%, 70%, ${particleOpacity})`;
+                    }
+
+                    ctx.fill();
+                }
+            }
+
+            ctx.restore();
+        }
+
+        // ========================
+        // 3D Rotating Surface Background
+        // ========================
+        const gridRows = 80;
+        const gridCols = 80;
+        const grid3DSpacing = 120; // spacing between 3D grid points
 
         function vertexShader(x, y, z, m) {
             let x0 = m[0] * x + m[1] * y + m[2] * z + m[3];
@@ -29,7 +180,7 @@
             return [screenX, screenY];
         }
 
-        function drawSurface(t, m, theme) {
+        function draw3DSurface(t, m, theme) {
             let projectedPoints = [];
             let zValues = [];
             let minZ = Infinity;
@@ -41,11 +192,11 @@
                 zValues[i] = [];
                 for (let j = 0; j <= gridCols; j++) {
                     // Center grid around 0
-                    let x = (j - gridCols / 2) * gridSpacing;
-                    let y = (i - gridRows / 2) * gridSpacing;
+                    let x = (j - gridCols / 2) * grid3DSpacing;
+                    let y = (i - gridRows / 2) * grid3DSpacing;
                     // Compute a dynamic z using a more interesting wave function
-                    let frequency = 0.3, amplitude = 2;
-                    let z = amplitude * Math.sin(frequency * x + t * 0.001) * Math.cos(frequency * y + t * 0.001);
+                    let frequency = 0.25, amplitude = 3;
+                    let z = amplitude * Math.sin(frequency * x + t * 0.0008) * Math.cos(frequency * y + t * 0.0008);
                     zValues[i][j] = z;
                     minZ = Math.min(minZ, z);
                     maxZ = Math.max(maxZ, z);
@@ -77,24 +228,24 @@
                     let baseOpacity = Math.min(1, depth / 500);
 
                     // Depth-based line width (closer = thicker)
-                    ctx.lineWidth = 0.5 + (baseOpacity * 1.5);
+                    ctx.lineWidth = 0.4 + (baseOpacity * 1.2);
 
                     // Draw horizontal lines
                     if (j < gridCols && projectedPoints[i][j+1]) {
                         let nextPt = projectedPoints[i][j+1].screen;
                         let nextDepth = projectedPoints[i][j+1].depth;
                         let avgDepth = (depth + nextDepth) / 2;
-                        let opacity = Math.min(1, avgDepth / 500) * 0.4;
+                        let opacity = Math.min(1, avgDepth / 500) * 0.3;
 
                         // Create gradient based on height (z-value)
                         if (theme === 'light') {
                             // Cooler, more subtle colors for light mode
                             let hue = 200 + (zNorm * 60); // Blue to cyan
-                            ctx.strokeStyle = `hsla(${hue}, 70%, 45%, ${opacity})`;
+                            ctx.strokeStyle = `hsla(${hue}, 75%, 50%, ${opacity})`;
                         } else {
                             // Warmer, vibrant colors for dark mode
-                            let hue = 180 + (zNorm * 80); // Cyan to blue-purple
-                            ctx.strokeStyle = `hsla(${hue}, 80%, 65%, ${opacity})`;
+                            let hue = 170 + (zNorm * 90); // Cyan to purple
+                            ctx.strokeStyle = `hsla(${hue}, 85%, 65%, ${opacity})`;
                         }
 
                         ctx.beginPath();
@@ -108,15 +259,15 @@
                         let nextPt = projectedPoints[i+1][j].screen;
                         let nextDepth = projectedPoints[i+1][j].depth;
                         let avgDepth = (depth + nextDepth) / 2;
-                        let opacity = Math.min(1, avgDepth / 500) * 0.4;
+                        let opacity = Math.min(1, avgDepth / 500) * 0.3;
 
                         // Create gradient based on height (z-value)
                         if (theme === 'light') {
                             let hue = 200 + (zNorm * 60);
-                            ctx.strokeStyle = `hsla(${hue}, 70%, 45%, ${opacity})`;
+                            ctx.strokeStyle = `hsla(${hue}, 75%, 50%, ${opacity})`;
                         } else {
-                            let hue = 180 + (zNorm * 80);
-                            ctx.strokeStyle = `hsla(${hue}, 80%, 65%, ${opacity})`;
+                            let hue = 170 + (zNorm * 90);
+                            ctx.strokeStyle = `hsla(${hue}, 85%, 65%, ${opacity})`;
                         }
 
                         ctx.beginPath();
@@ -128,32 +279,32 @@
             }
 
             // Add highlight lines at peaks and valleys
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 1.5;
             for (let i = 1; i < gridRows; i++) {
                 for (let j = 1; j < gridCols; j++) {
                     let z = zValues[i][j];
                     let zNorm = (z - minZ) / (maxZ - minZ);
 
                     // Detect peaks (high points) and valleys (low points)
-                    let isPeak = zNorm > 0.85;
-                    let isValley = zNorm < 0.15;
+                    let isPeak = zNorm > 0.88;
+                    let isValley = zNorm < 0.12;
 
                     if ((isPeak || isValley) && projectedPoints[i][j]) {
                         let ptData = projectedPoints[i][j];
                         let pt = ptData.screen;
                         let depth = ptData.depth;
-                        let opacity = Math.min(1, depth / 500) * 0.6;
+                        let opacity = Math.min(1, depth / 500) * 0.5;
 
                         if (isPeak) {
                             // Bright highlights at peaks
                             ctx.strokeStyle = theme === 'light'
-                                ? `hsla(260, 80%, 50%, ${opacity})`
-                                : `hsla(280, 90%, 70%, ${opacity})`;
+                                ? `hsla(270, 85%, 55%, ${opacity})`
+                                : `hsla(280, 95%, 70%, ${opacity})`;
                         } else {
                             // Darker accents at valleys
                             ctx.strokeStyle = theme === 'light'
-                                ? `hsla(200, 70%, 40%, ${opacity})`
-                                : `hsla(190, 80%, 60%, ${opacity})`;
+                                ? `hsla(190, 75%, 45%, ${opacity})`
+                                : `hsla(180, 85%, 60%, ${opacity})`;
                         }
 
                         // Draw cross pattern at peaks/valleys
@@ -532,6 +683,8 @@
         function update() {
             const t = Date.now();
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw the 3D rotating surface grid
             let ang = t / 1500;
             let s = Math.sin(ang);
             let c = Math.cos(ang);
@@ -540,7 +693,10 @@
                 0, 1,  0, 0,
                 s, 0,  c, 4 + 5 * Math.sin(t / 1500)
             ];
-            drawSurface(t, mat, currentTheme);
+            draw3DSurface(t, mat, currentTheme);
+
+            // Draw the abstract flowing lines on top
+            drawAbstractFlow(t, currentTheme);
 
             let newTheme = getCurrentTheme();
             if (newTheme !== currentTheme) {
