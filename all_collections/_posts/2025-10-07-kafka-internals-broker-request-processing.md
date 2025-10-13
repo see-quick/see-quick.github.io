@@ -2,7 +2,7 @@
 layout: post
 title: "19 📨 Kafka Internals #1: Broker Request Processing Flow"
 date: 2025-10-07
-categories: ["apache kafka", "distributed-systems"]
+categories: ["apache-kafka", "distributed-systems"]
 ---
 
 This is the first post in a series exploring Apache Kafka's internal architecture. 

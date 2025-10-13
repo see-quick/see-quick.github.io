@@ -2,7 +2,7 @@
 layout: post
 title: "21 🔄 Kafka Internals #3: Replication Protocol & In-Sync Replicas Management"
 date: 2025-10-13
-categories: ["apache kafka", "distributed-systems", "replication"]
+categories: ["apache-kafka", "distributed-systems", "replication"]
 ---
 
 In previous posts, we explored [broker request processing](/2025/10/07/kafka-broker-request-processing) and [storage layer architecture](/2025/10/10/kafka-internals-storage-layer-and-log-segments). 
