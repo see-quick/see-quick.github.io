@@ -11,7 +11,7 @@
         // Abstract Flowing Lines Background
         // ========================
         const flowingLines = [];
-        const numFlowingLines = 40;
+        const numFlowingLines = 20;
 
         // Initialize flowing lines
         for (let i = 0; i < numFlowingLines; i++) {
@@ -61,78 +61,83 @@
                 if (line.yOffset > canvas.height + 50) line.yOffset = -50;
 
                 const points = [];
-                const numPoints = 200;
+                const numPoints = 80;
 
                 // Generate wavy line points
                 for (let i = 0; i <= numPoints; i++) {
                     const progress = i / numPoints;
                     const x = progress * canvas.width;
 
-                    // Multiple sine waves for organic movement
+                    // Simplified to 2 waves instead of 3 for better performance
                     const wave1 = Math.sin(progress * line.frequency * 10 + t * line.speed + line.phase);
                     const wave2 = Math.sin(progress * line.frequency * 15 - t * line.speed * 0.7);
-                    const wave3 = Math.cos(progress * line.frequency * 8 + t * line.speed * 0.5);
 
                     const y = line.yOffset +
-                             line.amplitude * wave1 * 0.5 +
-                             line.amplitude * wave2 * 0.3 +
-                             line.amplitude * wave3 * 0.2;
+                             line.amplitude * wave1 * 0.6 +
+                             line.amplitude * wave2 * 0.4;
 
                     points.push({ x, y });
                 }
 
-                // Draw the flowing line with sweep effect
+                // Draw the flowing line with sweep effect - optimized single gradient per line
+                const hueVariation = (index / numFlowingLines) * 40;
+                const baseHue = theme === 'light' ? 200 + hueVariation : 180 + hueVariation;
+
+                // Set line style once per line instead of per segment
+                ctx.lineWidth = 1.5 + (index % 3) * 0.5;
+                ctx.lineCap = 'round';
+
+                // Draw line in segments only where visible in sweep
                 ctx.beginPath();
-                ctx.moveTo(points[0].x, points[0].y);
+                let pathStarted = false;
 
-                for (let i = 1; i < points.length; i++) {
+                for (let i = 0; i < points.length; i++) {
                     const point = points[i];
-
-                    // Calculate opacity based on distance from sweep
                     const distanceFromSweep = Math.abs(point.x - sweepCenter);
-                    let segmentOpacity = 0;
 
                     if (distanceFromSweep < sweepWidth) {
                         const fadeProgress = 1 - (distanceFromSweep / sweepWidth);
-                        segmentOpacity = fadeProgress * breatheOpacity;
-                    }
+                        const segmentOpacity = fadeProgress * breatheOpacity;
 
-                    if (segmentOpacity > 0.01) {
-                        // Create gradient stroke for each segment
-                        const gradient = ctx.createLinearGradient(
-                            points[i-1].x, points[i-1].y,
-                            point.x, point.y
-                        );
-
-                        // Color based on line index for variety
-                        const hueVariation = (index / numFlowingLines) * 40;
-
-                        if (theme === 'light') {
-                            const baseHue = 200 + hueVariation;
-                            gradient.addColorStop(0, `hsla(${baseHue}, 70%, 50%, ${segmentOpacity * 0.3})`);
-                            gradient.addColorStop(1, `hsla(${baseHue}, 70%, 50%, ${segmentOpacity * 0.5})`);
+                        if (segmentOpacity > 0.01) {
+                            if (!pathStarted) {
+                                ctx.moveTo(point.x, point.y);
+                                pathStarted = true;
+                            } else {
+                                ctx.lineTo(point.x, point.y);
+                            }
                         } else {
-                            const baseHue = 180 + hueVariation;
-                            gradient.addColorStop(0, `hsla(${baseHue}, 85%, 60%, ${segmentOpacity * 0.25})`);
-                            gradient.addColorStop(1, `hsla(${baseHue}, 85%, 60%, ${segmentOpacity * 0.4})`);
+                            pathStarted = false;
                         }
-
-                        ctx.strokeStyle = gradient;
-                        ctx.lineWidth = 1.5 + (index % 3) * 0.5;
-                        ctx.lineCap = 'round';
-
-                        ctx.beginPath();
-                        ctx.moveTo(points[i-1].x, points[i-1].y);
-                        ctx.lineTo(point.x, point.y);
-                        ctx.stroke();
+                    } else {
+                        pathStarted = false;
                     }
                 }
+
+                // Apply single gradient and stroke once for entire visible portion
+                const gradient = ctx.createLinearGradient(
+                    sweepCenter - sweepWidth, line.yOffset,
+                    sweepCenter + sweepWidth, line.yOffset
+                );
+
+                if (theme === 'light') {
+                    gradient.addColorStop(0, `hsla(${baseHue}, 70%, 50%, 0)`);
+                    gradient.addColorStop(0.5, `hsla(${baseHue}, 70%, 50%, ${breatheOpacity * 0.4})`);
+                    gradient.addColorStop(1, `hsla(${baseHue}, 70%, 50%, 0)`);
+                } else {
+                    gradient.addColorStop(0, `hsla(${baseHue}, 85%, 60%, 0)`);
+                    gradient.addColorStop(0.5, `hsla(${baseHue}, 85%, 60%, ${breatheOpacity * 0.35})`);
+                    gradient.addColorStop(1, `hsla(${baseHue}, 85%, 60%, 0)`);
+                }
+
+                ctx.strokeStyle = gradient;
+                ctx.stroke();
 
                 ctx.restore();
             });
 
-            // Add some abstract particles following the sweep
-            const numParticles = 15;
+            // Add some abstract particles following the sweep - reduced count
+            const numParticles = 8; // Reduced from 15
             for (let i = 0; i < numParticles; i++) {
                 const particleX = sweepCenter + (Math.random() - 0.5) * sweepWidth * 0.5;
                 const particleY = Math.random() * canvas.height;
