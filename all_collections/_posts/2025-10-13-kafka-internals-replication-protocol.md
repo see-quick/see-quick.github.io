@@ -5,7 +5,7 @@ date: 2025-10-13
 categories: ["apache-kafka", "distributed-systems", "replication"]
 ---
 
-In previous posts, we explored [broker request processing](/2025/10/07/kafka-broker-request-processing) and [storage layer architecture](/2025/10/10/kafka-internals-storage-layer-and-log-segments). 
+In previous posts, we explored [broker request processing](/posts/kafka-internals-broker-request-processing) and [storage layer architecture](/posts/kafka-internals-storage-layer-and-log-segments). 
 Today, we dive into Kafka's replication protocol (i.e., the mechanism that ensures data durability and availability across a distributed cluster).
 
 ## Overview

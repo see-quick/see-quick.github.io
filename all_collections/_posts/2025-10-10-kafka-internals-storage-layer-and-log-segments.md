@@ -5,7 +5,7 @@ date: 2025-10-10
 categories: ["apache-kafka", "distributed-systems", "storage"]
 ---
 
-In the [previous post](/2025/10/07/kafka-broker-request-processing), we explored how Kafka's broker processes requests using the reactor pattern. Today, we dive into how Kafka efficiently stores and retrieves billions of messages using a sophisticated storage architecture built on log segments, memory-mapped files, and clever indexing.
+In the [previous post](/posts/kafka-internals-broker-request-processing), we explored how Kafka's broker processes requests using the reactor pattern. Today, we dive into how Kafka efficiently stores and retrieves billions of messages using a sophisticated storage architecture built on log segments, memory-mapped files, and clever indexing.
 
 ## Overview
 
