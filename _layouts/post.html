@@ -1,13 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
   {% include head.html %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{ page.title | escape }}",
+    "datePublished": "{{ page.date | date_to_xmlschema }}",
+    "dateModified": "{{ page.date | date_to_xmlschema }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ site.author.name }}",
+      "url": "{{ site.url }}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{ site.title }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ site.url }}/assets/icons/github.svg"
+      }
+    },
+    "description": "{{ page.description | default: page.excerpt | strip_html | strip_newlines | truncate: 160 | escape }}",
+    {% if page.image %}
+    "image": "{{ site.url }}{{ page.image }}",
+    {% endif %}
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{ site.url }}{{ page.url }}"
+    },
+    "keywords": "{{ page.categories | join: ', ' }}"
+  }
+  </script>
   <body>
     <main>
       {% include header.html %}
       <section class="article">
         <div class="article-header">
           <h2 class="article-title">{{page.title}}</h2>
-          <small class="date">{{page.date | date_to_string}}</small>
+          <small class="date">{{page.date | date_to_string}}
+            {% assign words = content | number_of_words %}
+            {% assign reading_time = words | divided_by: 200 %}
+            <span style="margin-left: 1rem; opacity: 0.7;">• {{ reading_time }} min read</span>
+          </small>
           <div class="categories">
             {% for c in page.categories %}
             <a href="#!" class="category">{{c}}</a>

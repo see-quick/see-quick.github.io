@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://see-quick.github.io/sitemap.xml

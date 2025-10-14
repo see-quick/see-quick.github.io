@@ -2,6 +2,12 @@ title: Just a Blog
 markdown: kramdown
 highlighter: rouge
 
+# SEO & Site Configuration
+url: "https://see-quick.github.io"
+baseurl: ""
+description: "Technical blog about formal verification, Kubernetes, DevOps, Apache Kafka, and distributed systems. Practical guides and deep dives into software engineering."
+lang: en_US
+
 kramdown:
   input: GFM
   syntax_highlighter: rouge
@@ -10,6 +16,16 @@ kramdown:
 author:
   name: Maros Orsak
   email: maros.orsak159@gmail.com
+
+# Social profiles for SEO
+twitter:
+  username: see_quick
+  card: summary_large_image
+
+social:
+  name: Maros Orsak
+  links:
+    - https://github.com/see-quick
 
 plugins:
   - jemoji
