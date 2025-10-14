@@ -713,8 +713,8 @@
             drawConnections(currentTheme);
 
             const restitution = 0.85;
-            // make it smooother :))
-            const damping = 0.99999999998;
+            // fixed speed for all bubbles :))
+            const constantSpeed = 1;
 
             // Check for hover and mouse interaction
             for (let b of bubbles) {
@@ -787,24 +787,10 @@
 
             // Update bubbles
             for (let b of bubbles) {
+                // Normalize velocity to constant speed
                 const currentSpeed = Math.sqrt(b.vx * b.vx + b.vy * b.vy);
-                const minSpeed = 0.6;
-
-                // Apply damping only if speed is above minimum
-                if (currentSpeed > minSpeed) {
-                    b.vx *= damping;
-                    b.vy *= damping;
-
-                    // Ensure speed doesn't drop below minimum
-                    const newSpeed = Math.sqrt(b.vx * b.vx + b.vy * b.vy);
-                    if (newSpeed < minSpeed) {
-                        const scale = minSpeed / newSpeed;
-                        b.vx *= scale;
-                        b.vy *= scale;
-                    }
-                } else {
-                    // Maintain minimum speed
-                    const scale = minSpeed / Math.max(currentSpeed, 0.01);
+                if (currentSpeed > 0.01) {
+                    const scale = constantSpeed / currentSpeed;
                     b.vx *= scale;
                     b.vy *= scale;
                 }
