@@ -37,16 +37,15 @@ cd kafka_2.13-4.1.0
 
 ### Step 1: Generate Cluster ID
 
+```bash
 # Mac
-
 # because now, every script would be in your PATH env, you can easily use it via terminal;
 # now I would use this variant through whole blog so either you do it this way or just via bin/*.sh scripts 
-```bash
+
 KAFKA_CLUSTER_ID="$(kafka-storage random-uuid)"
 echo "Cluster ID: $KAFKA_CLUSTER_ID"
-```
 
-```bash
+# Linux 
 KAFKA_CLUSTER_ID="$(bin/kafka-storage random-uuid)"
 echo "Cluster ID: $KAFKA_CLUSTER_ID"
 ```
@@ -56,7 +55,7 @@ echo "Cluster ID: $KAFKA_CLUSTER_ID"
 Create three server properties files:
 
 **config/kraft/server-1.properties:**
-```properties
+```bash
 # Node ID
 node.id=1
 process.roles=broker,controller
@@ -90,7 +89,7 @@ log.cleanup.policy=delete
 ```
 
 **config/kraft/server-2.properties:**
-```properties
+```bash
 node.id=2
 process.roles=broker,controller
 controller.quorum.voters=1@localhost:9093,2@localhost:9094,3@localhost:9095
@@ -121,7 +120,7 @@ log.cleanup.policy=delete
 ```
 
 **config/kraft/server-3.properties:**
-```properties
+```bash
 node.id=3
 process.roles=broker,controller
 controller.quorum.voters=1@localhost:9093,2@localhost:9094,3@localhost:9095
