@@ -32,26 +32,26 @@
   color: #e5c07b;
 }
 
-/* 💬 Comments */
+/* Comments */
 .language-java .c,
 .language-java .c1 {
   color: #5c6370;
   font-style: italic;
 }
 
-/* 🧠 Keywords (class, public, void, etc.) */
+/* Keywords (class, public, void, etc.) */
 .language-java .k {
   color: #e06c75;
   font-weight: bold;
 }
 
-/* 🏷️ Types (int, boolean, String, etc.) */
+/* Types (int, boolean, String, etc.) */
 .language-java .kt {
   color: #d19a66;
   font-weight: bold;
 }
 
-/* 🆔 Names (variables, identifiers, method names) */
+/* Names (variables, identifiers, method names) */
 .language-java .n,
 .language-java .na,
 .language-java .nv,
@@ -59,31 +59,122 @@
   color: #61afef;
 }
 
-/* 🔢 Numbers */
+/* Numbers */
 .language-java .m,
 .language-java .mi {
   color: #d19a66;
   font-weight: bold;
 }
 
-/* 🔤 Strings */
+/* Strings */
 .language-java .s {
   color: #98c379;
 }
 
-/* ⛓ Operators (=, +, etc.) */
+/* Operators (=, +, etc.) */
 .language-java .o {
   color: #56b6c2;
 }
 
-/* 🏛 Class Names */
+/* Class Names */
 .language-java .nc {
   color: #61afef;
   font-weight: bold;
 }
 
-/* ⛔ Error tokens (if any) */
+/* Error tokens (if any) */
 .language-java .err {
+  background-color: #3c3836;
+  color: #ff6c6b;
+}
+
+/* ##################################################### */
+/* ################## SCALA SPECIFIC ################### */
+/* ##################################################### */
+/* Scala label */
+.language-scala > .highlight::before {
+  content: "SCALA";
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem 0.3rem 0 0;
+  position: relative;
+  top: -1rem;
+  left: 1rem;
+  display: inline-block;
+  margin-bottom: -1rem;
+  background: var(--gray-2);
+  color: var(--gray-6);
+}
+
+[data-theme="dark"] .language-scala > .highlight::before {
+  background: #2c313c;
+  color: #c678dd;
+}
+
+/* Comments */
+.language-scala .c,
+.language-scala .c1,
+.language-scala .cm {
+  color: #5c6370;
+  font-style: italic;
+}
+
+/* Keywords (class, def, val, var, etc.) */
+.language-scala .k,
+.language-scala .kd {
+  color: #e06c75;
+  font-weight: bold;
+}
+
+/* Types (Int, Boolean, String, etc.) */
+.language-scala .kt,
+.language-scala .nc {
+  color: #d19a66;
+  font-weight: bold;
+}
+
+/* Names (variables, identifiers, method names) */
+.language-scala .n,
+.language-scala .na,
+.language-scala .nv,
+.language-scala .nf {
+  color: #61afef;
+}
+
+/* Numbers */
+.language-scala .m,
+.language-scala .mi,
+.language-scala .mf {
+  color: #d19a66;
+  font-weight: bold;
+}
+
+/* Strings */
+.language-scala .s,
+.language-scala .s1,
+.language-scala .s2 {
+  color: #98c379;
+}
+
+/* Operators (=>, =, +, etc.) */
+.language-scala .o {
+  color: #56b6c2;
+}
+
+/* Class Names */
+.language-scala .nc {
+  color: #e5c07b;
+  font-weight: bold;
+}
+
+/* Boolean values and constants */
+.language-scala .kc {
+  color: #56b6c2;
+  font-weight: bold;
+}
+
+/* Error tokens (if any) */
+.language-scala .err {
   background-color: #3c3836;
   color: #ff6c6b;
 }
