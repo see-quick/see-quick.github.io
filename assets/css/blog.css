@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,300;0,400;0,800;1,100;1,300;1,400;1,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
 * {
   font-family: inherit;
@@ -22,6 +25,39 @@ body {
   color: var(--text-primary);
   line-height: 1.7;
   transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Font Switching */
+[data-font="jetbrains"] html,
+[data-font="jetbrains"] body {
+  font-family: "JetBrains Mono", monospace;
+}
+
+[data-font="ibm"] html,
+[data-font="ibm"] body {
+  font-family: "IBM Plex Mono", monospace;
+}
+
+[data-font="space"] html,
+[data-font="space"] body {
+  font-family: "Space Mono", monospace;
+}
+
+[data-font="retro"] html,
+[data-font="retro"] body {
+  font-family: "Press Start 2P", monospace;
+  line-height: 1.9; /* More space for pixel font */
+}
+
+[data-font="retro"] .site-title {
+  font-size: 2.5rem; /* Smaller for retro font */
+  line-height: 1.4;
+}
+
+[data-font="retro"] .article .article-title,
+[data-font="retro"] .article .article-title a {
+  font-size: 1.1rem; /* Smaller for readability */
+  line-height: 1.6;
 }
 
 /* Header */
