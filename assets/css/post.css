@@ -66,6 +66,22 @@ body {
   font-size: 1.1rem;
 }
 
+[data-font="retro"] .content pre {
+  font-family: "JetBrains Mono", monospace !important; /* Keep readable font for code */
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+[data-font="retro"] .content code {
+  font-family: "JetBrains Mono", monospace !important; /* Keep readable font for code */
+  font-size: 0.85rem;
+}
+
+[data-font="retro"] .copy-btn {
+  font-family: "Press Start 2P", monospace; /* Keep retro for button */
+  font-size: 0.6rem;
+}
+
 /* Layout */
 main {
   margin: 0 auto;
@@ -331,7 +347,7 @@ header {
 /* Code blocks */
 .content pre,
 .content code {
-  font-family: "JetBrains Mono", monospace;
+  font-family: inherit;
 }
 
 .content pre {
@@ -371,7 +387,7 @@ header {
   cursor: pointer;
   opacity: 0.7;
   transition: all 0.15s ease;
-  font-family: "JetBrains Mono", monospace;
+  font-family: inherit;
   font-weight: 600;
 }
 
