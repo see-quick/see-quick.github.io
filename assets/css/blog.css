@@ -43,15 +43,10 @@ body {
   font-family: "Space Mono", monospace;
 }
 
+
 [data-font="retro"] html,
 [data-font="retro"] body {
   font-family: "Press Start 2P", monospace;
-  line-height: 1.9; /* More space for pixel font */
-}
-
-[data-font="retro"] .site-title {
-  font-size: 2.5rem; /* Smaller for retro font */
-  line-height: 1.4;
 }
 
 [data-font="retro"] .article .article-title,

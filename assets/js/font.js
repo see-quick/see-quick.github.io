@@ -1,7 +1,7 @@
 const fontToggle = document.querySelector("#font-toggle");
 
 // Font options to cycle through
-const fonts = ["jetbrains", "ibm", "space", "retro"];
+const fonts = ["retro", "jetbrains", "ibm", "space"];
 const fontNames = {
   jetbrains: "JetBrains Mono",
   ibm: "IBM Plex Mono",

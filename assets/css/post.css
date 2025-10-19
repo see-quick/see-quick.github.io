@@ -46,40 +46,16 @@ body {
 [data-font="retro"] html,
 [data-font="retro"] body {
   font-family: "Press Start 2P", monospace;
-  line-height: 2; /* More space for pixel font */
 }
 
-[data-font="retro"] .article-title {
-  font-size: 2rem; /* Smaller for retro font */
-  line-height: 1.5;
-}
-
-[data-font="retro"] .content h1 {
-  font-size: 1.5rem;
-}
-
-[data-font="retro"] .content h2 {
-  font-size: 1.3rem;
-}
-
-[data-font="retro"] .content h3 {
-  font-size: 1.1rem;
-}
 
 [data-font="retro"] .content pre {
   font-family: "JetBrains Mono", monospace !important; /* Keep readable font for code */
-  font-size: 0.85rem;
   line-height: 1.6;
-}
-
-[data-font="retro"] .content code {
-  font-family: "JetBrains Mono", monospace !important; /* Keep readable font for code */
-  font-size: 0.85rem;
 }
 
 [data-font="retro"] .copy-btn {
   font-family: "Press Start 2P", monospace; /* Keep retro for button */
-  font-size: 0.6rem;
 }
 
 /* Layout */
