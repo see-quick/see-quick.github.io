@@ -17,9 +17,6 @@ function switchFont() {
 
   document.documentElement.setAttribute("data-font", nextFont);
   localStorage.setItem("font", nextFont);
-
-  // Optional: Show a brief notification of which font is active
-  console.log(`Font switched to: ${fontNames[nextFont]}`);
 }
 
 fontToggle.addEventListener("click", switchFont, false);
