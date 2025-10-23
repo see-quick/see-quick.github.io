@@ -460,6 +460,7 @@ The solutions to such problem could be:
 - if we already have 1:1 ratio of consumers and partitions then viable option is to increase partitions => then we can increase number of consumers
 3. **Optimize processing**
 - lastly optimize processing by adding async I/O calls f.e.
+
 ```java
 // Use async I/O for downstream calls
 CompletableFuture.supplyAsync(() -> httpClient.send(...))
