@@ -2,7 +2,7 @@
 layout: post
 title: "23 🤝 Kafka Internals #4: Consumer Groups & Coordination Protocol"
 date: 2025-10-19
-categories: ["apache-kafka", "distributed-systems", "coordination"]
+categories: ["apache-kafka", "distributed-systems", "coordination", "consumer-groups"]
 ---
 
 In previous posts, we explored [broker request processing](/posts/kafka-internals-broker-request-processing), [storage layer architecture](/posts/kafka-internals-storage-layer-and-log-segments), and the [replication protocol](/posts/kafka-internals-replication-protocol). 
