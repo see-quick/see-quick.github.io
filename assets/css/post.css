@@ -46,16 +46,40 @@ body {
 [data-font="retro"] html,
 [data-font="retro"] body {
   font-family: "Press Start 2P", monospace;
+  font-size: 0.65rem;   /* Smaller base font size for retro */
+  line-height: 2;       /* Increased line height for better readability */
 }
 
+[data-font="retro"] .content {
+  font-size: 0.7rem;
+  line-height: 2;
+}
+
+[data-font="retro"] .content * {
+  line-height: 2;
+}
+
+[data-font="retro"] .article-title {
+  font-size: 2rem !important; /* Smaller retro post title */
+}
 
 [data-font="retro"] .content pre {
   font-family: "JetBrains Mono", monospace !important; /* Keep readable font for code */
   line-height: 1.6;
+  font-size: 0.7rem;
 }
 
 [data-font="retro"] .copy-btn {
   font-family: "Press Start 2P", monospace; /* Keep retro for button */
+  font-size: 0.55rem;
+}
+
+[data-font="retro"] .article .date {
+  font-size: 0.6rem;
+}
+
+[data-font="retro"] .category {
+  font-size: 0.6rem;
 }
 
 /* Layout */
