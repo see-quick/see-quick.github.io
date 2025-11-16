@@ -180,6 +180,116 @@
 }
 
 /* ##################################################### */
+/* ################ PYTHON SPECIFIC #################### */
+/* ##################################################### */
+/* 🐍 Python label */
+.language-python > .highlight::before {
+  content: "PYTHON";
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem 0.3rem 0 0;
+  position: relative;
+  top: -1rem;
+  left: 1rem;
+  display: inline-block;
+  margin-bottom: -1rem;
+  background: var(--gray-2);
+  color: var(--gray-6);
+}
+
+[data-theme="dark"] .language-python > .highlight::before {
+  background: #2c313c;
+  color: #61afef;
+}
+
+/* Comments */
+.language-python .c,
+.language-python .c1,
+.language-python .cm {
+  color: #5c6370;
+  font-style: italic;
+}
+
+/* Keywords (def, class, if, else, import, etc.) */
+.language-python .k,
+.language-python .kn,
+.language-python .kd {
+  color: #e06c75;
+  font-weight: bold;
+}
+
+/* Types and built-in names */
+.language-python .kt,
+.language-python .nb {
+  color: #d19a66;
+  font-weight: bold;
+}
+
+/* Function names */
+.language-python .nf {
+  color: #61afef;
+  font-weight: bold;
+}
+
+/* Class names */
+.language-python .nc {
+  color: #e5c07b;
+  font-weight: bold;
+}
+
+/* Names (variables, identifiers) */
+.language-python .n,
+.language-python .na,
+.language-python .nv {
+  color: #61afef;
+}
+
+/* Numbers */
+.language-python .m,
+.language-python .mi,
+.language-python .mf {
+  color: #d19a66;
+  font-weight: bold;
+}
+
+/* Strings */
+.language-python .s,
+.language-python .s1,
+.language-python .s2,
+.language-python .sd {
+  color: #98c379;
+}
+
+/* Operators (=, +, etc.) */
+.language-python .o {
+  color: #56b6c2;
+}
+
+/* Boolean values and constants (True, False, None) */
+.language-python .kc {
+  color: #56b6c2;
+  font-weight: bold;
+}
+
+/* Self keyword */
+.language-python .bp {
+  color: #e06c75;
+  font-style: italic;
+}
+
+/* Decorators */
+.language-python .nd {
+  color: #c678dd;
+  font-weight: bold;
+}
+
+/* Error tokens (if any) */
+.language-python .err {
+  background-color: #3c3836;
+  color: #ff6c6b;
+}
+
+/* ##################################################### */
 /* ################## QUINT SPECIFIC ################### */
 /* ##################################################### */
 /* 🔷 Comments */
