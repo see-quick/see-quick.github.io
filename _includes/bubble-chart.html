@@ -394,7 +394,7 @@
         function generateBubbles(theme) {
             const palette = colorPalettes[theme];
             const bubbles = categoryData.map((cat, i) => {
-                const radius = 35 + cat.value * 10;
+                const radius = 25 + cat.value * 6;
                 return {
                     name: cat.name,
                     value: cat.value,
