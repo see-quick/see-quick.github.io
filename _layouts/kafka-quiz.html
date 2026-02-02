@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include head.html %}
+<body>
+{% include bubble-chart.html %}
+<main>
+  {% include header.html %}
+
+  <div class="quiz-container">
+    <!-- Stats Section -->
+    <div class="quiz-stats" id="stats-container">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Today's Question -->
+    <div class="question-card" id="question-container">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Browse All Questions -->
+    <section class="browse-section">
+      <h2>Browse All Questions</h2>
+
+      <div class="category-filters">
+        <button class="filter-btn active" data-category="all">All</button>
+        <button class="filter-btn" data-category="core-concepts">Core Concepts</button>
+        <button class="filter-btn" data-category="troubleshooting">Troubleshooting</button>
+        <button class="filter-btn" data-category="configuration">Configuration</button>
+      </div>
+
+      <div class="question-list" id="question-list">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+  </div>
+
+  {% include footer.html %}
+</main>
+
+<!-- Inject questions as JSON for JavaScript -->
+<script>
+  window.kafkaQuestions = {{ site.data.kafka_questions | jsonify }};
+</script>
+<script src="{{site.baseurl}}/assets/js/daily-kafka.js"></script>
+</body>
+</html>

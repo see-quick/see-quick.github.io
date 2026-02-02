@@ -1,0 +1,131 @@
+<!-- Daily Kafka Question Widget -->
+<div id="kafka-quiz-widget" class="kafka-quiz-widget">
+  <div class="widget-header">
+    <span class="widget-icon">&#9889;</span>
+    <span class="widget-title">Daily Kafka Question</span>
+  </div>
+  <p class="widget-question" id="widget-question-text">Loading today's question...</p>
+  <div class="widget-footer">
+    <a href="{{site.baseurl}}/kafka-quiz/" class="widget-btn">Answer Now</a>
+    <span class="widget-streak" id="widget-streak"></span>
+  </div>
+</div>
+
+<style>
+.kafka-quiz-widget {
+  background: var(--bg-tertiary);
+  border-radius: 16px;
+  border: 1px solid var(--border-primary);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.kafka-quiz-widget::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+}
+
+.widget-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.widget-icon {
+  font-size: 1.2rem;
+}
+
+.widget-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.widget-question {
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.widget-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.widget-btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+}
+
+.widget-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+}
+
+.widget-streak {
+  font-size: 0.85rem;
+  color: var(--accent-warning);
+  font-weight: 600;
+}
+
+@media (max-width: 550px) {
+  .kafka-quiz-widget {
+    padding: 1rem;
+  }
+}
+</style>
+
+<script>
+(function() {
+  // Get questions from Jekyll data
+  var questions = {{ site.data.kafka_questions | jsonify }};
+
+  if (questions && questions.length > 0) {
+    // Get today's question (same algorithm as main quiz)
+    var dayNumber = Math.floor(Date.now() / 86400000);
+    var index = dayNumber % questions.length;
+    var question = questions[index];
+
+    // Update widget text
+    var textEl = document.getElementById('widget-question-text');
+    if (textEl && question) {
+      textEl.textContent = question.question;
+    }
+
+    // Update streak from localStorage
+    var streakEl = document.getElementById('widget-streak');
+    if (streakEl) {
+      try {
+        var data = JSON.parse(localStorage.getItem('kafkaQuiz') || '{}');
+        if (data.streak && data.streak > 0) {
+          streakEl.textContent = data.streak + ' day streak';
+        }
+      } catch (e) {
+        // Ignore localStorage errors
+      }
+    }
+  }
+})();
+</script>
