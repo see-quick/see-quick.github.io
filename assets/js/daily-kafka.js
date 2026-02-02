@@ -42,7 +42,6 @@
     // Render UI
     renderQuestion();
     renderStats();
-    renderQuestionList();
 
     // Bind events
     bindEvents();
@@ -218,47 +217,6 @@
   }
 
   /**
-   * Render question list for browsing
-   */
-  function renderQuestionList(filter = 'all') {
-    const container = document.getElementById('question-list');
-    if (!container) return;
-
-    const storage = getStorage();
-    const answeredIds = storage.answeredQuestions || [];
-
-    const filteredQuestions = filter === 'all'
-      ? questions
-      : questions.filter(q => q.category === filter);
-
-    if (filteredQuestions.length === 0) {
-      container.innerHTML = '<div class="empty-state">No questions in this category.</div>';
-      return;
-    }
-
-    // Category display names
-    const categoryNames = {
-      'core-concepts': 'Core',
-      'troubleshooting': 'Troubleshoot',
-      'configuration': 'Config'
-    };
-
-    container.innerHTML = filteredQuestions.map(q => {
-      const isAnswered = answeredIds.includes(q.id);
-      const categoryDisplay = categoryNames[q.category] || q.category;
-      return `
-        <div class="question-item ${isAnswered ? 'answered' : ''}" data-question-id="${q.id}">
-          <span class="question-item-text">${escapeHtml(q.question)}</span>
-          <div class="question-item-badges">
-            <span class="badge badge-category">${categoryDisplay}</span>
-            <span class="badge badge-difficulty ${q.difficulty}">${q.difficulty}</span>
-          </div>
-        </div>
-      `;
-    }).join('');
-  }
-
-  /**
    * Bind event handlers
    */
   function bindEvents() {
@@ -286,28 +244,6 @@
     document.addEventListener('click', function(e) {
       if (e.target.matches('#reveal-btn')) {
         handleFlashcardReveal();
-      }
-    });
-
-    // Category filters
-    document.addEventListener('click', function(e) {
-      if (e.target.matches('.filter-btn')) {
-        // Update active state
-        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-        e.target.classList.add('active');
-
-        // Filter questions
-        const category = e.target.dataset.category;
-        renderQuestionList(category);
-      }
-    });
-
-    // Question item click (to practice)
-    document.addEventListener('click', function(e) {
-      const item = e.target.closest('.question-item');
-      if (item) {
-        const questionId = parseInt(item.dataset.questionId, 10);
-        showPracticeQuestion(questionId);
       }
     });
   }
@@ -351,7 +287,6 @@
     // Re-render
     renderQuestion();
     renderStats();
-    renderQuestionList();
   }
 
   /**
@@ -389,126 +324,7 @@
 
       saveStorage(storage);
       renderStats();
-      renderQuestionList();
     }
-  }
-
-  /**
-   * Show a practice question (from browse list)
-   */
-  function showPracticeQuestion(questionId) {
-    const question = questions.find(q => q.id === questionId);
-    if (!question) return;
-
-    // Create modal for practice
-    const modal = document.createElement('div');
-    modal.className = 'practice-modal';
-    modal.innerHTML = `
-      <div class="practice-modal-backdrop"></div>
-      <div class="practice-modal-content question-card">
-        <button class="practice-close">&times;</button>
-        <div class="question-badges">
-          <span class="badge badge-category">${question.category.replace('-', ' ')}</span>
-          <span class="badge badge-difficulty ${question.difficulty}">${question.difficulty}</span>
-        </div>
-        <h3 class="question-text" style="margin-top: 1rem;">${escapeHtml(question.question)}</h3>
-        <div class="quiz-options practice-options">
-          ${question.options.map((option, index) => {
-            const letter = String.fromCharCode(65 + index);
-            return `
-              <button class="option-btn" data-index="${index}" data-correct="${question.correct}">
-                <span class="option-letter">${letter}</span>
-                <span>${escapeHtml(option)}</span>
-              </button>
-            `;
-          }).join('')}
-        </div>
-        <div class="practice-feedback" style="display: none; margin-top: 1rem;">
-          <p class="feedback-explanation">${escapeHtml(question.explanation)}</p>
-          ${question.docs_link ? `
-            <a href="${question.docs_link}" class="docs-link" target="_blank" rel="noopener">
-              Read the docs &rarr;
-            </a>
-          ` : ''}
-        </div>
-      </div>
-    `;
-
-    // Add modal styles
-    const style = document.createElement('style');
-    style.textContent = `
-      .practice-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 1rem;
-      }
-      .practice-modal-backdrop {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.7);
-      }
-      .practice-modal-content {
-        position: relative;
-        max-width: 600px;
-        width: 100%;
-        max-height: 90vh;
-        overflow-y: auto;
-      }
-      .practice-close {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        color: var(--text-secondary);
-        cursor: pointer;
-      }
-      .practice-close:hover {
-        color: var(--text-primary);
-      }
-      .hidden {
-        display: none !important;
-      }
-    `;
-    modal.appendChild(style);
-
-    document.body.appendChild(modal);
-
-    // Handle close
-    modal.querySelector('.practice-close').addEventListener('click', () => modal.remove());
-    modal.querySelector('.practice-modal-backdrop').addEventListener('click', () => modal.remove());
-
-    // Handle practice answer
-    modal.querySelectorAll('.practice-options .option-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const index = parseInt(this.dataset.index, 10);
-        const correct = parseInt(this.dataset.correct, 10);
-
-        // Mark correct/incorrect
-        modal.querySelectorAll('.practice-options .option-btn').forEach((b, i) => {
-          b.disabled = true;
-          if (i === correct) {
-            b.classList.add('correct');
-          } else if (i === index && i !== correct) {
-            b.classList.add('incorrect');
-          }
-        });
-
-        // Show feedback
-        modal.querySelector('.practice-feedback').style.display = 'block';
-      });
-    });
   }
 
   /**
