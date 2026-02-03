@@ -536,7 +536,7 @@
             <span class="drag-zone-label">Drop here</span>
             ${itemInZone ? `
               <div class="draggable placed ${hasAnswered ? (zoneClass.includes('correct') ? 'correct' : 'incorrect') : ''}"
-                   data-item-id="${itemInZone.id}">
+                   data-item-id="${itemInZone.id}" ${!hasAnswered ? 'draggable="true"' : ''}>
                 <span class="draggable-label">${escapeHtml(itemInZone.label)}</span>
               </div>
             ` : ''}
