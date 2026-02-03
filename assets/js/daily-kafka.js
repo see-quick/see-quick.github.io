@@ -684,33 +684,23 @@
 
   /**
    * Initialize drag-and-drop interactions
+   * Uses mouse events for cross-browser compatibility (Firefox fix)
    */
   function initDragDrop() {
     const draggables = document.querySelectorAll('.draggable');
-    const zones = document.querySelectorAll('.drag-zone');
-    const source = document.getElementById('draggable-source');
 
     draggables.forEach(draggable => {
-      // Mouse events
-      draggable.addEventListener('dragstart', handleDragStart);
-      draggable.addEventListener('dragend', handleDragEnd);
+      // Remove draggable attribute - we'll use mouse events instead
+      draggable.removeAttribute('draggable');
 
-      // Touch events
+      // Mouse events (works in all browsers including Firefox)
+      draggable.addEventListener('mousedown', handleMouseDown);
+
+      // Touch events for mobile
       draggable.addEventListener('touchstart', handleTouchStart, { passive: false });
       draggable.addEventListener('touchmove', handleTouchMove, { passive: false });
       draggable.addEventListener('touchend', handleTouchEnd);
     });
-
-    zones.forEach(zone => {
-      zone.addEventListener('dragover', handleDragOver);
-      zone.addEventListener('dragleave', handleDragLeave);
-      zone.addEventListener('drop', handleDrop);
-    });
-
-    if (source) {
-      source.addEventListener('dragover', handleDragOver);
-      source.addEventListener('drop', handleDropToSource);
-    }
 
     // Submit button
     const submitBtn = document.getElementById('diagram-submit');
@@ -721,92 +711,129 @@
     }
   }
 
-  function handleDragStart(e) {
+  // Mouse handlers for desktop (Firefox-compatible)
+  function handleMouseDown(e) {
+    if (hasAnswered) return;
+    e.preventDefault();
+
     dragState.dragging = e.target.closest('.draggable');
+    if (!dragState.dragging) return;
+
+    const rect = dragState.dragging.getBoundingClientRect();
+    dragState.offsetX = e.clientX - rect.left;
+    dragState.offsetY = e.clientY - rect.top;
+    dragState.originalParent = dragState.dragging.parentElement;
+
     dragState.dragging.classList.add('dragging');
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/plain', dragState.dragging.dataset.itemId);
+    dragState.dragging.style.position = 'fixed';
+    dragState.dragging.style.zIndex = '1000';
+    dragState.dragging.style.left = (e.clientX - dragState.offsetX) + 'px';
+    dragState.dragging.style.top = (e.clientY - dragState.offsetY) + 'px';
+    dragState.dragging.style.width = rect.width + 'px';
+
+    // Add document-level listeners
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
   }
 
-  function handleDragEnd(e) {
+  function handleMouseMove(e) {
+    if (!dragState.dragging) return;
+    e.preventDefault();
+
+    dragState.dragging.style.left = (e.clientX - dragState.offsetX) + 'px';
+    dragState.dragging.style.top = (e.clientY - dragState.offsetY) + 'px';
+
+    // Highlight drop zones
+    document.querySelectorAll('.drag-zone').forEach(zone => {
+      const rect = zone.getBoundingClientRect();
+      if (e.clientX >= rect.left && e.clientX <= rect.right &&
+          e.clientY >= rect.top && e.clientY <= rect.bottom) {
+        zone.classList.add('drop-target');
+      } else {
+        zone.classList.remove('drop-target');
+      }
+    });
+  }
+
+  function handleMouseUp(e) {
+    if (!dragState.dragging || hasAnswered) {
+      cleanupMouseDrag();
+      return;
+    }
+
+    const itemId = dragState.dragging.dataset.itemId;
+    let droppedInZone = false;
+
+    // Check if dropped on a zone
+    document.querySelectorAll('.drag-zone').forEach(zone => {
+      const rect = zone.getBoundingClientRect();
+      if (e.clientX >= rect.left && e.clientX <= rect.right &&
+          e.clientY >= rect.top && e.clientY <= rect.bottom) {
+        const zoneId = zone.dataset.zoneId;
+
+        // Remove item from previous placement
+        Object.keys(dragState.placements).forEach(z => {
+          if (dragState.placements[z] === itemId) {
+            delete dragState.placements[z];
+          }
+        });
+
+        // Place item in zone
+        dragState.placements[zoneId] = itemId;
+        droppedInZone = true;
+      }
+    });
+
+    // Check if dropped on source area
+    const source = document.getElementById('draggable-source');
+    if (source) {
+      const sourceRect = source.getBoundingClientRect();
+      if (e.clientX >= sourceRect.left && e.clientX <= sourceRect.right &&
+          e.clientY >= sourceRect.top && e.clientY <= sourceRect.bottom) {
+        // Remove from any zone
+        Object.keys(dragState.placements).forEach(z => {
+          if (dragState.placements[z] === itemId) {
+            delete dragState.placements[z];
+          }
+        });
+        droppedInZone = true;
+      }
+    }
+
+    // Clean up and re-render
+    cleanupMouseDrag();
+
+    const container = document.getElementById('diagram-container');
+    container.innerHTML = renderDragTopologyDiagram(currentQuestion.diagram);
+    initDragDrop();
+    updateSubmitButton();
+  }
+
+  function cleanupMouseDrag() {
     if (dragState.dragging) {
       dragState.dragging.classList.remove('dragging');
+      dragState.dragging.style.position = '';
+      dragState.dragging.style.zIndex = '';
+      dragState.dragging.style.left = '';
+      dragState.dragging.style.top = '';
+      dragState.dragging.style.width = '';
       dragState.dragging = null;
     }
     document.querySelectorAll('.drag-zone').forEach(zone => {
       zone.classList.remove('drop-target');
     });
-  }
-
-  function handleDragOver(e) {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
-    const zone = e.target.closest('.drag-zone') || e.target.closest('#draggable-source');
-    if (zone) {
-      zone.classList.add('drop-target');
-    }
-  }
-
-  function handleDragLeave(e) {
-    const zone = e.target.closest('.drag-zone');
-    if (zone) {
-      zone.classList.remove('drop-target');
-    }
-  }
-
-  function handleDrop(e) {
-    e.preventDefault();
-    const zone = e.target.closest('.drag-zone');
-    if (!zone || hasAnswered) return;
-
-    const itemId = e.dataTransfer.getData('text/plain');
-    const zoneId = zone.dataset.zoneId;
-
-    // Remove item from previous zone if it was placed
-    Object.keys(dragState.placements).forEach(z => {
-      if (dragState.placements[z] === itemId) {
-        delete dragState.placements[z];
-      }
-    });
-
-    // If zone already has an item, return it to source
-    if (dragState.placements[zoneId]) {
-      delete dragState.placements[zoneId];
-    }
-
-    // Place item in zone
-    dragState.placements[zoneId] = itemId;
-
-    // Re-render diagram
-    const container = document.getElementById('diagram-container');
-    container.innerHTML = renderDragTopologyDiagram(currentQuestion.diagram);
-    initDragDrop();
-    updateSubmitButton();
-  }
-
-  function handleDropToSource(e) {
-    e.preventDefault();
-    const itemId = e.dataTransfer.getData('text/plain');
-
-    // Remove item from any zone
-    Object.keys(dragState.placements).forEach(z => {
-      if (dragState.placements[z] === itemId) {
-        delete dragState.placements[z];
-      }
-    });
-
-    // Re-render
-    const container = document.getElementById('diagram-container');
-    container.innerHTML = renderDragTopologyDiagram(currentQuestion.diagram);
-    initDragDrop();
-    updateSubmitButton();
+    document.removeEventListener('mousemove', handleMouseMove);
+    document.removeEventListener('mouseup', handleMouseUp);
   }
 
   // Touch handlers for mobile
   function handleTouchStart(e) {
+    if (hasAnswered) return;
     e.preventDefault();
     const touch = e.touches[0];
     dragState.dragging = e.target.closest('.draggable');
+    if (!dragState.dragging) return;
+
     dragState.startX = touch.clientX;
     dragState.startY = touch.clientY;
 
@@ -819,6 +846,7 @@
     dragState.dragging.style.zIndex = '1000';
     dragState.dragging.style.left = (touch.clientX - dragState.offsetX) + 'px';
     dragState.dragging.style.top = (touch.clientY - dragState.offsetY) + 'px';
+    dragState.dragging.style.width = rect.width + 'px';
   }
 
   function handleTouchMove(e) {
@@ -886,6 +914,7 @@
     dragState.dragging.style.zIndex = '';
     dragState.dragging.style.left = '';
     dragState.dragging.style.top = '';
+    dragState.dragging.style.width = '';
     dragState.dragging = null;
 
     // Clear highlights

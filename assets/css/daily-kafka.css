@@ -816,8 +816,16 @@
   border-radius: 8px;
   cursor: grab;
   user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
   transition: all 0.15s ease;
   touch-action: none;
+  -webkit-user-drag: element;
+}
+
+/* Ensure all children don't intercept drag events */
+.draggable * {
+  pointer-events: none;
 }
 
 .draggable:hover {
@@ -855,12 +863,14 @@
   width: 20px;
   height: 20px;
   flex-shrink: 0;
+  pointer-events: none;
 }
 
 .draggable-label {
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--text-primary);
+  pointer-events: none;
 }
 
 /* Draggable Source Area */
