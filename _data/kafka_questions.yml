@@ -394,3 +394,360 @@
   correct: 1
   explanation: "With read_committed, consumers only see messages from committed transactions and non-transactional messages. This is essential for exactly-once semantics with transactional producers."
   docs_link: "https://kafka.apache.org/documentation/#consumerconfigs_isolation.level"
+
+# KRaft Controller Quorum Questions (3)
+- id: 31
+  type: "diagram"
+  category: "kraft-architecture"
+  difficulty: "intermediate"
+  question: "Click on the active controller in this KRaft quorum"
+  diagram:
+    type: "kraft-quorum"
+    nodes:
+      - { id: "c1", label: "Controller 1", role: "follower" }
+      - { id: "c2", label: "Controller 2", role: "leader" }
+      - { id: "c3", label: "Controller 3", role: "follower" }
+  correct: "c2"
+  explanation: "In a KRaft quorum, the active controller is the Raft leader (marked with a star). It handles all metadata updates and replicates changes to follower controllers. Controller 2 is the leader as indicated by the star icon."
+  docs_link: "https://kafka.apache.org/documentation/#kraft"
+
+- id: 32
+  type: "diagram"
+  category: "kraft-architecture"
+  difficulty: "advanced"
+  question: "Based on the epoch numbers, which controller will win the next election?"
+  diagram:
+    type: "kraft-quorum"
+    nodes:
+      - { id: "c1", label: "Controller 1", role: "follower", epoch: 5 }
+      - { id: "c2", label: "Controller 2", role: "follower", epoch: 7 }
+      - { id: "c3", label: "Controller 3", role: "follower", epoch: 6 }
+  correct: "c2"
+  explanation: "In Raft consensus, the controller with the highest epoch (term) and most up-to-date log wins elections. Controller 2 has epoch 7, which is the highest, so it will win the next leader election."
+  docs_link: "https://kafka.apache.org/documentation/#kraft"
+
+- id: 33
+  type: "diagram"
+  category: "kraft-architecture"
+  difficulty: "intermediate"
+  question: "Arrange the controller roles in the correct order of the metadata replication flow"
+  diagram:
+    type: "drag-topology"
+    interaction: "drag"
+    items:
+      - { id: "leader", label: "Leader" }
+      - { id: "follower1", label: "Follower 1" }
+      - { id: "follower2", label: "Follower 2" }
+    zones:
+      - { id: "source", label: "Writes To" }
+      - { id: "replica1", label: "Replicates From" }
+      - { id: "replica2", label: "Replicates From" }
+  correct:
+    source: "leader"
+    replica1: "follower1"
+    replica2: "follower2"
+  explanation: "In KRaft, the leader controller receives all metadata writes and replicates them to follower controllers. Followers fetch updates from the leader to stay in sync with the metadata log."
+  docs_link: "https://kafka.apache.org/documentation/#kraft"
+
+# Replication & ISR Questions (3)
+- id: 34
+  type: "diagram"
+  category: "replication"
+  difficulty: "intermediate"
+  question: "Select all replicas that are currently in the ISR (In-Sync Replicas)"
+  diagram:
+    type: "partition-replicas"
+    multi_select: true
+    replicas:
+      - { id: "r1", label: "Broker 1 - P0", role: "leader", offset: 1000, in_sync: true }
+      - { id: "r2", label: "Broker 2 - P0", role: "follower", offset: 998, in_sync: true }
+      - { id: "r3", label: "Broker 3 - P0", role: "follower", offset: 850, in_sync: false }
+  correct:
+    - "r1"
+    - "r2"
+  explanation: "ISR (In-Sync Replicas) includes the leader and all followers that are caught up within the replica.lag.time.max.ms threshold. Broker 3 is lagging significantly (offset 850 vs leader's 1000) and has been removed from ISR, as indicated by the LAG marker."
+  docs_link: "https://kafka.apache.org/documentation/#replication"
+
+- id: 35
+  type: "diagram"
+  category: "replication"
+  difficulty: "beginner"
+  question: "Click on the broker that is the leader for partition P0"
+  diagram:
+    type: "broker-cluster"
+    brokers:
+      - { id: "b1", label: "Broker 1" }
+      - { id: "b2", label: "Broker 2" }
+      - { id: "b3", label: "Broker 3" }
+      - { id: "b4", label: "Broker 4" }
+    partitions:
+      - { broker: "b1", name: "P0", role: "leader" }
+      - { broker: "b1", name: "P1", role: "follower" }
+      - { broker: "b2", name: "P0", role: "follower" }
+      - { broker: "b2", name: "P2", role: "leader" }
+      - { broker: "b3", name: "P1", role: "leader" }
+      - { broker: "b3", name: "P0", role: "follower" }
+      - { broker: "b4", name: "P2", role: "follower" }
+  correct: "b1"
+  explanation: "Broker 1 hosts the leader replica for partition P0 (shown in orange/gold color). Leaders handle all produce and consume requests for a partition, while followers replicate data from the leader."
+  docs_link: "https://kafka.apache.org/documentation/#replication"
+
+- id: 36
+  type: "diagram"
+  category: "replication"
+  difficulty: "advanced"
+  question: "Arrange the replicas to show the correct data fetch direction (followers fetch from leader)"
+  diagram:
+    type: "drag-topology"
+    interaction: "drag"
+    items:
+      - { id: "leader", label: "P0 Leader" }
+      - { id: "follower1", label: "P0 Replica 1" }
+      - { id: "follower2", label: "P0 Replica 2" }
+    zones:
+      - { id: "primary", label: "Source (Producers write here)" }
+      - { id: "fetch1", label: "Fetches from Source" }
+      - { id: "fetch2", label: "Fetches from Source" }
+  correct:
+    primary: "leader"
+    fetch1: "follower1"
+    fetch2: "follower2"
+  explanation: "In Kafka replication, follower replicas fetch data from the leader. Producers only write to the leader, and followers pull the data to stay in sync. This is a pull-based replication model."
+  docs_link: "https://kafka.apache.org/documentation/#replication"
+
+# Fault Diagnosis Questions (2)
+- id: 37
+  type: "diagram"
+  category: "fault-diagnosis"
+  difficulty: "intermediate"
+  question: "Based on the heartbeat timeline, click on the broker that will be fenced"
+  diagram:
+    type: "heartbeat-timeline"
+    time_points: 6
+    timeout: 3
+    brokers:
+      - { id: "b1", label: "Broker 1", heartbeats: [0, 1, 2, 3, 4, 5] }
+      - { id: "b2", label: "Broker 2", heartbeats: [0, 1, 2] }
+      - { id: "b3", label: "Broker 3", heartbeats: [0, 1, 2, 3, 4, 5] }
+  correct: "b2"
+  explanation: "Broker 2 stopped sending heartbeats after t2, missing 3 consecutive heartbeats (t3, t4, t5). Since the timeout threshold is 3 missed heartbeats, Broker 2 will be fenced by the controller and removed from the cluster until it recovers."
+  docs_link: "https://kafka.apache.org/documentation/#brokerconfigs_broker.heartbeat.interval.ms"
+
+- id: 38
+  type: "diagram"
+  category: "fault-diagnosis"
+  difficulty: "advanced"
+  question: "After Broker 3 fails, select all partitions that become under-replicated"
+  diagram:
+    type: "broker-cluster"
+    multi_select: true
+    brokers:
+      - { id: "b1", label: "Broker 1" }
+      - { id: "b2", label: "Broker 2" }
+      - { id: "b3", label: "Broker 3", fenced: true }
+    partitions:
+      - { broker: "b1", name: "P0", role: "leader" }
+      - { broker: "b1", name: "P2", role: "follower" }
+      - { broker: "b2", name: "P1", role: "leader" }
+      - { broker: "b2", name: "P0", role: "follower" }
+      - { broker: "b3", name: "P0", role: "follower" }
+      - { broker: "b3", name: "P1", role: "follower" }
+      - { broker: "b3", name: "P2", role: "leader" }
+  correct:
+    - "b1"
+    - "b2"
+  explanation: "When Broker 3 fails, partitions P0, P1, and P2 all lose one replica. P0 and P1 remain available (leaders on B1 and B2) but are under-replicated. P2's leader was on B3, so it needs a new leader election from remaining ISR members. Brokers 1 and 2 now host all the remaining replicas of affected partitions."
+  docs_link: "https://kafka.apache.org/documentation/#basic_ops_cluster_expansion"
+
+# Consumer & Partition Assignment
+- id: 39
+  type: "diagram"
+  category: "replication"
+  difficulty: "intermediate"
+  question: "Which replica will become the new leader if the current leader (Broker 1) fails?"
+  diagram:
+    type: "partition-replicas"
+    replicas:
+      - { id: "r1", label: "Broker 1 - P0", role: "leader", offset: 5000, in_sync: true }
+      - { id: "r2", label: "Broker 2 - P0", role: "follower", offset: 4998, in_sync: true }
+      - { id: "r3", label: "Broker 3 - P0", role: "follower", offset: 4200, in_sync: false }
+  correct: "r2"
+  explanation: "When the leader fails, Kafka elects a new leader from the ISR (In-Sync Replicas). Broker 2 is in the ISR (offset 4998, close to leader's 5000), while Broker 3 is lagging and not in ISR. Therefore, Broker 2 will become the new leader."
+  docs_link: "https://kafka.apache.org/documentation/#design_replicamanagement"
+
+- id: 40
+  type: "diagram"
+  category: "kraft-architecture"
+  difficulty: "advanced"
+  question: "Arrange the metadata update flow in KRaft mode"
+  diagram:
+    type: "drag-topology"
+    interaction: "drag"
+    items:
+      - { id: "client", label: "Admin Client" }
+      - { id: "controller", label: "Active Controller" }
+      - { id: "broker", label: "Broker" }
+    zones:
+      - { id: "step1", label: "1. Sends Request" }
+      - { id: "step2", label: "2. Commits to Log" }
+      - { id: "step3", label: "3. Fetches Update" }
+  correct:
+    step1: "client"
+    step2: "controller"
+    step3: "broker"
+  explanation: "In KRaft mode, admin requests (like topic creation) go to the active controller, which commits changes to the metadata log. Brokers then fetch these metadata updates from the controller to stay in sync."
+  docs_link: "https://kafka.apache.org/documentation/#kraft"
+
+- id: 41
+  type: "diagram"
+  category: "fault-diagnosis"
+  difficulty: "intermediate"
+  question: "Based on the heartbeat timeline, which broker is experiencing network issues?"
+  diagram:
+    type: "heartbeat-timeline"
+    time_points: 8
+    timeout: 3
+    brokers:
+      - { id: "b1", label: "Broker 1", heartbeats: [0, 1, 2, 3, 4, 5, 6, 7] }
+      - { id: "b2", label: "Broker 2", heartbeats: [0, 1, 3, 4, 6, 7] }
+      - { id: "b3", label: "Broker 3", heartbeats: [0, 1, 2, 3, 4, 5, 6, 7] }
+  correct: "b2"
+  explanation: "Broker 2 has intermittent heartbeat failures (missing t2 and t5), indicating network instability. While not enough consecutive misses to trigger fencing (threshold is 3), this pattern suggests network issues that should be investigated."
+  docs_link: "https://kafka.apache.org/documentation/#brokerconfigs_broker.heartbeat.interval.ms"
+
+- id: 42
+  type: "diagram"
+  category: "replication"
+  difficulty: "advanced"
+  question: "Select all replicas that should receive the next batch of messages from the producer"
+  diagram:
+    type: "partition-replicas"
+    multi_select: true
+    replicas:
+      - { id: "r1", label: "Broker 1 - P0", role: "leader", offset: 1000, in_sync: true }
+      - { id: "r2", label: "Broker 2 - P0", role: "follower", offset: 999, in_sync: true }
+      - { id: "r3", label: "Broker 3 - P0", role: "follower", offset: 998, in_sync: true }
+      - { id: "r4", label: "Broker 4 - P0", role: "follower", offset: 500, in_sync: false }
+  correct:
+    - "r1"
+  explanation: "Producers only send messages to the partition leader (Broker 1). Followers fetch data from the leader - they don't receive directly from producers. With acks=all, the leader waits for ISR followers to replicate before acknowledging, but the producer only communicates with the leader."
+  docs_link: "https://kafka.apache.org/documentation/#replication"
+
+- id: 43
+  type: "diagram"
+  category: "kraft-architecture"
+  difficulty: "beginner"
+  question: "Click on the controller that voters will contact to join the quorum"
+  diagram:
+    type: "kraft-quorum"
+    nodes:
+      - { id: "c1", label: "Controller 1", role: "follower" }
+      - { id: "c2", label: "Controller 2", role: "leader" }
+      - { id: "c3", label: "Controller 3", role: "follower" }
+  correct: "c2"
+  explanation: "New voters and brokers contact the active controller (the Raft leader) to register and join the cluster. The leader handles all write operations including voter registration."
+  docs_link: "https://kafka.apache.org/documentation/#kraft"
+
+- id: 44
+  type: "diagram"
+  category: "fault-diagnosis"
+  difficulty: "advanced"
+  question: "After the leader on Broker 2 fails, click on the broker that will become the new leader for P1"
+  diagram:
+    type: "broker-cluster"
+    brokers:
+      - { id: "b1", label: "Broker 1" }
+      - { id: "b2", label: "Broker 2", fenced: true }
+      - { id: "b3", label: "Broker 3" }
+      - { id: "b4", label: "Broker 4" }
+    partitions:
+      - { broker: "b1", name: "P0", role: "leader" }
+      - { broker: "b1", name: "P1", role: "follower" }
+      - { broker: "b2", name: "P1", role: "leader" }
+      - { broker: "b2", name: "P2", role: "follower" }
+      - { broker: "b3", name: "P2", role: "leader" }
+      - { broker: "b3", name: "P0", role: "follower" }
+      - { broker: "b4", name: "P1", role: "follower" }
+      - { broker: "b4", name: "P0", role: "follower" }
+  correct: "b1"
+  explanation: "When Broker 2 (P1's leader) fails, Kafka elects a new leader from ISR. Broker 1 is listed first in the replica list for P1, making it the preferred leader. Following the preferred replica order, Broker 1 becomes the new leader for P1."
+  docs_link: "https://kafka.apache.org/documentation/#basic_ops_leader_balancing"
+
+- id: 45
+  type: "diagram"
+  category: "replication"
+  difficulty: "intermediate"
+  question: "Arrange the message acknowledgment flow for acks=all"
+  diagram:
+    type: "drag-topology"
+    interaction: "drag"
+    items:
+      - { id: "producer", label: "Producer" }
+      - { id: "leader", label: "Leader Replica" }
+      - { id: "followers", label: "ISR Followers" }
+    zones:
+      - { id: "send", label: "1. Sends Message" }
+      - { id: "replicate", label: "2. Replicates To" }
+      - { id: "ack", label: "3. Acknowledges" }
+  correct:
+    send: "producer"
+    replicate: "leader"
+    ack: "followers"
+  explanation: "With acks=all: (1) Producer sends to leader, (2) Leader writes and replicates to ISR followers, (3) After all ISR followers acknowledge to the leader, the leader sends final ack to producer. This ensures durability across all in-sync replicas."
+  docs_link: "https://kafka.apache.org/documentation/#producerconfigs_acks"
+
+- id: 46
+  type: "diagram"
+  category: "fault-diagnosis"
+  difficulty: "intermediate"
+  question: "Select all brokers that are healthy and fully operational"
+  diagram:
+    type: "broker-cluster"
+    multi_select: true
+    brokers:
+      - { id: "b1", label: "Broker 1" }
+      - { id: "b2", label: "Broker 2", fenced: true }
+      - { id: "b3", label: "Broker 3" }
+      - { id: "b4", label: "Broker 4", fenced: true }
+    partitions:
+      - { broker: "b1", name: "P0", role: "leader" }
+      - { broker: "b1", name: "P1", role: "follower" }
+      - { broker: "b2", name: "P1", role: "leader" }
+      - { broker: "b3", name: "P2", role: "leader" }
+      - { broker: "b3", name: "P0", role: "follower" }
+      - { broker: "b4", name: "P2", role: "follower" }
+  correct:
+    - "b1"
+    - "b3"
+  explanation: "Brokers 1 and 3 are healthy (not fenced). Brokers 2 and 4 are fenced, meaning they've been removed from the cluster due to missed heartbeats or other failures. Fenced brokers cannot serve client requests."
+  docs_link: "https://kafka.apache.org/documentation/#kraft"
+
+- id: 47
+  type: "diagram"
+  category: "kraft-architecture"
+  difficulty: "advanced"
+  question: "In this quorum, which controller has the most up-to-date log?"
+  diagram:
+    type: "kraft-quorum"
+    nodes:
+      - { id: "c1", label: "Controller 1", role: "follower", epoch: 3 }
+      - { id: "c2", label: "Controller 2", role: "follower", epoch: 3 }
+      - { id: "c3", label: "Controller 3", role: "follower", epoch: 4 }
+  correct: "c3"
+  explanation: "Controller 3 has the highest epoch (4), indicating it has seen the most recent leader term. In Raft, higher epoch means more recent leadership term, so Controller 3 has the most up-to-date metadata log."
+  docs_link: "https://kafka.apache.org/documentation/#kraft"
+
+- id: 48
+  type: "diagram"
+  category: "replication"
+  difficulty: "beginner"
+  question: "Click on the replica that is falling behind and may soon be removed from ISR"
+  diagram:
+    type: "partition-replicas"
+    replicas:
+      - { id: "r1", label: "Broker 1 - P0", role: "leader", offset: 10000, in_sync: true }
+      - { id: "r2", label: "Broker 2 - P0", role: "follower", offset: 9998, in_sync: true }
+      - { id: "r3", label: "Broker 3 - P0", role: "follower", offset: 9200, in_sync: true }
+  correct: "r3"
+  explanation: "Broker 3's replica is 800 messages behind the leader (offset 9200 vs 10000), while Broker 2 is only 2 behind. If Broker 3 doesn't catch up within replica.lag.time.max.ms, it will be removed from ISR."
+  docs_link: "https://kafka.apache.org/documentation/#brokerconfigs_replica.lag.time.max.ms"
