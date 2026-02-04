@@ -89,7 +89,7 @@ Regular expressions are algebraically equivalent to automata.
 Three core operations:
 
 1. **Concatenation**: $ab$
-2. **Alternation**: $a|b$
+2. **Alternation**: $a\\|b$
 3. **Kleene Star**: $a*$
 
 Everything else ($+$, $?$, ${n,m}$) is syntactic sugar.
