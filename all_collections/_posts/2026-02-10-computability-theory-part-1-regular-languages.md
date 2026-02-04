@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Computability Theory Part 1: The Chomsky Hierarchy and Regular Languages"
+title: "32 Computability Theory Part 1: The Chomsky Hierarchy and Regular Languages"
 date: 2026-02-04
 categories: ["theory-of-computation", "automata", "formal-languages", "java"]
 ---
