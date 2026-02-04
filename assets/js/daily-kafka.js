@@ -100,7 +100,8 @@
       lastAnsweredDate: null,
       streak: 0,
       correctCount: 0,
-      totalAnswered: 0
+      totalAnswered: 0,
+      lastAnswerCorrect: null // Track if last answer was correct
     };
   }
 
@@ -170,6 +171,14 @@
    * Render text question content (original quiz/flashcard modes)
    */
   function renderTextQuestionContent() {
+    // Determine if answer was correct - use stored value when returning to daily quiz
+    let wasCorrect = selectedOptionIndex === currentQuestion.correct;
+    if (hasAnswered && !browseMode && selectedOptionIndex === null) {
+      // We're returning to an already-answered daily question, use stored value
+      const storage = getStorage();
+      wasCorrect = storage.lastAnswerCorrect === true;
+    }
+
     return `
       <div class="mode-toggle">
         <button class="mode-btn ${currentMode === 'quiz' ? 'active' : ''}" data-mode="quiz">Quiz Mode</button>
@@ -210,8 +219,8 @@
       </div>
 
       <div class="answer-feedback ${hasAnswered ? 'visible' : ''}" id="answer-feedback" ${currentMode === 'flashcard' ? 'style="display:none"' : ''}>
-        <div class="feedback-header ${hasAnswered && selectedOptionIndex === currentQuestion.correct ? 'correct' : 'incorrect'}">
-          ${hasAnswered && selectedOptionIndex === currentQuestion.correct ? 'Correct!' : hasAnswered ? 'Not quite!' : ''}
+        <div class="feedback-header ${hasAnswered && wasCorrect ? 'correct' : 'incorrect'}">
+          ${hasAnswered ? (wasCorrect ? 'Correct!' : 'Not quite!') : ''}
         </div>
         <p class="feedback-explanation">${escapeHtml(currentQuestion.explanation)}</p>
         ${currentQuestion.docs_link ? `
@@ -266,6 +275,14 @@
         diagramHtml = '<p>Unknown diagram type</p>';
     }
 
+    // Determine if answer was correct - use stored value when returning to daily quiz
+    let wasCorrect = checkDiagramCorrect();
+    if (hasAnswered && !browseMode && selectedNodes.length === 0 && Object.keys(dragState.placements).length === 0) {
+      // We're returning to an already-answered daily question, use stored value
+      const storage = getStorage();
+      wasCorrect = storage.lastAnswerCorrect === true;
+    }
+
     return `
       <div class="diagram-instructions">
         ${instructionIcon}
@@ -288,8 +305,8 @@
       ` : ''}
 
       <div class="answer-feedback ${hasAnswered ? 'visible' : ''}" id="answer-feedback">
-        <div class="feedback-header ${hasAnswered && checkDiagramCorrect() ? 'correct' : 'incorrect'}">
-          ${hasAnswered ? (checkDiagramCorrect() ? 'Correct!' : 'Not quite!') : ''}
+        <div class="feedback-header ${hasAnswered && wasCorrect ? 'correct' : 'incorrect'}">
+          ${hasAnswered ? (wasCorrect ? 'Correct!' : 'Not quite!') : ''}
         </div>
         <p class="feedback-explanation">${escapeHtml(currentQuestion.explanation)}</p>
         ${currentQuestion.docs_link ? `
@@ -978,6 +995,7 @@
 
     storage.lastAnsweredDate = today;
     storage.totalAnswered += 1;
+    storage.lastAnswerCorrect = isCorrect; // Store whether answer was correct
     if (isCorrect) {
       storage.correctCount += 1;
     }
@@ -1178,6 +1196,7 @@
 
     storage.lastAnsweredDate = today;
     storage.totalAnswered += 1;
+    storage.lastAnswerCorrect = isCorrect; // Store whether answer was correct
     if (isCorrect) {
       storage.correctCount += 1;
     }
@@ -1222,6 +1241,7 @@
       storage.lastAnsweredDate = today;
       storage.totalAnswered += 1;
       storage.correctCount += 1; // Flashcard counts as correct
+      storage.lastAnswerCorrect = true; // Flashcard always counts as correct
 
       if (!storage.answeredQuestions.includes(currentQuestion.id)) {
         storage.answeredQuestions.push(currentQuestion.id);
