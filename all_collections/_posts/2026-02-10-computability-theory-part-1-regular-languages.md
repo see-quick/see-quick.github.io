@@ -92,7 +92,7 @@ Three core operations:
 2. **Alternation**: $a\\|b$
 3. **Kleene Star**: $a*$
 
-Everything else ($+$, $?$, ${n,m}$) is syntactic sugar.
+Everything else ($+$, $?$, $\{n,m\}$) is syntactic sugar.
 
 ### Backtracking vs Automata Engines
 
