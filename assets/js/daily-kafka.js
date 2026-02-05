@@ -467,14 +467,14 @@
    */
   function renderPartitionReplicasDiagram(diagram) {
     const replicas = diagram.replicas || [];
-    const nodeWidth = 140;
-    const nodeHeight = 50;
+    const nodeWidth = 220;
+    const nodeHeight = 55;
     const spacing = 15;
     const svgHeight = replicas.length * (nodeHeight + spacing) + 40;
-    const svgWidth = 400;
+    const svgWidth = 320;
 
     let replicasHtml = replicas.map((replica, idx) => {
-      const x = 20;
+      const x = 30;
       const y = 20 + idx * (nodeHeight + spacing);
       const isLeader = replica.role === 'leader';
       const isInSync = replica.in_sync !== false;
@@ -485,16 +485,19 @@
           (selectedNodes.includes(replica.id) ? 'incorrect' : 'disabled')) :
         'selectable';
 
+      // Calculate text positions - center the main content area (leaving room for icons)
+      const textCenterX = nodeWidth / 2;
+
       return `
         <g class="diagram-node ${nodeClass}" data-node-id="${replica.id}" transform="translate(${x}, ${y})">
           <rect class="node-bg ${isLeader ? 'partition-leader' : 'partition-follower'}"
                 x="0" y="0" width="${nodeWidth}" height="${nodeHeight}" rx="8"/>
-          <text class="node-label" x="15" y="22" text-anchor="start">${escapeHtml(replica.label)}</text>
-          <text class="node-sublabel" x="15" y="38" text-anchor="start">
+          ${isLeader ? '<text x="15" y="22" font-size="14">&#9733;</text>' : ''}
+          <text class="node-label" x="${textCenterX}" y="22">${escapeHtml(replica.label)}</text>
+          <text class="node-sublabel" x="${textCenterX}" y="40">
             ${isLeader ? 'Leader' : 'Follower'} | Offset: ${replica.offset || 0}
           </text>
-          ${isInSync ? '' : '<text x="' + (nodeWidth - 10) + '" y="30" font-size="10" fill="#f472b6" text-anchor="end">LAG</text>'}
-          ${isLeader ? '<text x="' + (nodeWidth - 10) + '" y="20" font-size="14" text-anchor="end">&#9733;</text>' : ''}
+          ${isInSync ? '' : '<text x="' + (nodeWidth - 12) + '" y="34" font-size="11" fill="#f472b6" text-anchor="end" font-weight="600">LAG</text>'}
         </g>
         ${!isLeader && idx > 0 ? `
           <path class="diagram-connection fetch" d="M${x + nodeWidth + 10},${y + nodeHeight/2} L${x + nodeWidth + 40},${y + nodeHeight/2} L${x + nodeWidth + 40},${20 + nodeHeight/2}" marker-end="url(#arrowhead)"/>
