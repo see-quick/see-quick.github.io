@@ -1,0 +1,93 @@
+# Quiz questions for: Computability Theory Part 4 — Turing Machines
+# Used by: {% include quiz.html id="<id>" %}
+# Post front matter must set: quiz: computability-part-4
+
+- id: q1
+  header: "Quick Check"
+  question: "What is the key difference between a Turing machine and all the machines we saw in earlier parts (DFA, PDA, LBA)?"
+  options:
+    - text: "It has more states"
+      correct: false
+    - text: "It uses a stack instead of a tape"
+      correct: false
+    - text: "It might never halt"
+      correct: true
+    - text: "It can only move the head to the right"
+      correct: false
+  success: "A DFA, PDA, and LBA all guarantee termination. A Turing machine might run forever, and there is no general way to predict whether it will. That 'maybe never halts' is the defining feature."
+  fail: "Think about what happens when you run each machine. DFAs, PDAs, and LBAs always finish processing. A Turing machine, with its infinite tape and unrestricted movement, has no such guarantee."
+
+- id: q2
+  header: "Grammar Time"
+  question: "What makes Type 0 (unrestricted) grammars fundamentally more powerful than Type 1 (context-sensitive) grammars?"
+  options:
+    - text: "They allow more non-terminals on the left side"
+      correct: false
+    - text: "They can shrink strings during derivation"
+      correct: true
+    - text: "They use a different alphabet"
+      correct: false
+    - text: "They have more production rules"
+      correct: false
+  success: "Type 1 grammars require that the right side is at least as long as the left side. Type 0 grammars have no such restriction — derivations can grow and shrink unpredictably, which is why you cannot bound their runtime."
+  fail: "The key constraint in Type 1 grammars is that productions cannot shrink strings. Type 0 removes this restriction, so a derivation can grow, shrink, grow again... making it impossible to predict if it will ever finish."
+
+- id: q3
+  header: "The Big Proof"
+  question: "In the halting problem proof, what does the <code>Troublemaker</code> program do?"
+  options:
+    - text: "It crashes the halting oracle by feeding it invalid input"
+      correct: false
+    - text: "It asks the oracle about itself and does the opposite of the prediction"
+      correct: true
+    - text: "It runs forever regardless of what the oracle says"
+      correct: false
+    - text: "It proves the oracle correct by testing all programs"
+      correct: false
+  success: "Troublemaker asks the oracle 'will I halt?' and then does the opposite. If the oracle says 'yes, you halt,' it loops forever. If the oracle says 'you loop,' it halts. Either way, the oracle is wrong — so no such oracle can exist."
+  fail: "The trick is self-reference plus contradiction. Troublemaker feeds <em>itself</em> to the oracle and deliberately contradicts the answer. This makes it impossible for any oracle to be correct, proving that no halting decider can exist."
+
+- id: q4
+  header: "Practical Impact"
+  question: "Kubernetes uses liveness probes to check if a pod is healthy. Why can't Kubernetes just analyze the application code to determine if it is stuck?"
+  options:
+    - text: "Kubernetes does not have access to the source code"
+      correct: false
+    - text: "Determining if a program is stuck is the halting problem in disguise"
+      correct: true
+    - text: "It would require too much CPU to analyze"
+      correct: false
+    - text: "Container runtimes do not support code inspection"
+      correct: false
+  success: "Determining whether an application is 'still doing useful work or stuck' is a form of the halting problem. Since it is undecidable, Kubernetes uses the practical workaround: poll the application periodically and restart it if it stops responding."
+  fail: "This is not about access or resources. Even with unlimited compute and full source code, no algorithm can determine in general whether a running program is stuck or just thinking. That is the halting problem. So Kubernetes observes and reacts instead."
+
+- id: q5
+  header: "Classification"
+  question: "You run a program and it has been going for an hour. Which statement is correct?"
+  options:
+    - text: "If it eventually halts, you will know. If it loops forever, you can never be sure — you just keep waiting."
+      correct: true
+    - text: "You can determine after a fixed amount of time whether it will halt or not"
+      correct: false
+    - text: "There is no way to ever know whether it halts, even if it does"
+      correct: false
+    - text: "Running a program for long enough always tells you whether it halts"
+      correct: false
+  success: "The halting problem is semi-decidable: if the program halts, you will eventually see it stop (confirming YES). But if it loops forever, no finite amount of waiting can confirm that — you can never be sure it won't halt in the next second."
+  fail: "Remember the difference between decidable and semi-decidable. The halting problem is semi-decidable: you CAN confirm a 'yes' (just wait for it to halt), but you can NEVER confirm a 'no' (it might still halt eventually)."
+
+- id: q6
+  header: "Final Boss"
+  question: "A colleague claims they built a tool that detects ALL bugs in Java code with ZERO false positives. According to Rice's theorem, what should you conclude?"
+  options:
+    - text: "It is possible if they restrict it to a specific class of bugs"
+      correct: false
+    - text: "It is impossible — any non-trivial semantic property of programs is undecidable"
+      correct: true
+    - text: "It is possible with enough compute power and time"
+      correct: false
+    - text: "It is possible only for programs shorter than a certain length"
+      correct: false
+  success: "Rice's theorem says that ANY non-trivial semantic property (like 'has a bug') is undecidable. A perfect bug detector with all bugs found and zero false positives would violate this theorem. Real tools must trade off: catch more bugs (more false positives) or fewer false alarms (miss some bugs)."
+  fail: "Rice's theorem is absolute: no algorithm can decide any non-trivial semantic property of programs. 'Has a bug' is a semantic property (it depends on behavior, not syntax). So a perfect bug detector cannot exist — regardless of compute power, time, or program length."
