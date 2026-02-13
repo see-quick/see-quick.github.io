@@ -14,6 +14,9 @@
   <link rel="stylesheet" href="{{site.baseurl}}/assets/css/blog.css" />
   {%endif%}
   <link rel="stylesheet" href="{{site.baseurl}}/assets/css/common.css" />
+  {% if page.quiz %}
+  <link rel="stylesheet" href="{{site.baseurl}}/assets/css/quiz.css" />
+  {% endif %}
   <script src="{{site.baseurl}}/assets/js/categories.js"></script>
   <script>
     const currentTheme = localStorage.getItem("theme");

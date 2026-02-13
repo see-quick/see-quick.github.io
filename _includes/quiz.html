@@ -1,0 +1,30 @@
+{% comment %}
+  Reusable inline quiz component for blog posts.
+
+  Usage:
+    1. Add `quiz: <quiz-file>` to your post's front matter
+       (e.g., quiz: tls-keystores  →  loads _data/quizzes/tls-keystores.yml)
+    2. In the post body:  {% include quiz.html id="q1" %}
+
+  The YAML file should be a list of entries with:
+    id, header, question, options (text + correct), success, fail
+{% endcomment %}
+
+{% assign quiz_data = site.data.quizzes[page.quiz] %}
+{% for q in quiz_data %}
+  {% if q.id == include.id %}
+<div class="blog-quiz"
+     data-success="{{ q.success | escape }}"
+     data-fail="{{ q.fail | escape }}">
+  <div class="blog-quiz-header">{{ q.header }}</div>
+  <div class="blog-quiz-question">{{ q.question }}</div>
+  <div class="blog-quiz-options">
+    {% for opt in q.options %}
+    <div class="blog-quiz-option" data-correct="{{ opt.correct }}">{{ opt.text }}</div>
+    {% endfor %}
+  </div>
+  <div class="blog-quiz-explanation"></div>
+  <button class="blog-quiz-reset">Try again</button>
+</div>
+  {% endif %}
+{% endfor %}
