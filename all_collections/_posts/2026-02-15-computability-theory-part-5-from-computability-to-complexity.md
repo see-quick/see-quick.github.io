@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "36 Computability Theory Part 5: From Computability to Complexity"
-date: 2026-02-15
+date: 2026-05-15
 categories: ["theory-of-computation", "automata", "formal-languages", "java"]
 quiz: computability-part-5
 ---
@@ -232,13 +232,13 @@ This is why the DP solution does not prove $P = NP$.
 In Part 4, we saw engineers respond to **undecidability** with timeouts, probes, and heuristics.
 The response to **intractability** is similar: give up on perfect, embrace good enough.
 
-| Strategy               | Idea                                          | Example                           |
-|------------------------|-----------------------------------------------|-----------------------------------|
-| Approximation          | Get within a proven bound of optimal          | Greedy knapsack (sort by value/weight ratio) |
-| Heuristics             | Use rules of thumb that usually work          | Bin packing in Kubernetes          |
-| Restrict the input     | Limit problem size so brute force is fine     | Capacity planning with small $n$   |
-| Randomized algorithms  | Accept a small probability of being wrong     | Randomized SAT solvers             |
-| Parallelism            | Throw more machines at it                     | MapReduce over subsets             |
+| Strategy              | Idea                                      | Example                                      |
+|-----------------------|-------------------------------------------|----------------------------------------------|
+| Approximation         | Get within a proven bound of optimal      | Greedy knapsack (sort by value/weight ratio) |
+| Heuristics            | Use rules of thumb that usually work      | Bin packing in Kubernetes                    |
+| Restrict the input    | Limit problem size so brute force is fine | Capacity planning with small $n$             |
+| Randomized algorithms | Accept a small probability of being wrong | Randomized SAT solvers                       |
+| Parallelism           | Throw more machines at it                 | MapReduce over subsets                       |
 
 The pattern is the same as with undecidability: **know the theoretical limit, then choose a practical trade-off**.
 
