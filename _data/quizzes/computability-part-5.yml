@@ -1,0 +1,78 @@
+# Quiz questions for: Computability Theory Part 5 — From Computability to Complexity
+# Used by: {% include quiz.html id="<id>" %}
+# Post front matter must set: quiz: computability-part-5
+
+- id: q1
+  header: "The Shift"
+  question: "What is the key difference between computability theory and complexity theory?"
+  options:
+    - text: "Computability uses Turing machines, complexity uses a different model"
+      correct: false
+    - text: "Computability asks IF a problem can be solved, complexity asks HOW FAST"
+      correct: true
+    - text: "Complexity only applies to undecidable problems"
+      correct: false
+    - text: "Computability is theoretical, complexity is practical"
+      correct: false
+  success: "Both fields use the Turing machine as their computation model. Computability asks 'can a TM decide this at all?' while complexity adds a clock and asks 'how many steps does it need?' These are orthogonal concerns applied to decidable problems."
+  fail: "Both fields share the same model (Turing machines). The difference is the question: computability cares about whether a solution EXISTS, complexity cares about how many STEPS it takes. Complexity classes (P, NP, PSPACE) live entirely within the decidable region."
+
+- id: q2
+  header: "Class Nesting"
+  question: "Which of the following correctly describes the relationship between complexity classes?"
+  options:
+    - text: "P = NP = PSPACE (they are all the same)"
+      correct: false
+    - text: "P ⊆ NP ⊆ PSPACE ⊆ EXPTIME ⊆ Decidable"
+      correct: true
+    - text: "NP ⊆ P ⊆ EXPTIME ⊆ PSPACE"
+      correct: false
+    - text: "P ⊆ PSPACE ⊆ NP ⊆ EXPTIME"
+      correct: false
+  success: "Each class contains the previous one. Every polynomial-time problem is also verifiable in polynomial time (P ⊆ NP), every NP problem can be solved in polynomial space (NP ⊆ PSPACE), and so on. Whether any of these inclusions are strict (especially P vs NP) remains open."
+  fail: "The classes nest like an onion: P ⊆ NP ⊆ PSPACE ⊆ EXPTIME ⊆ Decidable. Think of it as increasingly generous budgets: polynomial time, then polynomial space (unlimited time), then exponential time. We know P ≠ EXPTIME, but whether P = NP is the million-dollar open question."
+
+- id: q3
+  header: "Exponential Blowup"
+  question: "You have 50 items for a knapsack problem and want to try every possible subset. How many subsets do you need to check?"
+  options:
+    - text: "50"
+      correct: false
+    - text: "2,500 (50 squared)"
+      correct: false
+    - text: "About 1 quadrillion (2^50)"
+      correct: true
+    - text: "50 factorial"
+      correct: false
+  success: "Each item is either included or not, giving 2 choices per item. With 50 items that is 2^50 ≈ 1.13 × 10^15 subsets — over one quadrillion. This is why brute force is hopeless for NP-complete problems at scale."
+  fail: "Each of the 50 items has two states: in the bag or not. The total number of subsets is 2^50, which is about 1.13 quadrillion. This exponential growth is exactly what makes NP-complete problems intractable for brute force."
+
+- id: q4
+  header: "Pseudo-Polynomial Trap"
+  question: "The knapsack DP solution runs in O(n · W). Why does this NOT prove P = NP?"
+  options:
+    - text: "Because DP is not a valid algorithm"
+      correct: false
+    - text: "Because W is exponential in the input size (the number of bits to represent W)"
+      correct: true
+    - text: "Because it only works for small inputs"
+      correct: false
+    - text: "Because the knapsack problem is not really NP-complete"
+      correct: false
+  success: "The input size of W is log₂(W) bits. So O(n · W) is O(n · 2^(bits of W)) — exponential in the input length. This is called pseudo-polynomial: polynomial in the numeric VALUE of the input, not in its SIZE. A truly polynomial algorithm must be polynomial in the number of bits."
+  fail: "Input size is measured in BITS, not numeric value. Writing the number W takes log₂(W) bits. So O(n · W) = O(n · 2^(bits)) is actually exponential in the true input size. That is why it is called pseudo-polynomial and does not settle P vs NP."
+
+- id: q5
+  header: "The Full Picture"
+  question: "Your manager asks you to write a tool that finds the optimal deployment schedule for 200 microservices with complex dependency constraints (an NP-complete problem). What is the best engineering response?"
+  options:
+    - text: "Use brute force — 200 is not that many"
+      correct: false
+    - text: "It is undecidable, so give up entirely"
+      correct: false
+    - text: "Use a heuristic or approximation algorithm that finds a good-enough solution"
+      correct: true
+    - text: "Wait for someone to prove P = NP"
+      correct: false
+  success: "NP-complete means solvable but (probably) not efficiently. The practical response is the same pattern from Part 4: know the theoretical limit, then choose a practical trade-off. Greedy algorithms, approximation bounds, and heuristics give you good-enough solutions in reasonable time."
+  fail: "NP-complete is NOT undecidable — the problem IS solvable, just not efficiently. Brute force over 2^200 subsets is hopeless. The engineering response is to use approximation algorithms or heuristics that find near-optimal solutions in polynomial time. Perfect is the enemy of good."
