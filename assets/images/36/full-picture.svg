@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 960">
+  <style>
+    text { font-family: 'Segoe UI', Arial, sans-serif; }
+    .label { font-weight: bold; font-size: 20px; }
+    .example { font-size: 17px; fill: #555; }
+    .class-label { font-weight: bold; font-size: 22px; }
+    .ring { stroke-width: 2.5; fill-opacity: 0.06; }
+    .outer-label { font-weight: bold; font-size: 24px; }
+  </style>
+
+  <!-- ALL PROBLEMS (outermost) -->
+  <ellipse cx="460" cy="450" rx="440" ry="420" class="ring" fill="#E53935" stroke="#C62828"/>
+  <text x="460" y="48" text-anchor="middle" class="outer-label" fill="#C62828">ALL PROBLEMS</text>
+
+  <!-- SEMI-DECIDABLE -->
+  <ellipse cx="460" cy="445" rx="380" ry="360" class="ring" fill="#FF7043" stroke="#E64A19"/>
+  <text x="460" y="104" text-anchor="middle" class="class-label" fill="#BF360C">SEMI-DECIDABLE (r.e.)</text>
+
+  <!-- DECIDABLE -->
+  <ellipse cx="460" cy="435" rx="320" ry="295" class="ring" fill="#9E9E9E" stroke="#757575"/>
+  <text x="460" y="160" text-anchor="middle" class="class-label" fill="#616161">DECIDABLE</text>
+
+  <!-- EXPTIME -->
+  <ellipse cx="460" cy="428" rx="260" ry="235" class="ring" fill="#7E57C2" stroke="#5E35B1"/>
+  <text x="460" y="214" text-anchor="middle" class="class-label" fill="#5E35B1">EXPTIME</text>
+
+  <!-- PSPACE -->
+  <ellipse cx="460" cy="423" rx="200" ry="178" class="ring" fill="#42A5F5" stroke="#1E88E5"/>
+  <text x="460" y="268" text-anchor="middle" class="class-label" fill="#1565C0">PSPACE</text>
+
+  <!-- NP -->
+  <ellipse cx="460" cy="418" rx="145" ry="125" class="ring" fill="#66BB6A" stroke="#43A047"/>
+  <text x="460" y="318" text-anchor="middle" class="class-label" fill="#2E7D32">NP</text>
+
+  <!-- P (innermost) -->
+  <ellipse cx="460" cy="415" rx="90" ry="75" class="ring" fill="#FFA726" stroke="#FB8C00"/>
+  <text x="460" y="395" text-anchor="middle" class="class-label" fill="#E65100">P</text>
+  <text x="460" y="418" text-anchor="middle" class="example">sorting · regex</text>
+  <text x="460" y="436" text-anchor="middle" class="example">shortest path</text>
+
+  <!-- NP examples -->
+  <text x="460" y="520" text-anchor="middle" class="example">knapsack · SAT · TSP</text>
+
+  <!-- PSPACE examples -->
+  <text x="460" y="578" text-anchor="middle" class="example">QBF · gen. Go</text>
+
+  <!-- EXPTIME examples -->
+  <text x="460" y="636" text-anchor="middle" class="example">gen. chess · checkers</text>
+
+  <!-- SEMI-DECIDABLE examples -->
+  <text x="460" y="750" text-anchor="middle" class="example">"does P halt on x?"</text>
+  <text x="460" y="770" text-anchor="middle" class="example">"is this formula provable?"</text>
+
+  <!-- ALL PROBLEMS examples -->
+  <text x="460" y="828" text-anchor="middle" class="example">"does P loop forever?"</text>
+  <text x="460" y="848" text-anchor="middle" class="example">"are P and Q equivalent?"</text>
+
+  <!-- Right-side annotations — lines start from right edge of each ring -->
+  <!-- P: cx=460 rx=90, right edge ≈ 550 -->
+  <line x1="550" y1="415" x2="920" y2="200" stroke="#E65100" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="928" y="195" class="label" fill="#E65100">P</text>
+  <text x="928" y="218" class="example">tractable — O(n^k)</text>
+
+  <!-- NP: cx=460 rx=145, right edge ≈ 605 -->
+  <line x1="605" y1="418" x2="920" y2="290" stroke="#2E7D32" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="928" y="285" class="label" fill="#2E7D32">NP</text>
+  <text x="928" y="308" class="example">verifiable in poly time</text>
+
+  <!-- PSPACE: cx=460 rx=200, right edge ≈ 660 -->
+  <line x1="660" y1="423" x2="920" y2="380" stroke="#1565C0" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="928" y="375" class="label" fill="#1565C0">PSPACE</text>
+  <text x="928" y="398" class="example">polynomial memory</text>
+
+  <!-- EXPTIME: cx=460 rx=260, right edge ≈ 720 -->
+  <line x1="720" y1="428" x2="920" y2="470" stroke="#5E35B1" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="928" y="465" class="label" fill="#5E35B1">EXPTIME</text>
+  <text x="928" y="488" class="example">O(2^n^k) steps</text>
+
+  <!-- DECIDABLE: cx=460 rx=320, right edge ≈ 780 -->
+  <line x1="780" y1="435" x2="920" y2="560" stroke="#757575" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="928" y="555" class="label" fill="#616161">DECIDABLE</text>
+  <text x="928" y="578" class="example">always halts (yes/no)</text>
+
+  <!-- SEMI-DECIDABLE: cx=460 rx=380, right edge ≈ 840 -->
+  <line x1="840" y1="445" x2="920" y2="650" stroke="#E64A19" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="928" y="645" class="label" fill="#BF360C">SEMI-DECIDABLE</text>
+  <text x="928" y="668" class="example">can confirm yes, not no</text>
+
+  <!-- UNDECIDABLE -->
+  <text x="928" y="745" class="label" fill="#C62828">UNDECIDABLE</text>
+  <text x="928" y="768" class="example">no algorithm at all</text>
+
+  <!-- Bottom note -->
+  <text x="460" y="920" text-anchor="middle" font-size="22" fill="#888" font-style="italic">
+    Parts 1–4: computability (outer rings) · Part 5: complexity (inner rings)
+  </text>
+</svg>

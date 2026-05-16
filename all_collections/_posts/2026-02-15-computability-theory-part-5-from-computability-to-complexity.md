@@ -61,40 +61,7 @@ They nest like this:
 
 $$P \subseteq NP \subseteq PSPACE \subseteq EXPTIME \subseteq \text{Decidable}$$
 
-```
-  ┌──────────────────────────────────────────────────────┐
-  │                    DECIDABLE                         │
-  │                                                      │
-  │   ┌──────────────────────────────────────────────┐   │
-  │   │                 EXPTIME                      │   │
-  │   │                                              │   │
-  │   │   ┌──────────────────────────────────────┐   │   │
-  │   │   │              PSPACE                  │   │   │
-  │   │   │                                      │   │   │
-  │   │   │   ┌──────────────────────────────┐   │   │   │
-  │   │   │   │            NP                │   │   │   │
-  │   │   │   │                              │   │   │   │
-  │   │   │   │   ┌──────────────────────┐   │   │   │   │
-  │   │   │   │   │         P            │   │   │   │   │
-  │   │   │   │   │                      │   │   │   │   │
-  │   │   │   │   │  • Sorting           │   │   │   │   │
-  │   │   │   │   │  • Shortest path     │   │   │   │   │
-  │   │   │   │   │  • Regex matching    │   │   │   │   │
-  │   │   │   │   └──────────────────────┘   │   │   │   │
-  │   │   │   │                              │   │   │   │
-  │   │   │   │  • Knapsack (NP-complete)    │   │   │   │
-  │   │   │   │  • SAT, TSP, Graph Coloring  │   │   │   │
-  │   │   │   └──────────────────────────────┘   │   │   │
-  │   │   │                                      │   │   │
-  │   │   │  • QBF (PSPACE-complete)             │   │   │
-  │   │   └──────────────────────────────────────┘   │   │
-  │   │                                              │   │
-  │   │  • Generalized chess (EXPTIME-complete)      │   │
-  │   └──────────────────────────────────────────────┘   │
-  │                                                      │
-  │  (Beyond here: undecidable — Halting Problem, etc.)  │
-  └──────────────────────────────────────────────────────┘
-```
+![Complexity classes as concentric rings: P inside NP inside PSPACE inside EXPTIME inside Decidable](/assets/images/36/complexity-classes.svg)
 
 We know $P \neq EXPTIME$. But whether $P = NP$ is the biggest open question in computer science, worth a [$1 million prize](https://www.claymath.org/millennium-problems/).
 
@@ -248,37 +215,7 @@ The pattern is the same as with undecidability: **know the theoretical limit, th
 
 We can now place everything on one map:
 
-```
-  ┌─────────────────────────────────────────────────────────┐
-  │                    ALL PROBLEMS                         │
-  │                                                         │
-  │  ┌──────────────────────────────────────────────────┐   │
-  │  │             SEMI-DECIDABLE                       │   │
-  │  │                                                  │   │
-  │  │  ┌───────────────────────────────────────────┐   │   │
-  │  │  │              DECIDABLE                    │   │   │
-  │  │  │                                           │   │   │
-  │  │  │  ┌────────────────────────────────────┐   │   │   │
-  │  │  │  │           EXPTIME                  │   │   │   │
-  │  │  │  │  ┌─────────────────────────────┐   │   │   │   │
-  │  │  │  │  │          PSPACE             │   │   │   │   │
-  │  │  │  │  │  ┌──────────────────────┐   │   │   │   │   │
-  │  │  │  │  │  │        NP            │   │   │   │   │   │
-  │  │  │  │  │  │  ┌───────────────┐   │   │   │   │   │   │
-  │  │  │  │  │  │  │      P        │   │   │   │   │   │   │
-  │  │  │  │  │  │  │  sorting      │   │   │   │   │   │   │
-  │  │  │  │  │  │  │  parsing      │   │   │   │   │   │   │
-  │  │  │  │  │  │  └───────────────┘   │   │   │   │   │   │
-  │  │  │  │  │  │  knapsack, SAT       │   │   │   │   │   │
-  │  │  │  │  │  └──────────────────────┘   │   │   │   │   │
-  │  │  │  │  └─────────────────────────────┘   │   │   │   │
-  │  │  │  └────────────────────────────────────┘   │   │   │
-  │  │  └───────────────────────────────────────────┘   │   │
-  │  │  halting problem (semi-decidable only)           │   │
-  │  └──────────────────────────────────────────────────┘   │
-  │  "Does P loop forever?" (not even semi-decidable)       │
-  └─────────────────────────────────────────────────────────┘
-```
+![The full picture: complexity classes nested within computability classes, from P at the center to undecidable problems at the edge](/assets/images/36/full-picture.svg)
 
 Parts 1-4 zoomed from the innermost circle outward, through the Chomsky hierarchy.
 Part 5 zoomed *into* the decidable region and found that it too has structure: an onion of complexity classes, each one exponentially harder than the last.
