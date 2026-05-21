@@ -1,0 +1,48 @@
+# Quiz questions for: Computability Theory Part 6 — Reductions
+# Used by: {% include quiz.html id="<id>" %}
+# Post front matter must set: quiz: computability-part-6
+
+- id: q1
+  header: "Reduction Direction"
+  question: "If we write A ≤p B (A reduces to B in polynomial time), what does that tell us about the hardness of B?"
+  options:
+    - text: "B is easier than A"
+      correct: false
+    - text: "B is at least as hard as A"
+      correct: true
+    - text: "A and B are equally hard"
+      correct: false
+    - text: "A is at least as hard as B"
+      correct: false
+  success: "If A ≤p B, we can solve A by transforming it into B and solving B. So if B were easy, A would be easy too. Contrapositive: if A is hard, B must be hard. Therefore B is at least as hard as A."
+  fail: "Think of it this way: if you can solve B, you can also solve A (by reducing A to B first). So B is a 'more powerful' problem — it is at least as hard as A. The reduction goes FROM the problem you understand TO the problem you're analyzing."
+
+- id: q2
+  header: "Two Sides of Reductions"
+  question: "Why are reductions useful for BOTH proving hardness AND solving problems in practice?"
+  options:
+    - text: "They aren't — reductions are only used for proofs"
+      correct: false
+    - text: "Proving hardness: reduce a known-hard problem TO your problem. Solving in practice: reduce your problem TO a problem with an optimized solver."
+      correct: true
+    - text: "They let you avoid NP-complete problems entirely"
+      correct: false
+    - text: "Reductions make all problems polynomial-time solvable"
+      correct: false
+  success: "Reductions work in two directions depending on the goal. To prove your problem is hard: reduce SAT (known hard) to your problem. To solve your problem in practice: reduce your problem to SAT and use an optimized SAT solver. Same technique, different direction, different purpose."
+  fail: "The key insight is directionality. For hardness proofs, you reduce FROM a known-hard problem TO your new problem (showing yours is at least as hard). For practical solving, you reduce FROM your problem TO one with a fast solver (like SAT). The reduction is the same polynomial-time transformation — the direction determines the purpose."
+
+- id: q3
+  header: "Graph Coloring to SAT"
+  question: "When reducing k-coloring of a graph with 5 vertices and 3 colors to SAT, how many boolean variables do we need?"
+  options:
+    - text: "5 (one per vertex)"
+      correct: false
+    - text: "3 (one per color)"
+      correct: false
+    - text: "8 (vertices + colors)"
+      correct: false
+    - text: "15 (vertices × colors)"
+      correct: true
+  success: "We create one boolean variable x_{v,c} for each vertex-color pair: 'vertex v gets color c.' With 5 vertices and 3 colors, that is 5 × 3 = 15 variables. The clauses then constrain these variables so that exactly one color is assigned per vertex and adjacent vertices get different colors."
+  fail: "The reduction creates a boolean variable for every (vertex, color) pair. Variable x_{v,c} means 'vertex v is assigned color c.' With 5 vertices and 3 colors, we need 5 × 3 = 15 variables. This is the standard encoding — one variable per possible assignment."
