@@ -1,0 +1,48 @@
+# Quiz questions for: Mutation Testing
+# Used by: {% include quiz.html id="<id>" %}
+# Post front matter must set: quiz: mutation-testing
+
+- id: q1
+  header: "Quick Check"
+  question: "A test calls a method but never asserts on the return value. What happens to the mutation score?"
+  options:
+    - text: "It stays high because the code was executed"
+      correct: false
+    - text: "It drops because mutants that change the return value will survive"
+      correct: true
+    - text: "It depends on the mutation operator used"
+      correct: false
+    - text: "It is unaffected because coverage and mutation score measure the same thing"
+      correct: false
+  success: "If a test never checks the return value, any mutation that changes it will go undetected. The mutant survives, and your mutation score drops."
+  fail: "Remember: code coverage only checks whether a line was executed. Mutation testing checks whether your test would notice if the code changed. No assertion means no detection."
+
+- id: q2
+  header: "Pop Quiz"
+  question: "A test for <code>validateWorkerCount(int workers)</code> only passes <code>-1</code> as input. Which mutation is most likely to survive?"
+  options:
+    - text: "<code>return</code> → <code>throw new RuntimeException()</code>"
+      correct: false
+    - text: "<code>workers <= 0</code> → <code>workers < 0</code>"
+      correct: true
+    - text: "<code>workers <= 0</code> → <code>workers != 0</code>"
+      correct: false
+    - text: "<code>throw new IllegalArgumentException()</code> → <code>return</code>"
+      correct: false
+  success: "Changing <code><= 0</code> to <code>< 0</code> still throws for <code>-1</code> but silently accepts <code>0</code>. Since the test never passes <code>0</code>, it cannot detect this mutation."
+  fail: "Think about boundary values. The test passes <code>-1</code>, which satisfies both <code><= 0</code> and <code>< 0</code>. The mutation that flips the boundary is the one that slips through."
+
+- id: q3
+  header: "Think About It"
+  question: "What does a mutation score of 100% tell you about your test suite?"
+  options:
+    - text: "Your code has no bugs"
+      correct: false
+    - text: "Every generated mutant was detected by at least one test"
+      correct: true
+    - text: "You have 100% line coverage"
+      correct: false
+    - text: "Your tests cover every possible edge case"
+      correct: false
+  success: "A 100% mutation score means every mutant the tool generated was killed by at least one test. It does not guarantee zero bugs, since mutation operators only model a finite set of possible faults."
+  fail: "Mutation score measures how many generated mutants your tests caught. It says nothing about bugs the mutation operators did not model, and it does not imply full line coverage either."
