@@ -1,0 +1,159 @@
+---
+layout: perf-dashboard
+title: Strimzi Performance Dashboard
+---
+
+<h1>Strimzi Performance Dashboard</h1>
+<div class="meta" id="meta-info">Loading...</div>
+
+<div id="regression-section"></div>
+
+<div class="filters">
+  <button class="active" data-filter="all">All</button>
+  <button data-filter="cluster-operator">Cluster Operator</button>
+  <button data-filter="topic-operator">Topic Operator</button>
+  <button data-filter="user-operator">User Operator</button>
+  <button data-filter="connect">Connect</button>
+</div>
+
+<div class="chart-grid" id="charts"></div>
+
+<script>
+const resultsData = {{ site.data.performance.results | jsonify }};
+const regressionsData = {{ site.data.performance.regressions | jsonify }};
+
+function init() {
+  const meta = document.getElementById('meta-info');
+  if (resultsData.runs && resultsData.runs.length > 0) {
+    const latest = resultsData.runs[resultsData.runs.length - 1];
+    meta.textContent = 'Last updated: ' + (resultsData.lastUpdated || 'N/A') + ' | Commit: ' + (latest.commitSha || 'N/A');
+  } else {
+    meta.textContent = 'No performance data available yet. Run your first nightly test to populate.';
+    return;
+  }
+
+  renderRegressions();
+  renderCharts('all');
+  setupFilters();
+}
+
+function renderRegressions() {
+  var section = document.getElementById('regression-section');
+  var regressions = regressionsData.regressions || [];
+
+  if (regressions.length === 0) {
+    section.innerHTML = '<div class="no-regressions">No active regressions detected.</div>';
+    return;
+  }
+
+  var html = '<div class="regression-banner"><h2>Active Regressions (' + regressions.length + ')</h2>';
+  regressions.forEach(function(r) {
+    html += '<div class="regression-item">' +
+      '<div class="metric-name">' + r.testName + ' / ' + r.metricName + '</div>' +
+      '<div class="details">Current: ' + r.currentValue.toFixed(1) + ' | Baseline: ' + r.baselineMean.toFixed(1) + ' +/- ' + r.baselineStddev.toFixed(1) + ' | ' + r.deviations.toFixed(2) + ' sigma</div>' +
+      '</div>';
+  });
+  html += '</div>';
+  section.innerHTML = html;
+}
+
+function renderCharts(filter) {
+  var container = document.getElementById('charts');
+  container.innerHTML = '';
+
+  if (!resultsData.runs || resultsData.runs.length === 0) return;
+
+  var metricsByTest = {};
+  resultsData.runs.forEach(function(run) {
+    Object.entries(run.results || {}).forEach(function(entry) {
+      var testKey = entry[0];
+      var metrics = entry[1];
+      if (filter !== 'all') {
+        if (testKey.indexOf(filter) === -1) return;
+      }
+      if (!metricsByTest[testKey]) metricsByTest[testKey] = {};
+      Object.entries(metrics).forEach(function(mEntry) {
+        var metricName = mEntry[0];
+        var value = mEntry[1];
+        if (!metricsByTest[testKey][metricName]) metricsByTest[testKey][metricName] = [];
+        metricsByTest[testKey][metricName].push({ date: run.date, value: value });
+      });
+    });
+  });
+
+  Object.entries(metricsByTest).forEach(function(testEntry) {
+    var testKey = testEntry[0];
+    var metrics = testEntry[1];
+    Object.entries(metrics).forEach(function(metricEntry) {
+      var metricName = metricEntry[0];
+      var dataPoints = metricEntry[1];
+
+      var card = document.createElement('div');
+      card.className = 'chart-card';
+      card.innerHTML = '<h3>' + testKey + ' / ' + metricName + '</h3><canvas></canvas>';
+      container.appendChild(card);
+
+      var canvas = card.querySelector('canvas');
+      var labels = dataPoints.map(function(d) { return d.date; });
+      var values = dataPoints.map(function(d) { return d.value; });
+
+      var datasets = [{
+        label: metricName,
+        data: values,
+        borderColor: '#1f6feb',
+        backgroundColor: 'rgba(31, 111, 235, 0.1)',
+        fill: false,
+        tension: 0.3,
+        pointRadius: 3
+      }];
+
+      var baseline = (resultsData.baselines || {})[testKey];
+      if (baseline && baseline[metricName]) {
+        var mean = baseline[metricName].mean;
+        var stddev = baseline[metricName].stddev;
+        datasets.push({
+          label: 'Baseline +2 sigma',
+          data: Array(labels.length).fill(mean + 2 * stddev),
+          borderColor: 'rgba(248, 81, 73, 0.5)',
+          borderDash: [5, 5],
+          fill: false,
+          pointRadius: 0
+        });
+        datasets.push({
+          label: 'Baseline -2 sigma',
+          data: Array(labels.length).fill(Math.max(0, mean - 2 * stddev)),
+          borderColor: 'rgba(63, 185, 80, 0.5)',
+          borderDash: [5, 5],
+          fill: false,
+          pointRadius: 0
+        });
+      }
+
+      new Chart(canvas, {
+        type: 'line',
+        data: { labels: labels, datasets: datasets },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: false, ticks: { color: '#8b949e' }, grid: { color: '#21262d' } },
+            x: { ticks: { color: '#8b949e', maxRotation: 45 }, grid: { color: '#21262d' } }
+          },
+          plugins: { legend: { labels: { color: '#c9d1d9' } } }
+        }
+      });
+    });
+  });
+}
+
+function setupFilters() {
+  document.querySelectorAll('.filters button').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filters button').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      renderCharts(btn.dataset.filter);
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
