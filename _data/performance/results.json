@@ -1,6 +1,38 @@
 {
-  "lastUpdated": "2026-06-13T18:47:41.753373+00:00",
+  "lastUpdated": "2026-06-13T18:53:00.996240+00:00",
   "runs": [
+    {
+      "date": "2026-06-12",
+      "commitSha": "",
+      "results": {
+        "user-operator-latencyUseCase": {
+          "minLatencyMs": 6.0,
+          "maxLatencyMs": 26.0,
+          "averageLatencyMs": 9.72,
+          "p50LatencyMs": 9.0,
+          "p95LatencyMs": 16.0,
+          "p99LatencyMs": 22.0
+        },
+        "cluster-operator-rebalanceUseCase": {
+          "proposalReadyTimeMs": 70114.0,
+          "rebalanceExecutionTimeMs": 60160.0,
+          "totalRebalanceTimeMs": 130274.0
+        },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 165058.0
+        },
+        "topic-operator-scalabilityUseCase": {
+          "reconciliationIntervalMs": 20240.0
+        },
+        "cluster-operator-nodePoolScalingUseCase": {
+          "scaleUpTimeMs": 27459.0,
+          "scaleDownTimeMs": 4152.0
+        },
+        "user-operator-scalabilityUseCase": {
+          "reconciliationIntervalMs": 20530.0
+        }
+      }
+    },
     {
       "date": "2026-06-13",
       "commitSha": "",

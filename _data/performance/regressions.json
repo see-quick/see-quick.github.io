@@ -1,5 +1,5 @@
 {
-  "detectedAt" : "2026-06-13T18:43:53.032057Z",
+  "detectedAt" : "2026-06-13T18:52:15.635956Z",
   "regressions" : [ {
     "testName" : "UserOperatorLatencyPerformance",
     "metricName" : "minLatencyMs",
