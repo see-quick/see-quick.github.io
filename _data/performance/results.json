@@ -1,35 +1,38 @@
 {
-  "lastUpdated": "2026-06-13T16:38:06.697374+00:00",
+  "lastUpdated": "2026-06-13T18:47:41.753373+00:00",
   "runs": [
     {
       "date": "2026-06-13",
       "commitSha": "",
       "results": {
         "user-operator-latencyUseCase": {
-          "minLatencyMs": 6.0,
-          "maxLatencyMs": 26.0,
-          "averageLatencyMs": 9.72,
-          "p50LatencyMs": 9.0,
-          "p95LatencyMs": 16.0,
-          "p99LatencyMs": 22.0
+          "minLatencyMs": 9.0,
+          "maxLatencyMs": 24.0,
+          "averageLatencyMs": 12.87,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 18.0,
+          "p99LatencyMs": 21.0
         },
         "cluster-operator-rebalanceUseCase": {
-          "proposalReadyTimeMs": 70114.0,
-          "rebalanceExecutionTimeMs": 60160.0,
-          "totalRebalanceTimeMs": 130274.0
+          "proposalReadyTimeMs": 40070.0,
+          "rebalanceExecutionTimeMs": 60175.0,
+          "totalRebalanceTimeMs": 100245.0
+        },
+        "cluster-operator-connectScalabilityUseCase": {
+          "allConnectorsReadyTimeMs": 40618.0
         },
         "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 165058.0
+          "caRenewalTimeMs": 168136.0
         },
         "topic-operator-scalabilityUseCase": {
-          "reconciliationIntervalMs": 20240.0
+          "reconciliationIntervalMs": 20943.0
         },
         "cluster-operator-nodePoolScalingUseCase": {
-          "scaleUpTimeMs": 27459.0,
-          "scaleDownTimeMs": 4152.0
+          "scaleUpTimeMs": 27424.0,
+          "scaleDownTimeMs": 3116.0
         },
         "user-operator-scalabilityUseCase": {
-          "reconciliationIntervalMs": 20530.0
+          "reconciliationIntervalMs": 20468.0
         }
       }
     }
@@ -37,70 +40,76 @@
   "baselines": {
     "cluster-operator-rebalanceUseCase": {
       "proposalReadyTimeMs": {
-        "mean": 70114.0,
-        "stddev": 3505.7000000000003
+        "mean": 55092.0,
+        "stddev": 15022.0
       },
       "rebalanceExecutionTimeMs": {
-        "mean": 60160.0,
-        "stddev": 3008.0
+        "mean": 60167.5,
+        "stddev": 3008.375
       },
       "totalRebalanceTimeMs": {
-        "mean": 130274.0,
-        "stddev": 6513.700000000001
+        "mean": 115259.5,
+        "stddev": 15014.5
       }
     },
     "user-operator-scalabilityUseCase": {
       "reconciliationIntervalMs": {
-        "mean": 20530.0,
-        "stddev": 1026.5
+        "mean": 20499.0,
+        "stddev": 1024.95
       }
     },
     "topic-operator-scalabilityUseCase": {
       "reconciliationIntervalMs": {
-        "mean": 20240.0,
-        "stddev": 1012.0
+        "mean": 20591.5,
+        "stddev": 1029.575
       }
     },
     "user-operator-latencyUseCase": {
       "minLatencyMs": {
-        "mean": 6.0,
-        "stddev": 0.30000000000000004
+        "mean": 7.5,
+        "stddev": 1.5
       },
       "maxLatencyMs": {
-        "mean": 26.0,
-        "stddev": 1.3
+        "mean": 25.0,
+        "stddev": 1.25
       },
       "averageLatencyMs": {
-        "mean": 9.72,
-        "stddev": 0.48600000000000004
+        "mean": 11.295,
+        "stddev": 1.5749999999999993
       },
       "p50LatencyMs": {
-        "mean": 9.0,
-        "stddev": 0.45
+        "mean": 10.5,
+        "stddev": 1.5
       },
       "p95LatencyMs": {
-        "mean": 16.0,
-        "stddev": 0.8
+        "mean": 17.0,
+        "stddev": 1.0
       },
       "p99LatencyMs": {
-        "mean": 22.0,
-        "stddev": 1.1
+        "mean": 21.5,
+        "stddev": 1.075
       }
     },
     "cluster-operator-nodePoolScalingUseCase": {
       "scaleUpTimeMs": {
-        "mean": 27459.0,
-        "stddev": 1372.95
+        "mean": 27441.5,
+        "stddev": 1372.075
       },
       "scaleDownTimeMs": {
-        "mean": 4152.0,
-        "stddev": 207.60000000000002
+        "mean": 3634.0,
+        "stddev": 518.0
       }
     },
     "cluster-operator-caRenewalUseCase": {
       "caRenewalTimeMs": {
-        "mean": 165058.0,
-        "stddev": 8252.9
+        "mean": 166597.0,
+        "stddev": 8329.85
+      }
+    },
+    "cluster-operator-connectScalabilityUseCase": {
+      "allConnectorsReadyTimeMs": {
+        "mean": 40618.0,
+        "stddev": 2030.9
       }
     }
   }

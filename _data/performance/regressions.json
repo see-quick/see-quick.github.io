@@ -1,4 +1,40 @@
 {
-  "detectedAt" : "2026-06-13T16:29:12.121466Z",
-  "regressions" : [ ]
+  "detectedAt" : "2026-06-13T18:43:53.032057Z",
+  "regressions" : [ {
+    "testName" : "UserOperatorLatencyPerformance",
+    "metricName" : "minLatencyMs",
+    "currentValue" : 9.0,
+    "baselineMean" : 6.0,
+    "baselineStddev" : 0.30000000000000004,
+    "deviations" : 9.999999999999998,
+    "threshold" : 2.0,
+    "passed" : false
+  }, {
+    "testName" : "UserOperatorLatencyPerformance",
+    "metricName" : "averageLatencyMs",
+    "currentValue" : 12.87,
+    "baselineMean" : 9.72,
+    "baselineStddev" : 0.48600000000000004,
+    "deviations" : 6.481481481481478,
+    "threshold" : 2.0,
+    "passed" : false
+  }, {
+    "testName" : "UserOperatorLatencyPerformance",
+    "metricName" : "p50LatencyMs",
+    "currentValue" : 12.0,
+    "baselineMean" : 9.0,
+    "baselineStddev" : 0.45,
+    "deviations" : 6.666666666666666,
+    "threshold" : 2.0,
+    "passed" : false
+  }, {
+    "testName" : "UserOperatorLatencyPerformance",
+    "metricName" : "p95LatencyMs",
+    "currentValue" : 18.0,
+    "baselineMean" : 16.0,
+    "baselineStddev" : 0.8,
+    "deviations" : 2.5,
+    "threshold" : 2.0,
+    "passed" : false
+  } ]
 }
