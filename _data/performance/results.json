@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-13T18:53:00.996240+00:00",
+  "lastUpdated": "2026-06-13T19:00:40.250967+00:00",
   "runs": [
     {
       "date": "2026-06-12",
@@ -72,70 +72,70 @@
   "baselines": {
     "cluster-operator-rebalanceUseCase": {
       "proposalReadyTimeMs": {
-        "mean": 55092.0,
-        "stddev": 15022.0
+        "mean": 46078.8,
+        "stddev": 12017.6
       },
       "rebalanceExecutionTimeMs": {
-        "mean": 60167.5,
-        "stddev": 3008.375
+        "mean": 60172.0,
+        "stddev": 3008.6000000000004
       },
       "totalRebalanceTimeMs": {
-        "mean": 115259.5,
-        "stddev": 15014.5
+        "mean": 106250.8,
+        "stddev": 12011.6
       }
     },
     "user-operator-scalabilityUseCase": {
       "reconciliationIntervalMs": {
-        "mean": 20499.0,
-        "stddev": 1024.95
+        "mean": 20480.4,
+        "stddev": 1024.0200000000002
       }
     },
     "topic-operator-scalabilityUseCase": {
       "reconciliationIntervalMs": {
-        "mean": 20591.5,
-        "stddev": 1029.575
+        "mean": 20802.4,
+        "stddev": 1040.1200000000001
       }
     },
     "user-operator-latencyUseCase": {
       "minLatencyMs": {
-        "mean": 7.5,
-        "stddev": 1.5
+        "mean": 8.4,
+        "stddev": 1.2
       },
       "maxLatencyMs": {
-        "mean": 25.0,
-        "stddev": 1.25
+        "mean": 24.4,
+        "stddev": 1.22
       },
       "averageLatencyMs": {
-        "mean": 11.295,
-        "stddev": 1.5749999999999993
+        "mean": 12.239999999999998,
+        "stddev": 1.2599999999999993
       },
       "p50LatencyMs": {
-        "mean": 10.5,
-        "stddev": 1.5
+        "mean": 11.4,
+        "stddev": 1.2
       },
       "p95LatencyMs": {
-        "mean": 17.0,
-        "stddev": 1.0
+        "mean": 17.6,
+        "stddev": 0.8800000000000001
       },
       "p99LatencyMs": {
-        "mean": 21.5,
-        "stddev": 1.075
+        "mean": 21.2,
+        "stddev": 1.06
       }
     },
     "cluster-operator-nodePoolScalingUseCase": {
       "scaleUpTimeMs": {
-        "mean": 27441.5,
-        "stddev": 1372.075
+        "mean": 27431.0,
+        "stddev": 1371.5500000000002
       },
       "scaleDownTimeMs": {
-        "mean": 3634.0,
-        "stddev": 518.0
+        "mean": 3323.2,
+        "stddev": 414.40000000000003
       }
     },
     "cluster-operator-caRenewalUseCase": {
       "caRenewalTimeMs": {
-        "mean": 166597.0,
-        "stddev": 8329.85
+        "mean": 167520.4,
+        "stddev": 8376.02
       }
     },
     "cluster-operator-connectScalabilityUseCase": {
