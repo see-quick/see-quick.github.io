@@ -1,30 +1,12 @@
 {
-  "detectedAt" : "2026-06-14T08:38:56.399081Z",
+  "detectedAt" : "2026-06-15T01:58:12.191585Z",
   "regressions" : [ {
-    "testName" : "ClusterOperatorRebalancePerformance",
-    "metricName" : "proposalReadyTimeMs",
-    "currentValue" : 191727.0,
-    "baselineMean" : 46078.8,
-    "baselineStddev" : 12017.6,
-    "deviations" : 12.119574623884969,
-    "threshold" : 2.0,
-    "passed" : false
-  }, {
-    "testName" : "ClusterOperatorRebalancePerformance",
-    "metricName" : "totalRebalanceTimeMs",
-    "currentValue" : 252691.0,
-    "baselineMean" : 106250.8,
-    "baselineStddev" : 12011.6,
-    "deviations" : 12.19156482067335,
-    "threshold" : 2.0,
-    "passed" : false
-  }, {
-    "testName" : "ClusterOperatorNodePoolScalingPerformance",
-    "metricName" : "scaleDownTimeMs",
-    "currentValue" : 4394.0,
-    "baselineMean" : 3323.2,
-    "baselineStddev" : 414.40000000000003,
-    "deviations" : 2.583976833976834,
+    "testName" : "ClusterOperatorConnectScalabilityPerformance",
+    "metricName" : "allConnectorsReadyTimeMs",
+    "currentValue" : 61550.0,
+    "baselineMean" : 37336.166666666664,
+    "baselineStddev" : 7434.516806012943,
+    "deviations" : 3.2569478239324843,
     "threshold" : 2.0,
     "passed" : false
   } ]
