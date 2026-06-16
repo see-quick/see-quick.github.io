@@ -1,13 +1,4 @@
 {
-  "detectedAt" : "2026-06-15T01:58:12.191585Z",
-  "regressions" : [ {
-    "testName" : "ClusterOperatorConnectScalabilityPerformance",
-    "metricName" : "allConnectorsReadyTimeMs",
-    "currentValue" : 61550.0,
-    "baselineMean" : 37336.166666666664,
-    "baselineStddev" : 7434.516806012943,
-    "deviations" : 3.2569478239324843,
-    "threshold" : 2.0,
-    "passed" : false
-  } ]
+  "detectedAt" : "2026-06-16T09:03:00.228463Z",
+  "regressions" : [ ]
 }
