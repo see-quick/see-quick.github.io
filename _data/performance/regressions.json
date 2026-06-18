@@ -1,48 +1,21 @@
 {
-  "detectedAt" : "2026-06-17T03:33:31.950374Z",
+  "detectedAt" : "2026-06-18T07:59:15.253523Z",
   "regressions" : [ {
-    "testName" : "UserOperatorLatencyPerformance",
-    "metricName" : "maxLatencyMs",
-    "currentValue" : 44.0,
-    "baselineMean" : 23.444444444444443,
-    "baselineStddev" : 1.4989708403591155,
-    "deviations" : 13.713112358230374,
+    "testName" : "ClusterOperatorRollingUpdatePerformance",
+    "metricName" : "brokerRollingUpdateTimeMs",
+    "currentValue" : 96055.0,
+    "baselineMean" : 77317.6,
+    "baselineStddev" : 8417.969413106703,
+    "deviations" : 2.225881216772543,
     "threshold" : 2.0,
     "passed" : false
   }, {
-    "testName" : "UserOperatorLatencyPerformance",
-    "metricName" : "averageLatencyMs",
-    "currentValue" : 16.08,
-    "baselineMean" : 11.417777777777777,
-    "baselineStddev" : 1.636478453385519,
-    "deviations" : 2.8489359041526603,
-    "threshold" : 2.0,
-    "passed" : false
-  }, {
-    "testName" : "UserOperatorLatencyPerformance",
-    "metricName" : "p50LatencyMs",
-    "currentValue" : 14.0,
-    "baselineMean" : 10.555555555555555,
-    "baselineStddev" : 1.640535895581489,
-    "deviations" : 2.099584930583649,
-    "threshold" : 2.0,
-    "passed" : false
-  }, {
-    "testName" : "UserOperatorLatencyPerformance",
-    "metricName" : "p95LatencyMs",
-    "currentValue" : 37.0,
-    "baselineMean" : 16.444444444444443,
-    "baselineStddev" : 1.892154040658489,
-    "deviations" : 10.863574061022016,
-    "threshold" : 2.0,
-    "passed" : false
-  }, {
-    "testName" : "UserOperatorLatencyPerformance",
-    "metricName" : "p99LatencyMs",
-    "currentValue" : 43.0,
-    "baselineMean" : 20.444444444444443,
-    "baselineStddev" : 2.006163342807532,
-    "deviations" : 11.243130145120741,
+    "testName" : "ClusterOperatorRollingUpdatePerformance",
+    "metricName" : "totalRollingUpdateTimeMs",
+    "currentValue" : 184889.0,
+    "baselineMean" : 166191.4,
+    "baselineStddev" : 9041.755019906257,
+    "deviations" : 2.0679171199435857,
     "threshold" : 2.0,
     "passed" : false
   } ]
