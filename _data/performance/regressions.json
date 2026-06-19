@@ -1,21 +1,21 @@
 {
-  "detectedAt" : "2026-06-18T07:59:15.253523Z",
+  "detectedAt" : "2026-06-19T08:27:40.057493Z",
   "regressions" : [ {
-    "testName" : "ClusterOperatorRollingUpdatePerformance",
-    "metricName" : "brokerRollingUpdateTimeMs",
-    "currentValue" : 96055.0,
-    "baselineMean" : 77317.6,
-    "baselineStddev" : 8417.969413106703,
-    "deviations" : 2.225881216772543,
+    "testName" : "ClusterOperatorRebalancePerformance",
+    "metricName" : "rebalanceExecutionTimeMs",
+    "currentValue" : 413144.0,
+    "baselineMean" : 57219.8,
+    "baselineStddev" : 9355.180690932699,
+    "deviations" : 38.045678833864926,
     "threshold" : 2.0,
     "passed" : false
   }, {
-    "testName" : "ClusterOperatorRollingUpdatePerformance",
-    "metricName" : "totalRollingUpdateTimeMs",
-    "currentValue" : 184889.0,
-    "baselineMean" : 166191.4,
-    "baselineStddev" : 9041.755019906257,
-    "deviations" : 2.0679171199435857,
+    "testName" : "ClusterOperatorRebalancePerformance",
+    "metricName" : "totalRebalanceTimeMs",
+    "currentValue" : 655301.0,
+    "baselineMean" : 225984.1,
+    "baselineStddev" : 82263.145871587,
+    "deviations" : 5.218824243242106,
     "threshold" : 2.0,
     "passed" : false
   } ]
