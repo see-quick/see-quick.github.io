@@ -1,21 +1,12 @@
 {
-  "detectedAt" : "2026-06-19T08:27:40.057493Z",
+  "detectedAt" : "2026-06-20T02:58:40.891367Z",
   "regressions" : [ {
-    "testName" : "ClusterOperatorRebalancePerformance",
-    "metricName" : "rebalanceExecutionTimeMs",
-    "currentValue" : 413144.0,
-    "baselineMean" : 57219.8,
-    "baselineStddev" : 9355.180690932699,
-    "deviations" : 38.045678833864926,
-    "threshold" : 2.0,
-    "passed" : false
-  }, {
-    "testName" : "ClusterOperatorRebalancePerformance",
-    "metricName" : "totalRebalanceTimeMs",
-    "currentValue" : 655301.0,
-    "baselineMean" : 225984.1,
-    "baselineStddev" : 82263.145871587,
-    "deviations" : 5.218824243242106,
+    "testName" : "UserOperatorLatencyPerformance",
+    "metricName" : "minLatencyMs",
+    "currentValue" : 11.0,
+    "baselineMean" : 7.7,
+    "baselineStddev" : 1.1,
+    "deviations" : 2.9999999999999996,
     "threshold" : 2.0,
     "passed" : false
   } ]
