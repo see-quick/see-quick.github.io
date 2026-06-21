@@ -1,13 +1,4 @@
 {
-  "detectedAt" : "2026-06-20T02:58:40.891367Z",
-  "regressions" : [ {
-    "testName" : "UserOperatorLatencyPerformance",
-    "metricName" : "minLatencyMs",
-    "currentValue" : 11.0,
-    "baselineMean" : 7.7,
-    "baselineStddev" : 1.1,
-    "deviations" : 2.9999999999999996,
-    "threshold" : 2.0,
-    "passed" : false
-  } ]
+  "detectedAt" : "2026-06-21T09:33:42.090080Z",
+  "regressions" : [ ]
 }
