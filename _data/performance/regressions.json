@@ -1,4 +1,67 @@
 {
-  "detectedAt" : "2026-06-21T09:33:42.090080Z",
-  "regressions" : [ ]
+  "detectedAt" : "2026-06-22T08:45:04.801672Z",
+  "regressions" : [ {
+    "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=1000)",
+    "metricName" : "p95LatencyMs",
+    "currentValue" : 23.0,
+    "baselineMean" : 19.0,
+    "baselineStddev" : 0.9500000000000001,
+    "deviations" : 4.2105263157894735,
+    "threshold" : 2.0,
+    "passed" : false
+  }, {
+    "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=1000)",
+    "metricName" : "p99LatencyMs",
+    "currentValue" : 27.0,
+    "baselineMean" : 24.0,
+    "baselineStddev" : 1.2000000000000002,
+    "deviations" : 2.4999999999999996,
+    "threshold" : 2.0,
+    "passed" : false
+  }, {
+    "testName" : "TopicOperatorScalabilityPerformance (numberOfTopics=250)",
+    "metricName" : "reconciliationIntervalMs",
+    "currentValue" : 30754.0,
+    "baselineMean" : 25237.0,
+    "baselineStddev" : 1261.8500000000001,
+    "deviations" : 4.372151999049015,
+    "threshold" : 2.0,
+    "passed" : false
+  }, {
+    "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=2000)",
+    "metricName" : "minLatencyMs",
+    "currentValue" : 7.0,
+    "baselineMean" : 6.0,
+    "baselineStddev" : 0.30000000000000004,
+    "deviations" : 3.333333333333333,
+    "threshold" : 2.0,
+    "passed" : false
+  }, {
+    "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=2000)",
+    "metricName" : "averageLatencyMs",
+    "currentValue" : 11.74,
+    "baselineMean" : 9.32,
+    "baselineStddev" : 0.466,
+    "deviations" : 5.1931330472103,
+    "threshold" : 2.0,
+    "passed" : false
+  }, {
+    "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=2000)",
+    "metricName" : "p50LatencyMs",
+    "currentValue" : 11.0,
+    "baselineMean" : 8.0,
+    "baselineStddev" : 0.4,
+    "deviations" : 7.5,
+    "threshold" : 2.0,
+    "passed" : false
+  }, {
+    "testName" : "ClusterOperatorConnectScalabilityPerformance (connectorCount=50)",
+    "metricName" : "allConnectorsReadyTimeMs",
+    "currentValue" : 41161.0,
+    "baselineMean" : 20701.0,
+    "baselineStddev" : 1035.05,
+    "deviations" : 19.76716100671465,
+    "threshold" : 2.0,
+    "passed" : false
+  } ]
 }
