@@ -1,57 +1,18 @@
 {
-  "lastUpdated": "2026-07-24T06:46:29.688970+00:00",
+  "lastUpdated": "2026-07-25T08:16:40.851504+00:00",
   "runs": [
-    {
-      "date": "2026-06-18T07:59",
-      "commitSha": "",
-      "results": {
-        "user-operator-latencyUseCase": {
-          "minLatencyMs": 7.0,
-          "maxLatencyMs": 26.0,
-          "averageLatencyMs": 11.85,
-          "p50LatencyMs": 11.0,
-          "p95LatencyMs": 20.0,
-          "p99LatencyMs": 25.0
-        },
-        "user-operator-scalabilityUseCase": {
-          "reconciliationIntervalMs": 20984.0
-        },
-        "cluster-operator-nodePoolScalingUseCase": {
-          "scaleUpTimeMs": 26650.0,
-          "scaleDownTimeMs": 2340.0
-        },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 160834.0
-        },
-        "cluster-operator-connectScalabilityUseCase": {
-          "allConnectorsReadyTimeMs": 30886.0
-        },
-        "cluster-operator-rebalanceUseCase": {
-          "proposalReadyTimeMs": 70959.0,
-          "rebalanceExecutionTimeMs": 60864.0,
-          "totalRebalanceTimeMs": 131825.0
-        },
-        "cluster-operator-rollingUpdateUseCase": {
-          "brokerRollingUpdateTimeMs": 96055.0,
-          "controllerRollingUpdateTimeMs": 88834.0,
-          "totalRollingUpdateTimeMs": 184889.0
-        },
-        "topic-operator-scalabilityUseCase": {
-          "reconciliationIntervalMs": 20653.0
-        }
-      }
-    },
     {
       "date": "2026-06-19T08:27",
       "commitSha": "",
       "results": {
-        "user-operator-latencyUseCase": {
-          "minLatencyMs": 7.0,
-          "maxLatencyMs": 19.0,
-          "averageLatencyMs": 8.86,
-          "p50LatencyMs": 8.0,
-          "p95LatencyMs": 13.0,
-          "p99LatencyMs": 15.0
+        "topic-operator-scalabilityUseCase": {
+          "reconciliationIntervalMs": 20467.0
+        },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 153242.0
+        },
+        "cluster-operator-connectScalabilityUseCase": {
+          "allConnectorsReadyTimeMs": 30891.0
         },
         "user-operator-scalabilityUseCase": {
           "reconciliationIntervalMs": 21070.0
@@ -60,11 +21,13 @@
           "scaleUpTimeMs": 28639.0,
           "scaleDownTimeMs": 3606.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 153242.0
-        },
-        "cluster-operator-connectScalabilityUseCase": {
-          "allConnectorsReadyTimeMs": 30891.0
+        "user-operator-latencyUseCase": {
+          "minLatencyMs": 7.0,
+          "maxLatencyMs": 19.0,
+          "averageLatencyMs": 8.86,
+          "p50LatencyMs": 8.0,
+          "p95LatencyMs": 13.0,
+          "p99LatencyMs": 15.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 242151.0,
@@ -75,9 +38,6 @@
           "brokerRollingUpdateTimeMs": 95095.0,
           "controllerRollingUpdateTimeMs": 88192.0,
           "totalRollingUpdateTimeMs": 183287.0
-        },
-        "topic-operator-scalabilityUseCase": {
-          "reconciliationIntervalMs": 20467.0
         }
       }
     },
@@ -85,6 +45,16 @@
       "date": "2026-06-20T02:58",
       "commitSha": "",
       "results": {
+        "topic-operator-scalabilityUseCase": {
+          "reconciliationIntervalMs": 20371.0
+        },
+        "cluster-operator-connectScalabilityUseCase": {
+          "allConnectorsReadyTimeMs": 31007.0
+        },
+        "cluster-operator-nodePoolScalingUseCase": {
+          "scaleUpTimeMs": 28069.0,
+          "scaleDownTimeMs": 2292.0
+        },
         "user-operator-latencyUseCase": {
           "minLatencyMs": 11.0,
           "maxLatencyMs": 37.0,
@@ -92,13 +62,6 @@
           "p50LatencyMs": 14.0,
           "p95LatencyMs": 24.0,
           "p99LatencyMs": 27.0
-        },
-        "cluster-operator-nodePoolScalingUseCase": {
-          "scaleUpTimeMs": 28069.0,
-          "scaleDownTimeMs": 2292.0
-        },
-        "cluster-operator-connectScalabilityUseCase": {
-          "allConnectorsReadyTimeMs": 31007.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 182711.0,
@@ -109,9 +72,6 @@
           "brokerRollingUpdateTimeMs": 98702.0,
           "controllerRollingUpdateTimeMs": 87276.0,
           "totalRollingUpdateTimeMs": 185978.0
-        },
-        "topic-operator-scalabilityUseCase": {
-          "reconciliationIntervalMs": 20371.0
         }
       }
     },
@@ -119,11 +79,19 @@
       "date": "2026-06-21T09:33",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10498.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10535.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25237.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 34.0,
+          "averageLatencyMs": 12.44,
+          "p50LatencyMs": 11.0,
+          "p95LatencyMs": 19.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 6.0,
@@ -133,23 +101,23 @@
           "p95LatencyMs": 16.0,
           "p99LatencyMs": 22.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10398.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10472.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10295.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21034.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 167704.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20823.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10398.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 52583.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 20701.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10498.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 7.0,
@@ -162,26 +130,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30936.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 20701.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27386.0,
           "scaleDownTimeMs": 3296.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 167704.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10295.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20823.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 34.0,
-          "averageLatencyMs": 12.44,
-          "p50LatencyMs": 11.0,
-          "p95LatencyMs": 19.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25237.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 71335.0,
@@ -192,6 +149,9 @@
           "brokerRollingUpdateTimeMs": 94080.0,
           "controllerRollingUpdateTimeMs": 88734.0,
           "totalRollingUpdateTimeMs": 182814.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10472.0
         }
       }
     },
@@ -199,11 +159,19 @@
       "date": "2026-06-22T08:45",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10541.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10393.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 30754.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 7.0,
+          "maxLatencyMs": 33.0,
+          "averageLatencyMs": 12.96,
+          "p50LatencyMs": 11.0,
+          "p95LatencyMs": 23.0,
+          "p99LatencyMs": 27.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 7.0,
@@ -213,23 +181,23 @@
           "p95LatencyMs": 17.0,
           "p99LatencyMs": 22.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10322.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10552.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10554.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21288.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 149981.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20426.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10322.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 53737.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 41161.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10541.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 7.0,
@@ -242,26 +210,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 32170.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 41161.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27517.0,
           "scaleDownTimeMs": 3333.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 149981.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10554.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20426.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 7.0,
-          "maxLatencyMs": 33.0,
-          "averageLatencyMs": 12.96,
-          "p50LatencyMs": 11.0,
-          "p95LatencyMs": 23.0,
-          "p99LatencyMs": 27.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 30754.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 40523.0,
@@ -272,6 +229,9 @@
           "brokerRollingUpdateTimeMs": 95716.0,
           "controllerRollingUpdateTimeMs": 88896.0,
           "totalRollingUpdateTimeMs": 184612.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10552.0
         }
       }
     },
@@ -279,11 +239,19 @@
       "date": "2026-06-23T08:03",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 20495.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10764.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 20791.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 6.0,
+          "maxLatencyMs": 27.0,
+          "averageLatencyMs": 11.46,
+          "p50LatencyMs": 10.0,
+          "p95LatencyMs": 19.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 7.0,
@@ -293,23 +261,23 @@
           "p95LatencyMs": 20.0,
           "p99LatencyMs": 23.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10426.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10742.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10263.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21386.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 146940.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20791.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10426.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 52749.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30958.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 20495.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 7.0,
@@ -322,31 +290,23 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 31122.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30958.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27674.0,
           "scaleDownTimeMs": 3303.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 146940.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10263.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
           "reconciliationIntervalMs": 20791.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 6.0,
-          "maxLatencyMs": 27.0,
-          "averageLatencyMs": 11.46,
-          "p50LatencyMs": 10.0,
-          "p95LatencyMs": 19.0,
-          "p99LatencyMs": 24.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 302988.0,
           "rebalanceExecutionTimeMs": 60916.0,
           "totalRebalanceTimeMs": 363908.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10742.0
         }
       }
     },
@@ -354,35 +314,35 @@
       "date": "2026-06-24T02:34",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10665.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 11345.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 26817.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20814.0
         },
         "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
           "allConnectorsReadyTimeMs": 10473.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10673.0
-        },
         "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
           "allConnectorsReadyTimeMs": 21600.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10665.0
         },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 28671.0,
           "scaleDownTimeMs": 3460.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20814.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 26817.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 61071.0,
           "rebalanceExecutionTimeMs": 61300.0,
           "totalRebalanceTimeMs": 122372.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10673.0
         }
       }
     },
@@ -390,11 +350,19 @@
       "date": "2026-06-25T06:53",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -404,23 +372,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -433,26 +401,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -463,6 +420,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -470,11 +430,19 @@
       "date": "2026-06-26T02:39",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -484,23 +452,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -513,26 +481,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -543,6 +500,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -550,11 +510,19 @@
       "date": "2026-06-27T22:29",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -564,23 +532,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -593,26 +561,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -623,6 +580,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -630,11 +590,19 @@
       "date": "2026-06-28T17:34",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -644,23 +612,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -673,26 +641,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -703,6 +660,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -710,11 +670,19 @@
       "date": "2026-06-29T08:03",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -724,23 +692,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -753,26 +721,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -783,6 +740,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -790,11 +750,19 @@
       "date": "2026-06-30T06:03",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -804,23 +772,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -833,26 +801,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -863,6 +820,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -870,11 +830,19 @@
       "date": "2026-07-01T08:22",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -884,23 +852,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -913,26 +881,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -943,6 +900,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -950,11 +910,19 @@
       "date": "2026-07-02T07:40",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -964,23 +932,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -993,26 +961,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -1023,6 +980,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -1030,11 +990,19 @@
       "date": "2026-07-03T08:11",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -1044,23 +1012,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -1073,26 +1041,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -1103,6 +1060,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -1110,11 +1070,19 @@
       "date": "2026-07-05T14:03",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -1124,23 +1092,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -1153,26 +1121,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -1183,6 +1140,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -1190,11 +1150,19 @@
       "date": "2026-07-06T12:17",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -1204,23 +1172,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -1233,26 +1201,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -1263,6 +1220,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -1270,11 +1230,19 @@
       "date": "2026-07-07T07:54",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -1284,23 +1252,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -1313,26 +1281,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -1343,6 +1300,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -1350,11 +1310,19 @@
       "date": "2026-07-08T08:34",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -1364,23 +1332,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -1393,26 +1361,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -1423,6 +1380,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -1430,11 +1390,19 @@
       "date": "2026-07-10T01:45",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -1444,23 +1412,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -1473,26 +1441,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -1503,6 +1460,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -1510,11 +1470,19 @@
       "date": "2026-07-11T01:41",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -1524,23 +1492,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -1553,26 +1521,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -1583,6 +1540,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -1590,11 +1550,19 @@
       "date": "2026-07-12T01:24",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -1604,23 +1572,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -1633,26 +1601,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -1663,6 +1620,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -1670,11 +1630,19 @@
       "date": "2026-07-13T05:44",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -1684,23 +1652,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -1713,26 +1681,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -1743,6 +1700,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -1750,11 +1710,19 @@
       "date": "2026-07-15T08:33",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -1764,23 +1732,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -1793,26 +1761,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -1823,6 +1780,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -1830,11 +1790,19 @@
       "date": "2026-07-17T10:20",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -1844,23 +1812,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -1873,26 +1841,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -1903,6 +1860,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -1910,11 +1870,19 @@
       "date": "2026-07-21T07:59",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -1924,23 +1892,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -1953,26 +1921,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -1983,6 +1940,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -1990,11 +1950,19 @@
       "date": "2026-07-22T08:42",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -2004,23 +1972,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -2033,26 +2001,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -2063,6 +2020,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -2070,11 +2030,19 @@
       "date": "2026-07-23T08:42",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -2084,23 +2052,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -2113,26 +2081,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -2143,6 +2100,9 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     },
@@ -2150,11 +2110,19 @@
       "date": "2026-07-24T06:46",
       "commitSha": "",
       "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
         "topic-operator-scalabilityUseCase-numberOfTopics-25": {
           "reconciliationIntervalMs": 10519.0
         },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
           "minLatencyMs": 8.0,
@@ -2164,23 +2132,23 @@
           "p95LatencyMs": 15.0,
           "p99LatencyMs": 16.0
         },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
-          "allConnectorsReadyTimeMs": 10415.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
         },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
           "reconciliationIntervalMs": 21835.0
         },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
-          "allConnectorsReadyTimeMs": 30782.0
-        },
-        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
-          "allConnectorsReadyTimeMs": 10333.0
         },
         "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
           "minLatencyMs": 8.0,
@@ -2193,26 +2161,15 @@
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
           "reconciliationIntervalMs": 30909.0
         },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
         "cluster-operator-nodePoolScalingUseCase": {
           "scaleUpTimeMs": 27477.0,
           "scaleDownTimeMs": 3300.0
         },
-        "cluster-operator-caRenewalUseCase": {
-          "caRenewalTimeMs": 172408.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
         },
         "cluster-operator-rebalanceUseCase": {
           "proposalReadyTimeMs": 303077.0,
@@ -2223,6 +2180,89 @@
           "brokerRollingUpdateTimeMs": 73632.0,
           "controllerRollingUpdateTimeMs": 90186.0,
           "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
+        }
+      }
+    },
+    {
+      "date": "2026-07-25T08:16",
+      "commitSha": "",
+      "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-25": {
+          "reconciliationIntervalMs": 10519.0
+        },
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
+        },
+        "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 19.0,
+          "averageLatencyMs": 10.37,
+          "p50LatencyMs": 10.0,
+          "p95LatencyMs": 15.0,
+          "p99LatencyMs": 16.0
+        },
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
+        },
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
+          "reconciliationIntervalMs": 21835.0
+        },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
+          "reconciliationIntervalMs": 54719.0
+        },
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 26.0,
+          "averageLatencyMs": 11.57,
+          "p50LatencyMs": 10.0,
+          "p95LatencyMs": 20.0,
+          "p99LatencyMs": 24.0
+        },
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
+          "reconciliationIntervalMs": 30909.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
+        "cluster-operator-nodePoolScalingUseCase": {
+          "scaleUpTimeMs": 27477.0,
+          "scaleDownTimeMs": 3300.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
+        },
+        "cluster-operator-rebalanceUseCase": {
+          "proposalReadyTimeMs": 303077.0,
+          "rebalanceExecutionTimeMs": 30820.0,
+          "totalRebalanceTimeMs": 333903.0
+        },
+        "cluster-operator-rollingUpdateUseCase": {
+          "brokerRollingUpdateTimeMs": 73632.0,
+          "controllerRollingUpdateTimeMs": 90186.0,
+          "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
         }
       }
     }
