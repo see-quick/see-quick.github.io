@@ -1,40 +1,6 @@
 {
-  "lastUpdated": "2026-07-27T05:24:01.275394+00:00",
+  "lastUpdated": "2026-07-28T09:47:43.400498+00:00",
   "runs": [
-    {
-      "date": "2026-06-20T02:58",
-      "commitSha": "",
-      "results": {
-        "topic-operator-scalabilityUseCase": {
-          "reconciliationIntervalMs": 20371.0
-        },
-        "cluster-operator-connectScalabilityUseCase": {
-          "allConnectorsReadyTimeMs": 31007.0
-        },
-        "cluster-operator-nodePoolScalingUseCase": {
-          "scaleUpTimeMs": 28069.0,
-          "scaleDownTimeMs": 2292.0
-        },
-        "user-operator-latencyUseCase": {
-          "minLatencyMs": 11.0,
-          "maxLatencyMs": 37.0,
-          "averageLatencyMs": 15.78,
-          "p50LatencyMs": 14.0,
-          "p95LatencyMs": 24.0,
-          "p99LatencyMs": 27.0
-        },
-        "cluster-operator-rebalanceUseCase": {
-          "proposalReadyTimeMs": 182711.0,
-          "rebalanceExecutionTimeMs": 30872.0,
-          "totalRebalanceTimeMs": 213585.0
-        },
-        "cluster-operator-rollingUpdateUseCase": {
-          "brokerRollingUpdateTimeMs": 98702.0,
-          "controllerRollingUpdateTimeMs": 87276.0,
-          "totalRollingUpdateTimeMs": 185978.0
-        }
-      }
-    },
     {
       "date": "2026-06-21T09:33",
       "commitSha": "",
@@ -2228,6 +2194,86 @@
     },
     {
       "date": "2026-07-27T05:23",
+      "commitSha": "",
+      "results": {
+        "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
+          "allConnectorsReadyTimeMs": 10333.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-25": {
+          "reconciliationIntervalMs": 10519.0
+        },
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 28.0,
+          "averageLatencyMs": 13.08,
+          "p50LatencyMs": 12.0,
+          "p95LatencyMs": 21.0,
+          "p99LatencyMs": 24.0
+        },
+        "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 19.0,
+          "averageLatencyMs": 10.37,
+          "p50LatencyMs": 10.0,
+          "p95LatencyMs": 15.0,
+          "p99LatencyMs": 16.0
+        },
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10330.0
+        },
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
+          "reconciliationIntervalMs": 21835.0
+        },
+        "cluster-operator-caRenewalUseCase": {
+          "caRenewalTimeMs": 172408.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20455.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-10": {
+          "allConnectorsReadyTimeMs": 10415.0
+        },
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
+          "reconciliationIntervalMs": 54719.0
+        },
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 26.0,
+          "averageLatencyMs": 11.57,
+          "p50LatencyMs": 10.0,
+          "p95LatencyMs": 20.0,
+          "p99LatencyMs": 24.0
+        },
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
+          "reconciliationIntervalMs": 30909.0
+        },
+        "cluster-operator-connectScalabilityUseCase-connectorCount-50": {
+          "allConnectorsReadyTimeMs": 30782.0
+        },
+        "cluster-operator-nodePoolScalingUseCase": {
+          "scaleUpTimeMs": 27477.0,
+          "scaleDownTimeMs": 3300.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25461.0
+        },
+        "cluster-operator-rebalanceUseCase": {
+          "proposalReadyTimeMs": 303077.0,
+          "rebalanceExecutionTimeMs": 30820.0,
+          "totalRebalanceTimeMs": 333903.0
+        },
+        "cluster-operator-rollingUpdateUseCase": {
+          "brokerRollingUpdateTimeMs": 73632.0,
+          "controllerRollingUpdateTimeMs": 90186.0,
+          "totalRollingUpdateTimeMs": 163818.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10474.0
+        }
+      }
+    },
+    {
+      "date": "2026-07-28T09:47",
       "commitSha": "",
       "results": {
         "cluster-operator-connectScalabilityUseCase-connectorCount-25": {
