@@ -22,15 +22,49 @@ title: Strimzi Performance Dashboard
 const resultsData = {{ site.data.performance.results | jsonify }};
 const regressionsData = {{ site.data.performance.regressions | jsonify }};
 
+// Validated dark-mode categorical palette (fixed slot order, never cycled).
+const SERIES_COLORS = ['#3987e5', '#d95926', '#199e70', '#c98500', '#d55181', '#9085e9'];
+const CRITICAL = '#d03b3b';
+const INK_SECONDARY = '#8b949e';
+const GRID = '#21262d';
+
+// Result keys look like "<base>-<paramName>-<value>", e.g.
+// "topic-operator-scalabilityUseCase-numberOfTopics-250". Runs of a test
+// with different parameter values are grouped into one multi-line chart.
+const PARAM_NAMES = ['numberOfTopics', 'numberOfKafkaUsers', 'connectorCount'];
+const KEY_PATTERN = new RegExp('^(.+?)-(' + PARAM_NAMES.join('|') + ')-(.+)$');
+
+function parseKey(key) {
+  const m = key.match(KEY_PATTERN);
+  if (m) return { base: m[1], param: m[2], value: m[3] };
+  return { base: key, param: null, value: null };
+}
+
+function shortDate(d) {
+  // "2026-09-11T08:04" -> "09-11"
+  return d.length >= 10 ? d.slice(5, 10) : d;
+}
+
+function fmt(v) {
+  if (v === null || v === undefined) return 'n/a';
+  return Number(v).toLocaleString('en-US', { maximumFractionDigits: 2 });
+}
+
 function init() {
   const meta = document.getElementById('meta-info');
-  if (resultsData.runs && resultsData.runs.length > 0) {
-    const latest = resultsData.runs[resultsData.runs.length - 1];
-    meta.textContent = 'Last updated: ' + (resultsData.lastUpdated || 'N/A') + ' | Commit: ' + (latest.commitSha || 'N/A');
-  } else {
+  if (!resultsData || !resultsData.runs || resultsData.runs.length === 0) {
     meta.textContent = 'No performance data available yet. Run your first nightly test to populate.';
     return;
   }
+
+  const runs = resultsData.runs;
+  const latest = runs[runs.length - 1];
+  meta.innerHTML =
+    'Last run: <strong>' + latest.date + '</strong>' +
+    (latest.commitSha ? ' @ <code>' + latest.commitSha + '</code>' : '') +
+    ' &middot; ' + runs.length + ' runs shown' +
+    ' &middot; updated ' + (resultsData.lastUpdated || 'n/a').slice(0, 16) +
+    ' &middot; <a href="https://github.com/see-quick/strimzi-perf-results" target="_blank" rel="noopener">raw data</a>';
 
   renderRegressions();
   renderCharts('all');
@@ -38,110 +72,178 @@ function init() {
 }
 
 function renderRegressions() {
-  var section = document.getElementById('regression-section');
-  var regressions = regressionsData.regressions || [];
+  const section = document.getElementById('regression-section');
+  const regressions = (regressionsData && regressionsData.regressions) || [];
 
   if (regressions.length === 0) {
     section.innerHTML = '<div class="no-regressions">No active regressions detected.</div>';
     return;
   }
 
-  var html = '<div class="regression-banner"><h2>Active Regressions (' + regressions.length + ')</h2>';
+  let html = '<div class="regression-banner"><h2>Active Regressions (' + regressions.length + ')</h2>';
   regressions.forEach(function(r) {
     html += '<div class="regression-item">' +
       '<div class="metric-name">' + r.testName + ' / ' + r.metricName + '</div>' +
-      '<div class="details">Current: ' + r.currentValue.toFixed(1) + ' | Baseline: ' + r.baselineMean.toFixed(1) + ' +/- ' + r.baselineStddev.toFixed(1) + ' | ' + r.deviations.toFixed(2) + ' sigma</div>' +
+      '<div class="details">Current: ' + fmt(r.currentValue) + ' | Baseline: ' + fmt(r.baselineMean) +
+      ' +/- ' + fmt(r.baselineStddev) + ' | ' + r.deviations.toFixed(2) + ' sigma</div>' +
       '</div>';
   });
   html += '</div>';
   section.innerHTML = html;
 }
 
-function renderCharts(filter) {
-  var container = document.getElementById('charts');
-  container.innerHTML = '';
+// Group runs into charts: one chart per (base test, metric), one line per
+// parameter value. Returns [{base, param, metric, series: [{key, label, points}]}].
+function buildChartGroups(runs, filter) {
+  const groups = {};
 
-  if (!resultsData.runs || resultsData.runs.length === 0) return;
-
-  var metricsByTest = {};
-  resultsData.runs.forEach(function(run) {
+  runs.forEach(function(run, runIdx) {
     Object.entries(run.results || {}).forEach(function(entry) {
-      var testKey = entry[0];
-      var metrics = entry[1];
-      if (filter !== 'all') {
-        if (testKey.indexOf(filter) === -1) return;
-      }
-      if (!metricsByTest[testKey]) metricsByTest[testKey] = {};
-      Object.entries(metrics).forEach(function(mEntry) {
-        var metricName = mEntry[0];
-        var value = mEntry[1];
-        if (!metricsByTest[testKey][metricName]) metricsByTest[testKey][metricName] = [];
-        metricsByTest[testKey][metricName].push({ date: run.date, value: value });
+      const key = entry[0];
+      if (filter !== 'all' && key.indexOf(filter) === -1) return;
+
+      const parsed = parseKey(key);
+      Object.entries(entry[1]).forEach(function(mEntry) {
+        const metric = mEntry[0];
+        const groupId = parsed.base + '::' + metric;
+        if (!groups[groupId]) {
+          groups[groupId] = { base: parsed.base, param: parsed.param, metric: metric, seriesByKey: {} };
+        }
+        const g = groups[groupId];
+        if (!g.seriesByKey[key]) {
+          g.seriesByKey[key] = {
+            key: key,
+            paramValue: parsed.value,
+            points: new Array(runs.length).fill(null)
+          };
+        }
+        g.seriesByKey[key].points[runIdx] = mEntry[1];
       });
     });
   });
 
-  Object.entries(metricsByTest).forEach(function(testEntry) {
-    var testKey = testEntry[0];
-    var metrics = testEntry[1];
-    Object.entries(metrics).forEach(function(metricEntry) {
-      var metricName = metricEntry[0];
-      var dataPoints = metricEntry[1];
+  return Object.values(groups).map(function(g) {
+    const series = Object.values(g.seriesByKey);
+    // Order lines by ascending parameter value so slot colors stay stable.
+    series.sort(function(a, b) {
+      return (parseFloat(a.paramValue) || 0) - (parseFloat(b.paramValue) || 0);
+    });
+    return { base: g.base, param: g.param, metric: g.metric, series: series };
+  }).sort(function(a, b) {
+    return (a.base + a.metric).localeCompare(b.base + b.metric);
+  });
+}
 
-      var card = document.createElement('div');
-      card.className = 'chart-card';
-      card.innerHTML = '<h3>' + testKey + ' / ' + metricName + '</h3><canvas></canvas>';
-      container.appendChild(card);
+let liveCharts = [];
 
-      var canvas = card.querySelector('canvas');
-      var labels = dataPoints.map(function(d) { return d.date; });
-      var values = dataPoints.map(function(d) { return d.value; });
+function renderCharts(filter) {
+  const container = document.getElementById('charts');
+  liveCharts.forEach(function(c) { c.destroy(); });
+  liveCharts = [];
+  container.innerHTML = '';
 
-      var datasets = [{
-        label: metricName,
-        data: values,
-        borderColor: '#1f6feb',
-        backgroundColor: 'rgba(31, 111, 235, 0.1)',
+  const runs = resultsData.runs;
+  const baselines = resultsData.baselines || {};
+  const labels = runs.map(function(r) { return shortDate(r.date); });
+
+  buildChartGroups(runs, filter).forEach(function(group) {
+    const multi = group.series.length > 1;
+
+    const card = document.createElement('div');
+    card.className = 'chart-card';
+    const subtitle = group.param ? ' <span class="param-name">by ' + group.param + '</span>' : '';
+    card.innerHTML = '<h3>' + group.base + ' &middot; ' + group.metric + subtitle + '</h3><canvas></canvas>';
+    container.appendChild(card);
+
+    const datasets = group.series.map(function(s, i) {
+      const color = SERIES_COLORS[i % SERIES_COLORS.length];
+      const bl = baselines[s.key] && baselines[s.key][group.metric];
+
+      // Flag points beyond mean + 2 sigma of that series' own baseline.
+      const pointColors = s.points.map(function(v) {
+        if (v !== null && bl && bl.stddev > 0 && (v - bl.mean) / bl.stddev > 2) return CRITICAL;
+        return color;
+      });
+      const pointRadii = s.points.map(function(v, idx) {
+        return pointColors[idx] === CRITICAL ? 5 : 2.5;
+      });
+
+      return {
+        label: s.paramValue !== null ? group.param + '=' + s.paramValue : group.metric,
+        data: s.points,
+        borderColor: color,
+        backgroundColor: color,
+        pointBackgroundColor: pointColors,
+        pointBorderColor: pointColors,
+        pointRadius: pointRadii,
+        borderWidth: 2,
         fill: false,
-        tension: 0.3,
-        pointRadius: 3
-      }];
+        tension: 0.25,
+        spanGaps: true
+      };
+    });
 
-      var baseline = (resultsData.baselines || {})[testKey];
-      if (baseline && baseline[metricName]) {
-        var mean = baseline[metricName].mean;
-        var stddev = baseline[metricName].stddev;
+    // Baseline band only on single-series charts; on multi-line charts each
+    // series has its own baseline, so bands would clutter.
+    if (!multi) {
+      const s = group.series[0];
+      const bl = baselines[s.key] && baselines[s.key][group.metric];
+      if (bl) {
         datasets.push({
-          label: 'Baseline +2 sigma',
-          data: Array(labels.length).fill(mean + 2 * stddev),
-          borderColor: 'rgba(248, 81, 73, 0.5)',
-          borderDash: [5, 5],
-          fill: false,
-          pointRadius: 0
+          label: 'baseline +2s',
+          data: new Array(labels.length).fill(bl.mean + 2 * bl.stddev),
+          borderColor: 'rgba(248, 81, 73, 0.45)',
+          borderDash: [5, 5], borderWidth: 1, fill: false, pointRadius: 0
         });
         datasets.push({
-          label: 'Baseline -2 sigma',
-          data: Array(labels.length).fill(Math.max(0, mean - 2 * stddev)),
-          borderColor: 'rgba(63, 185, 80, 0.5)',
-          borderDash: [5, 5],
-          fill: false,
-          pointRadius: 0
+          label: 'baseline -2s',
+          data: new Array(labels.length).fill(Math.max(0, bl.mean - 2 * bl.stddev)),
+          borderColor: 'rgba(63, 185, 80, 0.45)',
+          borderDash: [5, 5], borderWidth: 1, fill: false, pointRadius: 0
         });
       }
+    }
 
-      new Chart(canvas, {
-        type: 'line',
-        data: { labels: labels, datasets: datasets },
-        options: {
-          responsive: true,
-          scales: {
-            y: { beginAtZero: false, ticks: { color: '#8b949e' }, grid: { color: '#21262d' } },
-            x: { ticks: { color: '#8b949e', maxRotation: 45 }, grid: { color: '#21262d' } }
+    const chart = new Chart(card.querySelector('canvas'), {
+      type: 'line',
+      data: { labels: labels, datasets: datasets },
+      options: {
+        responsive: true,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+          y: {
+            beginAtZero: false,
+            ticks: { color: INK_SECONDARY, callback: function(v) { return fmt(v); } },
+            grid: { color: GRID }
           },
-          plugins: { legend: { labels: { color: '#c9d1d9' } } }
+          x: { ticks: { color: INK_SECONDARY, maxRotation: 45, autoSkip: true, maxTicksLimit: 15 }, grid: { color: GRID } }
+        },
+        plugins: {
+          legend: {
+            display: multi,
+            labels: { color: '#c9d1d9', boxWidth: 12, boxHeight: 12, usePointStyle: false }
+          },
+          tooltip: {
+            callbacks: {
+              title: function(items) {
+                if (!items.length) return '';
+                const run = runs[items[0].dataIndex];
+                return run.date + (run.commitSha ? '  @ ' + run.commitSha : '');
+              },
+              label: function(ctx) {
+                let text = ctx.dataset.label + ': ' + fmt(ctx.parsed.y);
+                if (ctx.dataset.pointBackgroundColor &&
+                    ctx.dataset.pointBackgroundColor[ctx.dataIndex] === CRITICAL) {
+                  text += '  (above baseline +2s)';
+                }
+                return text;
+              }
+            }
+          }
         }
-      });
+      }
     });
+    liveCharts.push(chart);
   });
 }
 
