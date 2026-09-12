@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-09-11T08:04:30.248024+00:00",
+  "lastUpdated": "2026-09-12T11:50:50.059844+00:00",
   "runs": [
     {
       "date": "2026-07-17T10:20",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -83,7 +83,7 @@
     },
     {
       "date": "2026-07-21T07:59",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -163,7 +163,7 @@
     },
     {
       "date": "2026-07-22T08:42",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -243,7 +243,7 @@
     },
     {
       "date": "2026-07-23T08:42",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -323,7 +323,7 @@
     },
     {
       "date": "2026-07-24T06:46",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -403,7 +403,7 @@
     },
     {
       "date": "2026-07-25T08:16",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -483,7 +483,7 @@
     },
     {
       "date": "2026-07-27T05:23",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -563,7 +563,7 @@
     },
     {
       "date": "2026-07-28T09:47",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -643,7 +643,7 @@
     },
     {
       "date": "2026-07-29T08:36",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -723,7 +723,7 @@
     },
     {
       "date": "2026-08-14T07:45",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -803,7 +803,7 @@
     },
     {
       "date": "2026-08-15T02:47",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -883,7 +883,7 @@
     },
     {
       "date": "2026-08-18T07:43",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -963,7 +963,7 @@
     },
     {
       "date": "2026-08-19T08:50",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1043,7 +1043,7 @@
     },
     {
       "date": "2026-08-20T07:43",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1123,7 +1123,7 @@
     },
     {
       "date": "2026-08-26T09:53",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1203,7 +1203,7 @@
     },
     {
       "date": "2026-08-27T08:46",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1283,7 +1283,7 @@
     },
     {
       "date": "2026-08-28T15:27",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1363,7 +1363,7 @@
     },
     {
       "date": "2026-08-29T05:08",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1443,7 +1443,7 @@
     },
     {
       "date": "2026-08-30T01:15",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1523,7 +1523,7 @@
     },
     {
       "date": "2026-08-31T02:55",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1603,7 +1603,7 @@
     },
     {
       "date": "2026-09-01T05:15",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1683,7 +1683,7 @@
     },
     {
       "date": "2026-09-02T01:51",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1763,7 +1763,7 @@
     },
     {
       "date": "2026-09-03T04:31",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1843,7 +1843,7 @@
     },
     {
       "date": "2026-09-04T05:15",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1923,7 +1923,7 @@
     },
     {
       "date": "2026-09-05T01:15",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -2003,7 +2003,7 @@
     },
     {
       "date": "2026-09-06T05:34",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -2083,7 +2083,7 @@
     },
     {
       "date": "2026-09-08T08:30",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -2163,7 +2163,7 @@
     },
     {
       "date": "2026-09-09T08:21",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -2243,7 +2243,7 @@
     },
     {
       "date": "2026-09-10T07:46",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -2323,7 +2323,7 @@
     },
     {
       "date": "2026-09-11T08:04",
-      "commitSha": "",
+      "commitSha": "2fc95bded",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -2417,44 +2417,6 @@
         "stddev": 16695.15
       }
     },
-    "user-operator-scalabilityUseCase": {
-      "reconciliationIntervalMs": {
-        "mean": 20820.8,
-        "stddev": 1041.04
-      }
-    },
-    "topic-operator-scalabilityUseCase": {
-      "reconciliationIntervalMs": {
-        "mean": 20671.4,
-        "stddev": 1033.5700000000002
-      }
-    },
-    "user-operator-latencyUseCase": {
-      "minLatencyMs": {
-        "mean": 7.9,
-        "stddev": 1.445683229480096
-      },
-      "maxLatencyMs": {
-        "mean": 26.3,
-        "stddev": 7.510659092250161
-      },
-      "averageLatencyMs": {
-        "mean": 11.986999999999998,
-        "stddev": 2.475003232321121
-      },
-      "p50LatencyMs": {
-        "mean": 10.9,
-        "stddev": 2.1656407827707715
-      },
-      "p95LatencyMs": {
-        "mean": 19.0,
-        "stddev": 6.826419266350405
-      },
-      "p99LatencyMs": {
-        "mean": 23.0,
-        "stddev": 7.54983443527075
-      }
-    },
     "cluster-operator-nodePoolScalingUseCase": {
       "scaleUpTimeMs": {
         "mean": 27477.0,
@@ -2469,12 +2431,6 @@
       "caRenewalTimeMs": {
         "mean": 172408.0,
         "stddev": 8620.4
-      }
-    },
-    "cluster-operator-connectScalabilityUseCase": {
-      "allConnectorsReadyTimeMs": {
-        "mean": 30235.1,
-        "stddev": 3061.230649591762
       }
     },
     "cluster-operator-rollingUpdateUseCase": {
