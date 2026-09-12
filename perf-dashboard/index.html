@@ -8,12 +8,17 @@ title: Strimzi Performance Dashboard
 
 <div id="regression-section"></div>
 
-<div class="filters">
+<div class="filters" id="component-filters">
   <button class="active" data-filter="all">All</button>
   <button data-filter="cluster-operator">Cluster Operator</button>
   <button data-filter="topic-operator">Topic Operator</button>
   <button data-filter="user-operator">User Operator</button>
   <button data-filter="connect">Connect</button>
+</div>
+<div class="filters" id="type-filters">
+  <button class="active" data-type="timings">Timings</button>
+  <button data-type="resources">Resources</button>
+  <button data-type="all">All metrics</button>
 </div>
 
 <div class="chart-grid" id="charts"></div>
@@ -33,6 +38,13 @@ const GRID = '#21262d';
 // with different parameter values are grouped into one multi-line chart.
 const PARAM_NAMES = ['numberOfTopics', 'numberOfKafkaUsers', 'connectorCount'];
 const KEY_PATTERN = new RegExp('^(.+?)-(' + PARAM_NAMES.join('|') + ')-(.+)$');
+
+// Resource/JVM health metrics derived from operator scrapes; informational,
+// shown under the Resources view. Mirrors isInformationalMetric in the exporter.
+const RESOURCE_METRIC_PREFIXES = ['jvm', 'processCpu', 'reconciliationDuration', 'reconciliationsFailed'];
+function isResourceMetric(name) {
+  return RESOURCE_METRIC_PREFIXES.some(function(p) { return name.indexOf(p) === 0; });
+}
 
 function parseKey(key) {
   const m = key.match(KEY_PATTERN);
@@ -67,9 +79,12 @@ function init() {
     ' &middot; <a href="https://github.com/see-quick/strimzi-perf-results" target="_blank" rel="noopener">raw data</a>';
 
   renderRegressions();
-  renderCharts('all');
+  renderCharts();
   setupFilters();
 }
+
+let componentFilter = 'all';
+let typeFilter = 'timings';
 
 function renderRegressions() {
   const section = document.getElementById('regression-section');
@@ -94,17 +109,19 @@ function renderRegressions() {
 
 // Group runs into charts: one chart per (base test, metric), one line per
 // parameter value. Returns [{base, param, metric, series: [{key, label, points}]}].
-function buildChartGroups(runs, filter) {
+function buildChartGroups(runs) {
   const groups = {};
 
   runs.forEach(function(run, runIdx) {
     Object.entries(run.results || {}).forEach(function(entry) {
       const key = entry[0];
-      if (filter !== 'all' && key.indexOf(filter) === -1) return;
+      if (componentFilter !== 'all' && key.indexOf(componentFilter) === -1) return;
 
       const parsed = parseKey(key);
       Object.entries(entry[1]).forEach(function(mEntry) {
         const metric = mEntry[0];
+        if (typeFilter === 'timings' && isResourceMetric(metric)) return;
+        if (typeFilter === 'resources' && !isResourceMetric(metric)) return;
         const groupId = parsed.base + '::' + metric;
         if (!groups[groupId]) {
           groups[groupId] = { base: parsed.base, param: parsed.param, metric: metric, seriesByKey: {} };
@@ -136,7 +153,7 @@ function buildChartGroups(runs, filter) {
 
 let liveCharts = [];
 
-function renderCharts(filter) {
+function renderCharts() {
   const container = document.getElementById('charts');
   liveCharts.forEach(function(c) { c.destroy(); });
   liveCharts = [];
@@ -146,7 +163,7 @@ function renderCharts(filter) {
   const baselines = resultsData.baselines || {};
   const labels = runs.map(function(r) { return shortDate(r.date); });
 
-  buildChartGroups(runs, filter).forEach(function(group) {
+  buildChartGroups(runs).forEach(function(group) {
     const multi = group.series.length > 1;
 
     const card = document.createElement('div');
@@ -248,11 +265,20 @@ function renderCharts(filter) {
 }
 
 function setupFilters() {
-  document.querySelectorAll('.filters button').forEach(function(btn) {
+  document.querySelectorAll('#component-filters button').forEach(function(btn) {
     btn.addEventListener('click', function() {
-      document.querySelectorAll('.filters button').forEach(function(b) { b.classList.remove('active'); });
+      document.querySelectorAll('#component-filters button').forEach(function(b) { b.classList.remove('active'); });
       btn.classList.add('active');
-      renderCharts(btn.dataset.filter);
+      componentFilter = btn.dataset.filter;
+      renderCharts();
+    });
+  });
+  document.querySelectorAll('#type-filters button').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('#type-filters button').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      typeFilter = btn.dataset.type;
+      renderCharts();
     });
   });
 }
