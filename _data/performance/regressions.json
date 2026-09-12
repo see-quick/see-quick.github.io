@@ -1,4 +1,67 @@
 {
-  "detectedAt" : "2026-09-11T08:04:18.391217Z",
-  "regressions" : [ ]
+  "detectedAt" : "2026-09-12T13:14:40.020074Z",
+  "regressions" : [ {
+    "testName" : "ClusterOperatorConnectScalabilityPerformance (connectorCount=25)",
+    "metricName" : "allConnectorsReadyTimeMs",
+    "currentValue" : 20493.0,
+    "baselineMean" : 10333.0,
+    "baselineStddev" : 516.65,
+    "deviations" : 19.665150488725445,
+    "threshold" : 2.0,
+    "passed" : false
+  }, {
+    "testName" : "ClusterOperatorRebalancePerformance",
+    "metricName" : "rebalanceExecutionTimeMs",
+    "currentValue" : 60312.0,
+    "baselineMean" : 30820.0,
+    "baselineStddev" : 1541.0,
+    "deviations" : 19.138221933809216,
+    "threshold" : 2.0,
+    "passed" : false
+  }, {
+    "testName" : "TopicOperatorScalabilityPerformance (numberOfTopics=250)",
+    "metricName" : "reconciliationIntervalMs",
+    "currentValue" : 31507.0,
+    "baselineMean" : 25461.0,
+    "baselineStddev" : 1273.0500000000002,
+    "deviations" : 4.749224303837241,
+    "threshold" : 2.0,
+    "passed" : false
+  }, {
+    "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=2000)",
+    "metricName" : "maxLatencyMs",
+    "currentValue" : 39.0,
+    "baselineMean" : 19.0,
+    "baselineStddev" : 0.9500000000000001,
+    "deviations" : 21.052631578947366,
+    "threshold" : 2.0,
+    "passed" : false
+  }, {
+    "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=2000)",
+    "metricName" : "p95LatencyMs",
+    "currentValue" : 17.0,
+    "baselineMean" : 15.0,
+    "baselineStddev" : 0.75,
+    "deviations" : 2.6666666666666665,
+    "threshold" : 2.0,
+    "passed" : false
+  }, {
+    "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=2000)",
+    "metricName" : "p99LatencyMs",
+    "currentValue" : 22.0,
+    "baselineMean" : 16.0,
+    "baselineStddev" : 0.8,
+    "deviations" : 7.5,
+    "threshold" : 2.0,
+    "passed" : false
+  }, {
+    "testName" : "UserOperatorScalabilityPerformance (numberOfKafkaUsers=500)",
+    "metricName" : "reconciliationIntervalMs",
+    "currentValue" : 61891.0,
+    "baselineMean" : 54719.0,
+    "baselineStddev" : 2735.9500000000003,
+    "deviations" : 2.621392934812405,
+    "threshold" : 2.0,
+    "passed" : false
+  } ]
 }
