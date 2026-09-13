@@ -32,6 +32,7 @@ const SERIES_COLORS = ['#3987e5', '#d95926', '#199e70', '#c98500', '#d55181', '#
 const CRITICAL = '#d03b3b';
 const INK_SECONDARY = '#8b949e';
 const GRID = '#21262d';
+const VERSION_MARKER = '#9085e9';
 
 // Result keys look like "<base>-<paramName>-<value>", e.g.
 // "topic-operator-scalabilityUseCase-numberOfTopics-250". Runs of a test
@@ -45,6 +46,61 @@ const RESOURCE_METRIC_PREFIXES = ['jvm', 'processCpu', 'reconciliationDuration',
 function isResourceMetric(name) {
   return RESOURCE_METRIC_PREFIXES.some(function(p) { return name.indexOf(p) === 0; });
 }
+
+// Run indices where the default Kafka version differs from the previous run.
+// The first run is never a marker: there is no earlier version to change from.
+function versionChangeMarkers(runs) {
+  const markers = [];
+  let prev = null;
+  runs.forEach(function(run, idx) {
+    const v = run.kafkaVersion || '';
+    if (v && prev !== null && v !== prev) {
+      markers.push({ index: idx, from: prev, to: v });
+    }
+    if (v) prev = v;
+  });
+  return markers;
+}
+
+// Draws a dashed vertical rule at each Kafka version change so a step in the
+// line can be read against the version it landed with.
+const versionMarkerPlugin = {
+  id: 'versionMarkers',
+  afterDatasetsDraw: function(chart, args, opts) {
+    const markers = (opts && opts.markers) || [];
+    if (!markers.length) return;
+    const xScale = chart.scales.x;
+    const area = chart.chartArea;
+    const ctx = chart.ctx;
+
+    markers.forEach(function(m) {
+      const x = xScale.getPixelForValue(m.index);
+      if (x < area.left || x > area.right) return;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.setLineDash([4, 4]);
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = VERSION_MARKER;
+      ctx.moveTo(x, area.top);
+      ctx.lineTo(x, area.bottom);
+      ctx.stroke();
+
+      ctx.setLineDash([]);
+      ctx.fillStyle = VERSION_MARKER;
+      ctx.font = '10px system-ui, -apple-system, sans-serif';
+      ctx.textBaseline = 'top';
+      // Flip the label to the left of the rule when it would overflow.
+      const label = 'Kafka ' + m.to;
+      const w = ctx.measureText(label).width;
+      const flip = x + w + 6 > area.right;
+      ctx.textAlign = flip ? 'right' : 'left';
+      ctx.fillText(label, flip ? x - 4 : x + 4, area.top + 2);
+      ctx.restore();
+    });
+  }
+};
+Chart.register(versionMarkerPlugin);
 
 function parseKey(key) {
   const m = key.match(KEY_PATTERN);
@@ -162,6 +218,7 @@ function renderCharts() {
   const runs = resultsData.runs;
   const baselines = resultsData.baselines || {};
   const labels = runs.map(function(r) { return shortDate(r.date); });
+  const versionMarkers = versionChangeMarkers(runs);
 
   buildChartGroups(runs).forEach(function(group) {
     const multi = group.series.length > 1;
@@ -236,6 +293,7 @@ function renderCharts() {
           x: { ticks: { color: INK_SECONDARY, maxRotation: 45, autoSkip: true, maxTicksLimit: 15 }, grid: { color: GRID } }
         },
         plugins: {
+          versionMarkers: { markers: versionMarkers },
           legend: {
             display: multi,
             labels: { color: '#c9d1d9', boxWidth: 12, boxHeight: 12, usePointStyle: false }
@@ -244,8 +302,16 @@ function renderCharts() {
             callbacks: {
               title: function(items) {
                 if (!items.length) return '';
-                const run = runs[items[0].dataIndex];
-                return run.date + (run.commitSha ? '  @ ' + run.commitSha : '');
+                const idx = items[0].dataIndex;
+                const run = runs[idx];
+                // Chart.js renders an array of strings as separate title lines.
+                const lines = [run.date + (run.commitSha ? '  @ ' + run.commitSha : '')];
+                if (run.kafkaVersion) {
+                  const marker = versionMarkers.find(function(m) { return m.index === idx; });
+                  lines.push('Kafka ' + run.kafkaVersion +
+                    (marker ? '  (changed from ' + marker.from + ')' : ''));
+                }
+                return lines;
               },
               label: function(ctx) {
                 let text = ctx.dataset.label + ': ' + fmt(ctx.parsed.y);
