@@ -1,9 +1,10 @@
 {
-  "lastUpdated": "2026-09-13T11:09:52.822351+00:00",
+  "lastUpdated": "2026-09-13T17:21:03.447568+00:00",
   "runs": [
     {
       "date": "2026-07-22T08:42",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -84,6 +85,7 @@
     {
       "date": "2026-07-23T08:42",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -164,6 +166,7 @@
     {
       "date": "2026-07-24T06:46",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -244,6 +247,7 @@
     {
       "date": "2026-07-25T08:16",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -324,6 +328,7 @@
     {
       "date": "2026-07-27T05:23",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -404,6 +409,7 @@
     {
       "date": "2026-07-28T09:47",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -484,6 +490,7 @@
     {
       "date": "2026-07-29T08:36",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -564,6 +571,7 @@
     {
       "date": "2026-08-14T07:45",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -644,6 +652,7 @@
     {
       "date": "2026-08-15T02:47",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -724,6 +733,7 @@
     {
       "date": "2026-08-18T07:43",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -804,6 +814,7 @@
     {
       "date": "2026-08-19T08:50",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -884,6 +895,7 @@
     {
       "date": "2026-08-20T07:43",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -964,6 +976,7 @@
     {
       "date": "2026-08-26T09:53",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1044,6 +1057,7 @@
     {
       "date": "2026-08-27T08:46",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1124,6 +1138,7 @@
     {
       "date": "2026-08-28T15:27",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1204,6 +1219,7 @@
     {
       "date": "2026-08-29T05:08",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1284,6 +1300,7 @@
     {
       "date": "2026-08-30T01:15",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1364,6 +1381,7 @@
     {
       "date": "2026-08-31T02:55",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1444,6 +1462,7 @@
     {
       "date": "2026-09-01T05:15",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1524,6 +1543,7 @@
     {
       "date": "2026-09-02T01:51",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1604,6 +1624,7 @@
     {
       "date": "2026-09-03T04:31",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1684,6 +1705,7 @@
     {
       "date": "2026-09-04T05:15",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1764,6 +1786,7 @@
     {
       "date": "2026-09-05T01:15",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1844,6 +1867,7 @@
     {
       "date": "2026-09-06T05:34",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -1924,6 +1948,7 @@
     {
       "date": "2026-09-08T08:30",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -2004,6 +2029,7 @@
     {
       "date": "2026-09-09T08:21",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -2084,6 +2110,7 @@
     {
       "date": "2026-09-10T07:46",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -2164,6 +2191,7 @@
     {
       "date": "2026-09-11T08:04",
       "commitSha": "2fc95bded",
+      "kafkaVersion": "4.3.0",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 54719.0
@@ -2244,6 +2272,7 @@
     {
       "date": "2026-09-12T13:14",
       "commitSha": "6d3c3604b",
+      "kafkaVersion": "4.3.1",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 61891.0
@@ -2324,6 +2353,7 @@
     {
       "date": "2026-09-13T11:09",
       "commitSha": "18e8074eb",
+      "kafkaVersion": "4.3.1",
       "results": {
         "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
           "reconciliationIntervalMs": 0.0
