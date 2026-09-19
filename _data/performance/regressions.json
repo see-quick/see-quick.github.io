@@ -1,15 +1,6 @@
 {
   "detectedAt" : "2026-09-19T10:08:17.699465Z",
   "regressions" : [ {
-    "testName" : "ClusterOperatorConnectScalabilityPerformance (connectorCount=25)",
-    "metricName" : "allConnectorsReadyTimeMs",
-    "currentValue" : 20671.0,
-    "baselineMean" : 10364.2,
-    "baselineStddev" : 518.21,
-    "deviations" : 19.8892340942861,
-    "threshold" : 2.0,
-    "passed" : false
-  }, {
     "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=1000)",
     "metricName" : "maxLatencyMs",
     "currentValue" : 36.0,
@@ -25,15 +16,6 @@
     "baselineMean" : 23.8,
     "baselineStddev" : 1.4000000000000001,
     "deviations" : 2.285714285714285,
-    "threshold" : 2.0,
-    "passed" : false
-  }, {
-    "testName" : "ClusterOperatorRebalancePerformance",
-    "metricName" : "rebalanceExecutionTimeMs",
-    "currentValue" : 60930.0,
-    "baselineMean" : 30805.4,
-    "baselineStddev" : 1540.2700000000002,
-    "deviations" : 19.557999571503693,
     "threshold" : 2.0,
     "passed" : false
   }, {
@@ -79,24 +61,6 @@
     "baselineMean" : 16.0,
     "baselineStddev" : 0.8,
     "deviations" : 5.0,
-    "threshold" : 2.0,
-    "passed" : false
-  }, {
-    "testName" : "ClusterOperatorNodePoolScalingPerformance",
-    "metricName" : "scaleDownTimeMs",
-    "currentValue" : 3631.0,
-    "baselineMean" : 3296.9,
-    "baselineStddev" : 164.84500000000003,
-    "deviations" : 2.0267524037732407,
-    "threshold" : 2.0,
-    "passed" : false
-  }, {
-    "testName" : "ClusterOperatorConnectScalabilityPerformance (connectorCount=50)",
-    "metricName" : "allConnectorsReadyTimeMs",
-    "currentValue" : 41237.0,
-    "baselineMean" : 27848.2,
-    "baselineStddev" : 4582.866653089526,
-    "deviations" : 2.9214901967470466,
     "threshold" : 2.0,
     "passed" : false
   } ]
