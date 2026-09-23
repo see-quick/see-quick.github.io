@@ -36,7 +36,7 @@ const VERSION_MARKER = '#9085e9';
 // Result keys look like "<base>-<paramName>-<value>", e.g.
 // "topic-operator-scalabilityUseCase-numberOfTopics-250". Runs of a test
 // with different parameter values are grouped into one multi-line chart.
-const PARAM_NAMES = ['numberOfTopics', 'numberOfKafkaUsers', 'connectorCount'];
+const PARAM_NAMES = ['numberOfTopics', 'numberOfKafkaUsers'];
 const KEY_PATTERN = new RegExp('^(.+?)-(' + PARAM_NAMES.join('|') + ')-(.+)$');
 
 // Resource/JVM health metrics derived from operator scrapes; informational,
