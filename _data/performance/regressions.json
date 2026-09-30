@@ -1,4 +1,22 @@
 {
-  "detectedAt" : "2026-09-26T09:20:34.406365Z",
-  "regressions" : [ ]
+  "detectedAt" : "2026-09-30T00:36:00.928037Z",
+  "regressions" : [ {
+    "testName" : "TopicOperatorScalabilityPerformance (numberOfTopics=250)",
+    "metricName" : "reconciliationIntervalMs",
+    "currentValue" : 31104.0,
+    "baselineMean" : 25369.2,
+    "baselineStddev" : 1268.46,
+    "deviations" : 4.521072796934865,
+    "threshold" : 2.0,
+    "passed" : false
+  }, {
+    "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=1500)",
+    "metricName" : "p99LatencyMs",
+    "currentValue" : 27.0,
+    "baselineMean" : 22.5,
+    "baselineStddev" : 1.746424919657298,
+    "deviations" : 2.576692504412407,
+    "threshold" : 2.0,
+    "passed" : false
+  } ]
 }
