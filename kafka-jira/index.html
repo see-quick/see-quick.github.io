@@ -1,0 +1,328 @@
+---
+layout: kafka-jira
+title: Apache Kafka Jira Board
+---
+
+<header>
+  <h1>Apache Kafka Jira Board</h1>
+  <div class="meta" id="meta">Loading issues...</div>
+</header>
+
+<section class="form" aria-label="Filters">
+  <label for="f-comp">Component <select id="f-comp"></select></label>
+  <label for="f-status">Status
+    <select id="f-status">
+      <option value="">Any open status</option>
+      <option>Open</option>
+      <option>In Progress</option>
+      <option>Patch Available</option>
+      <option>Reopened</option>
+    </select>
+  </label>
+  <label for="f-q">Search summary or key <input id="f-q" type="search" placeholder="e.g. Dockerfile, KAFKA-1234"></label>
+  <label class="check" for="f-text"><input id="f-text" type="checkbox"> Also list issues that mention it</label>
+  <label class="check" for="f-unassigned"><input id="f-unassigned" type="checkbox"> Unassigned only</label>
+  <button type="button" id="f-reset">Reset</button>
+</section>
+
+<section class="tiles" id="tiles" aria-label="Selected component"></section>
+
+<div class="grid">
+  <section class="card">
+    <h2>Created vs resolved, by month</h2>
+    <p class="note">Last 24 months for the selected component. A month where created outruns resolved grows the backlog.</p>
+    <div class="chart-box"><canvas id="flow-chart"></canvas></div>
+  </section>
+  <section class="card">
+    <h2>Summary per component</h2>
+    <p class="note">Open issues only. An issue with two components counts in both. Click a row to select it.</p>
+    <div class="scroll">
+      <table class="comp" id="comp-table">
+        <thead><tr>
+          <th><button type="button" data-k="component">Component</button></th>
+          <th class="num"><button type="button" data-k="open">Open</button></th>
+          <th class="num hide-sm"><button type="button" data-k="bugs">Bugs</button></th>
+          <th class="num"><button type="button" data-k="patch">Patch</button></th>
+          <th class="num hide-sm"><button type="button" data-k="unassigned">Unassigned</button></th>
+          <th class="num hide-sm"><button type="button" data-k="recent90">Active 90d</button></th>
+          <th class="num"><button type="button" data-k="stale365">Stale 1y</button></th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<section class="card">
+  <h2 id="list-title">Open issues</h2>
+  <p class="note" id="list-note"></p>
+  <div class="scroll">
+    <table id="issue-table">
+      <thead><tr>
+        <th><button type="button" data-k="key">Key</button></th>
+        <th class="sum"><button type="button" data-k="summary">Summary</button></th>
+        <th><button type="button" data-k="status">Status</button></th>
+        <th class="hide-sm"><button type="button" data-k="type">Type</button></th>
+        <th class="hide-sm"><button type="button" data-k="priority">Priority</button></th>
+        <th class="hide-sm"><button type="button" data-k="components">Components</button></th>
+        <th><button type="button" data-k="updated">Updated</button></th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+// Data is exported daily by _scripts/jira_export.py during the Pages build.
+const DATA = '{{ site.baseurl }}/assets/data/kafka-jira/';
+const DEFAULTS = { component: 'docker', status: '', q: '', text: true, unassigned: false };
+const DAY = 86400000;
+const nf = new Intl.NumberFormat('en-US');
+const fmt = (n) => nf.format(n);
+
+let openIssues = [], byComponent = [], monthly = [], chart = null;
+let state = { ...DEFAULTS };
+const sorts = { comp: { k: 'open', dir: -1 }, issues: { k: 'updated', dir: -1 } };
+const TEXT_KEYS = ['component', 'key', 'summary', 'status', 'type', 'priority', 'components'];
+
+const el = (tag, props = {}, ...kids) => {
+  const e = Object.assign(document.createElement(tag), props);
+  e.append(...kids);
+  return e;
+};
+
+// Per-component counts for open issues, plus an "All" row. Ages are measured
+// from the newest update in the export, so the page is stable between builds.
+function summarise(rows) {
+  const asOf = Date.parse(rows.reduce((m, r) => (r.updated > m ? r.updated : m), ''));
+  const groups = new Map();
+  const add = (name, r) => { if (!groups.has(name)) groups.set(name, []); groups.get(name).push(r); };
+  rows.forEach((r) => { add('All', r); r.components.split(', ').forEach((c) => add(c, r)); });
+  return [...groups].map(([component, rs]) => {
+    const ages = rs.map((r) => (asOf - Date.parse(r.created)) / DAY).sort((a, b) => a - b);
+    const mid = Math.floor(ages.length / 2);
+    return {
+      component,
+      open: rs.length,
+      bugs: rs.filter((r) => r.type === 'Bug').length,
+      patch: rs.filter((r) => r.status === 'Patch Available').length,
+      unassigned: rs.filter((r) => !r.assigned).length,
+      recent90: rs.filter((r) => asOf - Date.parse(r.updated) <= 90 * DAY).length,
+      stale365: rs.filter((r) => asOf - Date.parse(r.updated) > 365 * DAY).length,
+      medianAge: Math.round(ages.length % 2 ? ages[mid] : (ages[mid - 1] + ages[mid]) / 2),
+    };
+  });
+}
+
+// Created and resolved counts per month for the last 24 months.
+function months(flow) {
+  const last = flow.reduce((m, r) => [r.created, r.resolved, m].sort().pop(), '').slice(0, 7);
+  let [y, mo] = last.split('-').map(Number);
+  const list = [];
+  for (let i = 0; i < 24; i++) {
+    list.unshift(`${y}-${String(mo).padStart(2, '0')}`);
+    if (--mo === 0) { mo = 12; y--; }
+  }
+  const idx = new Map(list.map((m, i) => [m, i]));
+  const per = new Map();
+  const get = (c) => {
+    if (!per.has(c)) per.set(c, { created: new Array(24).fill(0), resolved: new Array(24).fill(0) });
+    return per.get(c);
+  };
+  flow.forEach((r) => {
+    const ci = idx.get(r.created.slice(0, 7));
+    const ri = r.resolved ? idx.get(r.resolved.slice(0, 7)) : undefined;
+    ['All', ...r.components.split(', ')].forEach((c) => {
+      const s = get(c);
+      if (ci !== undefined) s.created[ci]++;
+      if (ri !== undefined) s.resolved[ri]++;
+    });
+  });
+  return { list, per };
+}
+
+const sorter = (s) => (a, b) => {
+  let x = a[s.k], y = b[s.k];
+  if (s.k === 'key') { x = +a.key.split('-')[1]; y = +b.key.split('-')[1]; }
+  return (x < y ? -1 : x > y ? 1 : 0) * s.dir;
+};
+
+function markSort(table, s) {
+  table.querySelectorAll('th').forEach((th) => {
+    if (th.querySelector('button').dataset.k === s.k) th.setAttribute('aria-sort', s.dir > 0 ? 'ascending' : 'descending');
+    else th.removeAttribute('aria-sort');
+  });
+}
+
+function drawTiles() {
+  const r = byComponent.find((x) => x.component === state.component);
+  const tiles = document.getElementById('tiles');
+  if (!r) { tiles.replaceChildren(); return; }
+  const tile = (label, value, note, cls = '') =>
+    el('div', { className: 'tile ' + cls }, el('span', { className: 'label', textContent: label }),
+      el('span', { className: 'value', textContent: value }), el('small', { textContent: note }));
+  tiles.replaceChildren(
+    tile('Open issues', fmt(r.open), 'unresolved'),
+    tile('Bugs', fmt(r.bugs), 'of the open issues'),
+    tile('Patch available', fmt(r.patch), 'needs a reviewer', r.patch ? 'good' : ''),
+    tile('Unassigned', fmt(r.unassigned), 'nobody owns it'),
+    tile('Untouched for a year', fmt(r.stale365), 'no update in 365 days', r.stale365 / r.open > 0.5 ? 'warn' : ''),
+    tile('Median age', fmt(r.medianAge), 'days since created'),
+  );
+}
+
+function drawChart() {
+  const s = monthly.per.get(state.component) || { created: new Array(24).fill(0), resolved: new Array(24).fill(0) };
+  const labels = monthly.list.map((m) => new Date(m + '-01T00:00:00Z').toLocaleString('en-US', { month: 'short', year: '2-digit', timeZone: 'UTC' }));
+  if (chart) chart.destroy();
+  chart = new Chart(document.getElementById('flow-chart'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'Created', data: s.created, backgroundColor: '#3987e5', borderRadius: 3 },
+        { label: 'Resolved', data: s.resolved, backgroundColor: '#199e70', borderRadius: 3 },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      scales: {
+        y: { beginAtZero: true, ticks: { color: '#8b949e', precision: 0 }, grid: { color: '#21262d' } },
+        x: { ticks: { color: '#8b949e', autoSkip: true, maxRotation: 0 }, grid: { display: false } },
+      },
+      plugins: { legend: { labels: { color: '#c9d1d9', boxWidth: 12, boxHeight: 12 } } },
+    },
+  });
+}
+
+function drawComponents() {
+  const rows = byComponent.slice().sort(sorter(sorts.comp));
+  const max = Math.max(1, ...rows.filter((r) => r.component !== 'All').map((r) => r.open));
+  const td = (v, cls = '') => el('td', { className: cls, textContent: v });
+  document.querySelector('#comp-table tbody').replaceChildren(...rows.map((r) => {
+    const bar = el('div', { className: 'bar' }, el('i'), el('span', { textContent: fmt(r.open) }));
+    bar.firstChild.style.width = (r.component === 'All' ? 0 : Math.max(2, (r.open / max) * 72)) + 'px';
+    const tr = el('tr', { className: r.component === state.component ? 'on' : '' },
+      td(r.component), el('td', { className: 'num' }, bar), td(fmt(r.bugs), 'num hide-sm'), td(fmt(r.patch), 'num'),
+      td(fmt(r.unassigned), 'num hide-sm'), td(fmt(r.recent90), 'num hide-sm'),
+      td(fmt(r.stale365), 'num' + (r.stale365 / r.open > 0.5 ? ' old' : '')));
+    tr.dataset.key = r.component;
+    return tr;
+  }));
+  markSort(document.getElementById('comp-table'), sorts.comp);
+}
+
+function drawIssues() {
+  const name = state.component.toLowerCase();
+  const needle = state.q.trim().toLowerCase();
+  const mentions = new Set();
+  const rows = openIssues.filter((r) => {
+    if (state.component !== 'All') {
+      const inComp = r.components.split(', ').includes(state.component);
+      const mention = !inComp && state.text && (r.summary.toLowerCase().includes(name) || r.labels.toLowerCase().includes(name));
+      if (!inComp && !mention) return false;
+      if (mention) mentions.add(r.key);
+    }
+    if (state.status && r.status !== state.status) return false;
+    if (state.unassigned && r.assigned) return false;
+    if (needle && !(r.summary.toLowerCase().includes(needle) || r.key.toLowerCase().includes(needle))) return false;
+    return true;
+  }).sort(sorter(sorts.issues));
+
+  const LIMIT = 600;
+  const td = (v, cls = '') => el('td', { className: cls, textContent: v });
+  document.querySelector('#issue-table tbody').replaceChildren(...rows.slice(0, LIMIT).map((r) => el('tr', {},
+    el('td', {}, el('a', { href: 'https://issues.apache.org/jira/browse/' + r.key, target: '_blank', rel: 'noopener', textContent: r.key })),
+    td(r.summary, 'sum'),
+    el('td', {}, el('span', { className: 'pill' + (r.status === 'Patch Available' ? ' patch' : r.status === 'In Progress' ? ' progress' : ''), textContent: r.status })),
+    td(r.type, 'hide-sm'), td(r.priority, 'hide-sm'), td(r.components, 'hide-sm'), td(r.updated))));
+
+  document.getElementById('list-title').textContent = state.component === 'All' ? 'Open issues' : `Open issues: ${state.component}`;
+  const parts = [`${fmt(rows.length)} issues match`];
+  const m = rows.filter((r) => mentions.has(r.key)).length;
+  if (m) parts.push(`${fmt(m)} of them only mention "${state.component}" in the summary or labels`);
+  if (rows.length > LIMIT) parts.push(`showing the first ${fmt(LIMIT)}, narrow the filters to see the rest`);
+  document.getElementById('list-note').textContent = parts.join('; ') + '.';
+  markSort(document.getElementById('issue-table'), sorts.issues);
+}
+
+function syncForm() {
+  document.getElementById('f-comp').value = state.component;
+  document.getElementById('f-status').value = state.status;
+  const q = document.getElementById('f-q');
+  if (q !== document.activeElement) q.value = state.q;
+  const text = document.getElementById('f-text');
+  text.checked = state.text;
+  text.disabled = state.component === 'All';
+  document.getElementById('f-unassigned').checked = state.unassigned;
+}
+
+// The selected component lives in the URL hash (#docker), so a view can be linked.
+function readHash() {
+  const c = decodeURIComponent(location.hash.slice(1));
+  if (c && byComponent.some((r) => r.component === c)) state.component = c;
+}
+
+function update(patch, { chart: redrawChart = 'component' in patch } = {}) {
+  Object.assign(state, patch);
+  if ('component' in patch) history.replaceState(null, '', '#' + encodeURIComponent(state.component));
+  syncForm();
+  drawTiles();
+  drawComponents();
+  drawIssues();
+  if (redrawChart) drawChart();
+}
+
+function wire() {
+  const on = (id, ev, fn) => document.getElementById(id).addEventListener(ev, fn);
+  on('f-comp', 'change', (e) => update({ component: e.target.value }));
+  on('f-status', 'change', (e) => update({ status: e.target.value }));
+  on('f-q', 'input', (e) => update({ q: e.target.value }));
+  on('f-text', 'change', (e) => update({ text: e.target.checked }));
+  on('f-unassigned', 'change', (e) => update({ unassigned: e.target.checked }));
+  on('f-reset', 'click', () => update({ ...DEFAULTS }));
+  document.querySelector('#comp-table tbody').addEventListener('click', (e) => {
+    const tr = e.target.closest('tr[data-key]');
+    if (tr) update({ component: tr.dataset.key });
+  });
+  [['comp-table', 'comp'], ['issue-table', 'issues']].forEach(([id, name]) => {
+    document.querySelector(`#${id} thead`).addEventListener('click', (e) => {
+      const b = e.target.closest('button[data-k]');
+      if (!b) return;
+      const s = sorts[name];
+      if (s.k === b.dataset.k) s.dir = -s.dir;
+      else { s.k = b.dataset.k; s.dir = TEXT_KEYS.includes(s.k) ? 1 : -1; }
+      name === 'comp' ? drawComponents() : drawIssues();
+    });
+  });
+  window.addEventListener('hashchange', () => { readHash(); update({ component: state.component }); });
+}
+
+async function init() {
+  const meta = document.getElementById('meta');
+  try {
+    const get = (f) => fetch(DATA + f).then((r) => { if (!r.ok) throw new Error(f + ': HTTP ' + r.status); return r.json(); });
+    const [info, issues, flow] = await Promise.all([get('meta.json'), get('open_issues.json'), get('flow.json')]);
+    openIssues = issues;
+    byComponent = summarise(issues);
+    monthly = months(flow);
+    const sel = document.getElementById('f-comp');
+    const opts = byComponent.slice().sort((a, b) => (a.component === 'All' ? -1 : b.component === 'All' ? 1 : a.component.localeCompare(b.component)));
+    sel.replaceChildren(...opts.map((r) => new Option(`${r.component} (${fmt(r.open)})`, r.component)));
+    const all = byComponent.find((r) => r.component === 'All');
+    meta.replaceChildren(
+      el('b', { textContent: fmt(all.open) }), ' open issues, ',
+      el('b', { textContent: fmt(all.patch) }), ' with a patch waiting for review. Exported from ',
+      el('a', { href: 'https://issues.apache.org/jira/projects/KAFKA', target: '_blank', rel: 'noopener', textContent: 'issues.apache.org' }),
+      ' on ' + info.generatedAt.replace('T', ' ').slice(0, 16) + ' UTC, refreshed daily.');
+    readHash();
+    wire();
+    update({ component: state.component });
+  } catch (err) {
+    meta.textContent = 'Could not load the Jira export (' + err.message + '). Run _scripts/jira_export.py locally, or wait for the next daily build.';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>

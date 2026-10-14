@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }}</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0d1117; color: #c9d1d9; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 24px 16px; display: flex; flex-direction: column; gap: 20px; }
+    h1 { font-size: 1.8rem; color: #f0f6fc; }
+    h2 { font-size: 1rem; color: #f0f6fc; font-weight: 600; }
+    a { color: #58a6ff; }
+    .meta { color: #8b949e; font-size: 0.9rem; margin-top: 6px; }
+    .meta b { color: #f0f6fc; }
+    .note { color: #8b949e; font-size: 0.8rem; }
+    .form { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 12px 16px; }
+    .form label { display: flex; flex-direction: column; gap: 4px; font-size: 0.75rem; color: #8b949e; }
+    .form label.check { flex-direction: row; align-items: center; gap: 6px; font-size: 0.85rem; color: #c9d1d9; }
+    .form select, .form input[type=search] { background: #0d1117; color: #c9d1d9; border: 1px solid #30363d; border-radius: 6px; padding: 6px 8px; font: inherit; font-size: 0.85rem; min-width: 11rem; max-width: 100%; }
+    .form input[type=search] { min-width: 15rem; }
+    .form button { background: #21262d; border: 1px solid #30363d; color: #c9d1d9; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+    .form button:hover { border-color: #8b949e; }
+    .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 12px; }
+    .tile { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; }
+    .tile .label { font-size: 0.75rem; color: #8b949e; }
+    .tile .value { font-size: 1.8rem; color: #f0f6fc; font-variant-numeric: tabular-nums; }
+    .tile small { font-size: 0.75rem; color: #8b949e; }
+    .tile.warn .value { color: #d29922; }
+    .tile.good .value { color: #3fb950; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+    .scroll { max-height: 34rem; overflow: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+    th { position: sticky; top: 0; background: #161b22; text-align: left; color: #8b949e; font-weight: 600; border-bottom: 1px solid #30363d; padding: 6px 8px; white-space: nowrap; z-index: 1; }
+    th button { all: unset; cursor: pointer; }
+    th button:focus-visible { outline: 2px solid #58a6ff; }
+    th[aria-sort=ascending] button::after { content: ' \25B4'; }
+    th[aria-sort=descending] button::after { content: ' \25BE'; }
+    td { padding: 6px 8px; border-bottom: 1px solid #21262d; vertical-align: top; }
+    .num { text-align: right; }
+    .comp tbody tr { cursor: pointer; }
+    .comp tbody tr:hover { background: #1c2128; }
+    .comp tbody tr.on { background: #1f6feb33; color: #f0f6fc; }
+    .bar { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
+    .bar i { display: block; height: 6px; border-radius: 3px; background: #30363d; }
+    .comp tr.on .bar i { background: #3987e5; }
+    .old { color: #f85149; }
+    .pill { display: inline-block; padding: 0 7px; border-radius: 999px; border: 1px solid #30363d; white-space: nowrap; font-size: 0.75rem; }
+    .pill.patch { color: #3fb950; border-color: #3fb95066; }
+    .pill.progress { color: #d29922; border-color: #d2992266; }
+    .sum { min-width: 16rem; }
+    .chart-box { position: relative; height: 280px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .hide-sm { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    {{ content }}
+  </div>
+</body>
+</html>
