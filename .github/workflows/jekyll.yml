@@ -51,6 +51,12 @@ jobs:
         # A Jira outage must not block a blog deploy; the board then shows a load error
         continue-on-error: true
         run: python3 _scripts/jira_export.py
+      - name: Export Strimzi release dates
+        # Release markers on /perf-dashboard/ are optional; the charts render without them
+        continue-on-error: true
+        run: python3 _scripts/strimzi_releases_export.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"

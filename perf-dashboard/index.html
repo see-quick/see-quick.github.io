@@ -32,6 +32,7 @@ const CRITICAL = '#d03b3b';
 const INK_SECONDARY = '#8b949e';
 const GRID = '#21262d';
 const VERSION_MARKER = '#9085e9';
+const RELEASE_MARKER = '#39c5cf';
 
 // Result keys look like "<base>-<paramName>-<value>", e.g.
 // "topic-operator-scalabilityUseCase-numberOfTopics-250". Runs of a test
@@ -61,8 +62,38 @@ function versionChangeMarkers(runs) {
   return markers;
 }
 
-// Draws a dashed vertical rule at each Kafka version change so a step in the
-// line can be read against the version it landed with.
+// Strimzi GA releases, from assets/data/strimzi-releases.json (written by the
+// Pages build). Optional: the charts render without them.
+let strimziReleases = [];
+
+// Each release sits on the first run at or after its publish date. Releases
+// before the first run (outside the window) or after the last run (no run to
+// sit on yet) are left out.
+function releaseMarkers(runs) {
+  const byIndex = {};
+  const firstDay = runs[0].date.slice(0, 10);
+  strimziReleases.forEach(function(r) {
+    const day = r.date.slice(0, 10);
+    if (day < firstDay) return;
+    const idx = runs.findIndex(function(run) { return run.date.slice(0, 10) >= day; });
+    if (idx < 0) return;
+    (byIndex[idx] = byIndex[idx] || []).push(r);
+  });
+  return Object.keys(byIndex).map(function(k) {
+    const rs = byIndex[k].sort(function(a, b) { return a.date < b.date ? -1 : 1; });
+    return {
+      index: Number(k),
+      releases: rs,
+      label: 'Strimzi ' + rs.map(function(r) { return r.version; }).join(', '),
+      color: RELEASE_MARKER,
+      row: 1
+    };
+  });
+}
+
+// Draws a dashed vertical rule at each Kafka version change (purple) and each
+// Strimzi release (cyan) so a step in the line can be read against them.
+// Release labels sit one row lower so both stay readable on the same run.
 const versionMarkerPlugin = {
   id: 'versionMarkers',
   afterDatasetsDraw: function(chart, args, opts) {
@@ -80,21 +111,21 @@ const versionMarkerPlugin = {
       ctx.beginPath();
       ctx.setLineDash([4, 4]);
       ctx.lineWidth = 1.5;
-      ctx.strokeStyle = VERSION_MARKER;
+      ctx.strokeStyle = m.color || VERSION_MARKER;
       ctx.moveTo(x, area.top);
       ctx.lineTo(x, area.bottom);
       ctx.stroke();
 
       ctx.setLineDash([]);
-      ctx.fillStyle = VERSION_MARKER;
+      ctx.fillStyle = m.color || VERSION_MARKER;
       ctx.font = '10px system-ui, -apple-system, sans-serif';
       ctx.textBaseline = 'top';
       // Flip the label to the left of the rule when it would overflow.
-      const label = 'Kafka ' + m.to;
+      const label = m.label || 'Kafka ' + m.to;
       const w = ctx.measureText(label).width;
       const flip = x + w + 6 > area.right;
       ctx.textAlign = flip ? 'right' : 'left';
-      ctx.fillText(label, flip ? x - 4 : x + 4, area.top + 2);
+      ctx.fillText(label, flip ? x - 4 : x + 4, area.top + 2 + 13 * (m.row || 0));
       ctx.restore();
     });
   }
@@ -134,8 +165,14 @@ function init() {
     ' &middot; <a href="https://github.com/see-quick/strimzi-perf-results" target="_blank" rel="noopener">raw data</a>';
 
   renderRegressions();
-  renderCharts();
   setupFilters();
+  fetch('{{ "/assets/data/strimzi-releases.json" | relative_url }}')
+    .then(function(r) { return r.ok ? r.json() : []; })
+    .catch(function() { return []; })
+    .then(function(rs) {
+      strimziReleases = Array.isArray(rs) ? rs : [];
+      renderCharts();
+    });
 }
 
 let componentFilter = 'all';
@@ -218,6 +255,7 @@ function renderCharts() {
   const baselines = resultsData.baselines || {};
   const labels = runs.map(function(r) { return shortDate(r.date); });
   const versionMarkers = versionChangeMarkers(runs);
+  const releaseMarks = releaseMarkers(runs);
 
   buildChartGroups(runs).forEach(function(group) {
     const multi = group.series.length > 1;
@@ -292,7 +330,7 @@ function renderCharts() {
           x: { ticks: { color: INK_SECONDARY, maxRotation: 45, autoSkip: true, maxTicksLimit: 15 }, grid: { color: GRID } }
         },
         plugins: {
-          versionMarkers: { markers: versionMarkers },
+          versionMarkers: { markers: versionMarkers.concat(releaseMarks) },
           legend: {
             display: multi,
             labels: { color: '#c9d1d9', boxWidth: 12, boxHeight: 12, usePointStyle: false }
@@ -309,6 +347,12 @@ function renderCharts() {
                   const marker = versionMarkers.find(function(m) { return m.index === idx; });
                   lines.push('Kafka ' + run.kafkaVersion +
                     (marker ? '  (changed from ' + marker.from + ')' : ''));
+                }
+                const rel = releaseMarks.find(function(m) { return m.index === idx; });
+                if (rel) {
+                  rel.releases.forEach(function(r) {
+                    lines.push('Strimzi ' + r.version + ' released ' + r.date.slice(0, 10));
+                  });
                 }
                 return lines;
               },
