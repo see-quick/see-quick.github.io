@@ -1,66 +1,6 @@
 {
-  "lastUpdated": "2026-11-01T01:55:55.099087+00:00",
+  "lastUpdated": "2026-11-03T09:52:20.106594+00:00",
   "runs": [
-    {
-      "date": "2026-09-03T04:31",
-      "commitSha": "2fc95bded",
-      "kafkaVersion": "4.3.0",
-      "results": {
-        "cluster-operator-rollingUpdateUseCase": {
-          "brokerRollingUpdateTimeMs": 73632.0,
-          "controllerRollingUpdateTimeMs": 90186.0,
-          "totalRollingUpdateTimeMs": 163818.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
-          "reconciliationIntervalMs": 10474.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
-          "reconciliationIntervalMs": 30909.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
-          "reconciliationIntervalMs": 20455.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
-          "reconciliationIntervalMs": 54719.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-25": {
-          "reconciliationIntervalMs": 10519.0
-        },
-        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
-          "reconciliationIntervalMs": 25461.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 19.0,
-          "averageLatencyMs": 10.37,
-          "p50LatencyMs": 10.0,
-          "p95LatencyMs": 15.0,
-          "p99LatencyMs": 16.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
-          "reconciliationIntervalMs": 21835.0
-        },
-        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
-          "reconciliationIntervalMs": 10330.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 26.0,
-          "averageLatencyMs": 11.57,
-          "p50LatencyMs": 10.0,
-          "p95LatencyMs": 20.0,
-          "p99LatencyMs": 24.0
-        },
-        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
-          "minLatencyMs": 8.0,
-          "maxLatencyMs": 28.0,
-          "averageLatencyMs": 13.08,
-          "p50LatencyMs": 12.0,
-          "p95LatencyMs": 21.0,
-          "p99LatencyMs": 24.0
-        }
-      }
-    },
     {
       "date": "2026-09-04T05:15",
       "commitSha": "2fc95bded",
@@ -2005,6 +1945,92 @@
           "jvmGcPauseMaxSeconds": 0.271
         }
       }
+    },
+    {
+      "date": "2026-11-03T09:51",
+      "commitSha": "c6c8d92f9",
+      "kafkaVersion": "4.4.0",
+      "results": {
+        "cluster-operator-rollingUpdateUseCase": {
+          "brokerRollingUpdateTimeMs": 94377.0,
+          "controllerRollingUpdateTimeMs": 88679.0,
+          "totalRollingUpdateTimeMs": 183056.0,
+          "jvmMemoryUsedMaxMb": 185.3861,
+          "jvmMemoryUsedAvgMb": 177.5315,
+          "processCpuUsageMax": 0.5048,
+          "processCpuUsageAvg": 0.1032,
+          "jvmThreadsLiveMax": 48.0,
+          "jvmGcPauseMaxSeconds": 0.225,
+          "reconciliationDurationMaxSeconds": 96.3556,
+          "reconciliationDurationAvgSeconds": 11.6064
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-2": {
+          "reconciliationIntervalMs": 10525.0
+        },
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-200": {
+          "reconciliationIntervalMs": 131857.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-125": {
+          "reconciliationIntervalMs": 20603.0
+        },
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
+          "reconciliationIntervalMs": 323026.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-25": {
+          "reconciliationIntervalMs": 10585.0
+        },
+        "topic-operator-scalabilityUseCase-numberOfTopics-250": {
+          "reconciliationIntervalMs": 25546.0
+        },
+        "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
+          "minLatencyMs": 7.0,
+          "maxLatencyMs": 31.0,
+          "averageLatencyMs": 10.97,
+          "p50LatencyMs": 9.0,
+          "p95LatencyMs": 19.0,
+          "p99LatencyMs": 28.0,
+          "jvmMemoryUsedMaxMb": 283.7523,
+          "jvmMemoryUsedAvgMb": 228.5726,
+          "processCpuUsageMax": 0.4357,
+          "processCpuUsageAvg": 0.0553,
+          "jvmThreadsLiveMax": 125.0,
+          "jvmGcPauseMaxSeconds": 0.241
+        },
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
+          "reconciliationIntervalMs": 71972.0
+        },
+        "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
+          "reconciliationIntervalMs": 10542.0
+        },
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1500": {
+          "minLatencyMs": 7.0,
+          "maxLatencyMs": 118.0,
+          "averageLatencyMs": 12.95,
+          "p50LatencyMs": 10.0,
+          "p95LatencyMs": 23.0,
+          "p99LatencyMs": 26.0,
+          "jvmMemoryUsedMaxMb": 288.6147,
+          "jvmMemoryUsedAvgMb": 213.9377,
+          "processCpuUsageMax": 0.3547,
+          "processCpuUsageAvg": 0.0613,
+          "jvmThreadsLiveMax": 121.0,
+          "jvmGcPauseMaxSeconds": 0.292
+        },
+        "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
+          "minLatencyMs": 8.0,
+          "maxLatencyMs": 98.0,
+          "averageLatencyMs": 18.2,
+          "p50LatencyMs": 14.0,
+          "p95LatencyMs": 36.0,
+          "p99LatencyMs": 74.0,
+          "jvmMemoryUsedMaxMb": 224.9713,
+          "jvmMemoryUsedAvgMb": 172.3327,
+          "processCpuUsageMax": 0.5435,
+          "processCpuUsageAvg": 0.0952,
+          "jvmThreadsLiveMax": 122.0,
+          "jvmGcPauseMaxSeconds": 0.117
+        }
+      }
     }
   ],
   "baselines": {
@@ -2014,44 +2040,44 @@
         "stddev": 3678.71
       },
       "controllerRollingUpdateTimeMs": {
-        "mean": 89089.0,
-        "stddev": 4454.45
+        "mean": 88984.5,
+        "stddev": 4449.225
       },
       "totalRollingUpdateTimeMs": {
         "mean": 163569.5,
         "stddev": 8178.475
       },
       "jvmMemoryUsedMaxMb": {
-        "mean": 182.00766,
-        "stddev": 9.100382999999999
+        "mean": 182.82914999999997,
+        "stddev": 9.1414575
       },
       "jvmMemoryUsedAvgMb": {
-        "mean": 173.49385,
-        "stddev": 8.6746925
+        "mean": 174.4984,
+        "stddev": 8.724920000000001
       },
       "processCpuUsageMax": {
-        "mean": 0.46336000000000005,
-        "stddev": 0.06487506763002257
+        "mean": 0.46576000000000006,
+        "stddev": 0.06591150430691142
       },
       "processCpuUsageAvg": {
-        "mean": 0.0999,
-        "stddev": 0.013441279700980859
+        "mean": 0.10034000000000001,
+        "stddev": 0.01347005567917223
       },
       "jvmThreadsLiveMax": {
-        "mean": 48.3,
-        "stddev": 2.415
+        "mean": 48.4,
+        "stddev": 2.42
       },
       "jvmGcPauseMaxSeconds": {
-        "mean": 0.1696,
-        "stddev": 0.06970251071518156
+        "mean": 0.18,
+        "stddev": 0.0694334213473598
       },
       "reconciliationDurationMaxSeconds": {
-        "mean": 93.62277,
-        "stddev": 4.6811385
+        "mean": 94.15868,
+        "stddev": 4.707934000000001
       },
       "reconciliationDurationAvgSeconds": {
-        "mean": 11.48916,
-        "stddev": 0.574458
+        "mean": 11.465019999999999,
+        "stddev": 0.573251
       }
     },
     "user-operator-latencyUseCase-numberOfKafkaUsers-1000": {
@@ -2068,8 +2094,8 @@
         "stddev": 1.4187956160067596
       },
       "p50LatencyMs": {
-        "mean": 11.2,
-        "stddev": 1.469693845669907
+        "mean": 11.4,
+        "stddev": 1.6852299546352716
       },
       "p95LatencyMs": {
         "mean": 22.8,
@@ -2080,28 +2106,28 @@
         "stddev": 1.9209372712298547
       },
       "jvmMemoryUsedMaxMb": {
-        "mean": 234.97769,
-        "stddev": 11.7488845
+        "mean": 235.81786000000002,
+        "stddev": 11.790893000000002
       },
       "jvmMemoryUsedAvgMb": {
-        "mean": 179.41302000000002,
-        "stddev": 8.970651000000002
+        "mean": 178.84225999999998,
+        "stddev": 8.942112999999999
       },
       "processCpuUsageMax": {
-        "mean": 0.54897,
-        "stddev": 0.09038628269820592
+        "mean": 0.5556,
+        "stddev": 0.08725607142199332
       },
       "processCpuUsageAvg": {
-        "mean": 0.14344,
-        "stddev": 0.0447176296330653
+        "mean": 0.13513999999999998,
+        "stddev": 0.04519580068988711
       },
       "jvmThreadsLiveMax": {
-        "mean": 120.7,
-        "stddev": 6.035
+        "mean": 121.1,
+        "stddev": 6.055
       },
       "jvmGcPauseMaxSeconds": {
-        "mean": 0.1558,
-        "stddev": 0.08786330291993354
+        "mean": 0.1578,
+        "stddev": 0.08672231546724292
       }
     },
     "user-operator-scalabilityUseCase-numberOfKafkaUsers-100": {
@@ -2112,26 +2138,26 @@
     },
     "topic-operator-scalabilityUseCase-numberOfTopics-2": {
       "reconciliationIntervalMs": {
-        "mean": 10564.5,
-        "stddev": 528.225
+        "mean": 10550.4,
+        "stddev": 527.52
       }
     },
     "topic-operator-scalabilityUseCase-numberOfTopics-125": {
       "reconciliationIntervalMs": {
-        "mean": 18384.3,
-        "stddev": 3634.9311424014622
+        "mean": 18372.5,
+        "stddev": 3627.5103652505254
       }
     },
     "topic-operator-scalabilityUseCase-numberOfTopics-250": {
       "reconciliationIntervalMs": {
-        "mean": 25381.0,
-        "stddev": 1269.0500000000002
+        "mean": 25389.5,
+        "stddev": 1269.4750000000001
       }
     },
     "user-operator-scalabilityUseCase-numberOfKafkaUsers-10": {
       "reconciliationIntervalMs": {
-        "mean": 10378.9,
-        "stddev": 518.945
+        "mean": 10398.7,
+        "stddev": 519.9350000000001
       }
     },
     "user-operator-latencyUseCase-numberOfKafkaUsers-2000": {
@@ -2144,12 +2170,12 @@
         "stddev": 0.9500000000000001
       },
       "averageLatencyMs": {
-        "mean": 10.007,
-        "stddev": 0.5511633151798112
+        "mean": 10.067,
+        "stddev": 0.6162312877483584
       },
       "p50LatencyMs": {
-        "mean": 9.6,
-        "stddev": 0.4898979485566356
+        "mean": 9.5,
+        "stddev": 0.5
       },
       "p95LatencyMs": {
         "mean": 15.0,
@@ -2160,34 +2186,34 @@
         "stddev": 0.8050000000000002
       },
       "jvmMemoryUsedMaxMb": {
-        "mean": 280.94102,
-        "stddev": 14.047051
+        "mean": 282.00446999999997,
+        "stddev": 14.100223499999998
       },
       "jvmMemoryUsedAvgMb": {
-        "mean": 224.43649,
-        "stddev": 11.2218245
+        "mean": 225.60288,
+        "stddev": 11.280144
       },
       "processCpuUsageMax": {
-        "mean": 0.37938,
-        "stddev": 0.054954650394666335
+        "mean": 0.38045,
+        "stddev": 0.05592802964525034
       },
       "processCpuUsageAvg": {
-        "mean": 0.08832,
-        "stddev": 0.025402393588006625
+        "mean": 0.08317,
+        "stddev": 0.026337048050227647
       },
       "jvmThreadsLiveMax": {
-        "mean": 124.9,
-        "stddev": 6.245000000000001
+        "mean": 124.5,
+        "stddev": 6.2250000000000005
       },
       "jvmGcPauseMaxSeconds": {
-        "mean": 0.211,
-        "stddev": 0.0828565024605794
+        "mean": 0.21550000000000002,
+        "stddev": 0.08314114504864606
       }
     },
     "topic-operator-scalabilityUseCase-numberOfTopics-25": {
       "reconciliationIntervalMs": {
-        "mean": 10704.0,
-        "stddev": 535.2
+        "mean": 10686.4,
+        "stddev": 534.32
       }
     },
     "user-operator-scalabilityUseCase-numberOfKafkaUsers-500": {
@@ -2212,12 +2238,12 @@
         "stddev": 2.3151673805580453
       },
       "averageLatencyMs": {
-        "mean": 11.197,
-        "stddev": 0.892009529097083
+        "mean": 11.373,
+        "stddev": 1.0353748113606007
       },
       "p50LatencyMs": {
         "mean": 9.8,
-        "stddev": 0.9797958971132713
+        "stddev": 0.9797958971132712
       },
       "p95LatencyMs": {
         "mean": 18.5,
@@ -2228,28 +2254,28 @@
         "stddev": 2.154065922853802
       },
       "jvmMemoryUsedMaxMb": {
-        "mean": 266.98005,
-        "stddev": 15.26455805513215
+        "mean": 271.69433,
+        "stddev": 13.875212903595388
       },
       "jvmMemoryUsedAvgMb": {
-        "mean": 209.55816,
-        "stddev": 10.477908
+        "mean": 210.60926,
+        "stddev": 10.530463000000001
       },
       "processCpuUsageMax": {
-        "mean": 0.38896,
-        "stddev": 0.05832065157386361
+        "mean": 0.3854,
+        "stddev": 0.0592099653774599
       },
       "processCpuUsageAvg": {
-        "mean": 0.0887,
-        "stddev": 0.025452544077164466
+        "mean": 0.08329,
+        "stddev": 0.024946961738857097
       },
       "jvmThreadsLiveMax": {
         "mean": 125.3,
         "stddev": 7.6817966648434535
       },
       "jvmGcPauseMaxSeconds": {
-        "mean": 0.21269999999999997,
-        "stddev": 0.09043677349397201
+        "mean": 0.2223,
+        "stddev": 0.09320734949562723
       }
     }
   }
