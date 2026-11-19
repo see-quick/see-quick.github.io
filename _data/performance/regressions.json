@@ -1,129 +1,111 @@
 {
-  "detectedAt" : "2026-11-18T05:34:40.993782Z",
+  "detectedAt" : "2026-11-19T11:13:05.853697Z",
   "regressions" : [ {
     "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=1000)",
     "metricName" : "maxLatencyMs",
-    "currentValue" : 65.0,
+    "currentValue" : 56.0,
     "baselineMean" : 28.2,
     "baselineStddev" : 2.6758176320519302,
-    "deviations" : 13.75280570663562,
+    "deviations" : 10.389347789251909,
     "threshold" : 2.0,
     "passed" : false
   }, {
     "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=1000)",
     "metricName" : "p95LatencyMs",
-    "currentValue" : 29.0,
+    "currentValue" : 32.0,
     "baselineMean" : 21.9,
     "baselineStddev" : 2.467792535850613,
-    "deviations" : 2.8770651895795334,
+    "deviations" : 4.092726537289195,
     "threshold" : 2.0,
     "passed" : false
   }, {
     "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=1000)",
     "metricName" : "p99LatencyMs",
-    "currentValue" : 57.0,
+    "currentValue" : 43.0,
     "baselineMean" : 24.3,
     "baselineStddev" : 2.0024984394500787,
-    "deviations" : 16.32960074065276,
+    "deviations" : 9.338334368507846,
     "threshold" : 2.0,
     "passed" : false
   }, {
     "testName" : "UserOperatorScalabilityPerformance (numberOfKafkaUsers=100)",
     "metricName" : "reconciliationIntervalMs",
-    "currentValue" : 81460.0,
+    "currentValue" : 72499.0,
     "baselineMean" : 19289.9,
     "baselineStddev" : 6434.044209515505,
-    "deviations" : 9.662678398767408,
-    "threshold" : 2.0,
-    "passed" : false
-  }, {
-    "testName" : "TopicOperatorScalabilityPerformance (numberOfTopics=250)",
-    "metricName" : "reconciliationIntervalMs",
-    "currentValue" : 30875.0,
-    "baselineMean" : 25930.6,
-    "baselineStddev" : 1296.53,
-    "deviations" : 3.8135638974801984,
+    "deviations" : 8.26993074143125,
     "threshold" : 2.0,
     "passed" : false
   }, {
     "testName" : "ClusterOperatorRollingUpdatePerformance",
     "metricName" : "brokerRollingUpdateTimeMs",
-    "currentValue" : 94442.0,
+    "currentValue" : 93178.0,
     "baselineMean" : 73574.2,
     "baselineStddev" : 3678.71,
-    "deviations" : 5.67258631422428,
+    "deviations" : 5.328987607068783,
     "threshold" : 2.0,
     "passed" : false
   }, {
     "testName" : "ClusterOperatorRollingUpdatePerformance",
     "metricName" : "totalRollingUpdateTimeMs",
-    "currentValue" : 182974.0,
+    "currentValue" : 182357.0,
     "baselineMean" : 163569.5,
     "baselineStddev" : 8178.475,
-    "deviations" : 2.372630594334518,
+    "deviations" : 2.2971886568094906,
     "threshold" : 2.0,
     "passed" : false
   }, {
     "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=2000)",
     "metricName" : "maxLatencyMs",
-    "currentValue" : 41.0,
+    "currentValue" : 54.0,
     "baselineMean" : 19.1,
     "baselineStddev" : 0.9550000000000001,
-    "deviations" : 22.931937172774866,
+    "deviations" : 36.544502617801044,
     "threshold" : 2.0,
     "passed" : false
   }, {
     "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=2000)",
     "metricName" : "averageLatencyMs",
-    "currentValue" : 15.59,
+    "currentValue" : 11.48,
     "baselineMean" : 10.259,
     "baselineStddev" : 0.51295,
-    "deviations" : 10.392825811482599,
-    "threshold" : 2.0,
-    "passed" : false
-  }, {
-    "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=2000)",
-    "metricName" : "p50LatencyMs",
-    "currentValue" : 13.0,
-    "baselineMean" : 9.5,
-    "baselineStddev" : 0.5,
-    "deviations" : 7.0,
+    "deviations" : 2.3803489618871234,
     "threshold" : 2.0,
     "passed" : false
   }, {
     "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=2000)",
     "metricName" : "p95LatencyMs",
-    "currentValue" : 30.0,
+    "currentValue" : 20.0,
     "baselineMean" : 15.1,
     "baselineStddev" : 0.755,
-    "deviations" : 19.735099337748345,
+    "deviations" : 6.490066225165563,
     "threshold" : 2.0,
     "passed" : false
   }, {
     "testName" : "UserOperatorLatencyPerformance (numberOfKafkaUsers=2000)",
     "metricName" : "p99LatencyMs",
-    "currentValue" : 39.0,
+    "currentValue" : 29.0,
     "baselineMean" : 16.1,
     "baselineStddev" : 0.8050000000000002,
-    "deviations" : 28.447204968944092,
+    "deviations" : 16.02484472049689,
     "threshold" : 2.0,
     "passed" : false
   }, {
     "testName" : "UserOperatorScalabilityPerformance (numberOfKafkaUsers=500)",
     "metricName" : "reconciliationIntervalMs",
-    "currentValue" : 314157.0,
+    "currentValue" : 367596.0,
     "baselineMean" : 38576.9,
     "baselineStddev" : 25548.60071882607,
-    "deviations" : 10.786504632206041,
+    "deviations" : 12.878165173153876,
     "threshold" : 2.0,
     "passed" : false
   }, {
     "testName" : "UserOperatorScalabilityPerformance (numberOfKafkaUsers=200)",
     "metricName" : "reconciliationIntervalMs",
-    "currentValue" : 132256.0,
+    "currentValue" : 163846.0,
     "baselineMean" : 22206.6,
     "baselineStddev" : 14538.18733680372,
-    "deviations" : 7.569678217132866,
+    "deviations" : 9.742576341786224,
     "threshold" : 2.0,
     "passed" : false
   } ]
